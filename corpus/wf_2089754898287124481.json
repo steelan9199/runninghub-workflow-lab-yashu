@@ -1,0 +1,459 @@
+{
+ "1": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "conditioning": [
+    "73",
+    0
+   ],
+   "model": [
+    "37",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Basic Guider"
+  }
+ },
+ "2": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 535583231499376
+  },
+  "_meta": {
+   "title": "RandomNoise"
+  }
+ },
+ "4": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  },
+  "_meta": {
+   "title": "Load CLIP"
+  }
+ },
+ "20": {
+  "class_type": "KSamplerSelect",
+  "inputs": {
+   "sampler_name": "euler"
+  },
+  "_meta": {
+   "title": "KSamplerSelect"
+  }
+ },
+ "23": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "guider": [
+    "1",
+    0
+   ],
+   "latent_image": [
+    "73",
+    1
+   ],
+   "noise": [
+    "2",
+    0
+   ],
+   "sigmas": [
+    "222",
+    0
+   ],
+   "sampler": [
+    "20",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "SamplerCustomAdvanced"
+  }
+ },
+ "27": {
+  "class_type": "ComfyMathExpression",
+  "inputs": {
+   "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17",
+   "values.a": [
+    "40",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Math Expression"
+  }
+ },
+ "32": {
+  "class_type": "ResolutionSelector",
+  "inputs": {
+   "aspect_ratio": "16:9 (Widescreen)",
+   "megapixels": [
+    "138",
+    0
+   ],
+   "multiple": 32
+  },
+  "_meta": {
+   "title": "Resolution Selector"
+  }
+ },
+ "33": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  },
+  "_meta": {
+   "title": "Load VAE"
+  }
+ },
+ "34": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  },
+  "_meta": {
+   "title": "Load VAE"
+  }
+ },
+ "35": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "weight_dtype": "default",
+   "unet_name": "minimax_h3_hybrid_fl2va_ref2va_b20-49-int8.safetensors"
+  },
+  "_meta": {
+   "title": "Load Diffusion Model"
+  }
+ },
+ "36": {
+  "class_type": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+  "inputs": {
+   "model": [
+    "35",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "MiniMax H3 Memory Efficient Sage Attention Patch"
+  }
+ },
+ "37": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+   "strength_model": 1,
+   "model": [
+    "36",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "38": {
+  "class_type": "BasicScheduler",
+  "inputs": {
+   "scheduler": "beta",
+   "denoise": 1,
+   "model": [
+    "37",
+    0
+   ],
+   "steps": 8
+  },
+  "_meta": {
+   "title": "BasicScheduler"
+  }
+ },
+ "40": {
+  "class_type": "PrimitiveFloat",
+  "inputs": {
+   "value": [
+    "141",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Float (duration)"
+  }
+ },
+ "55": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "373eb72c8ef919951e5032df9e42dc6cc81b49cf210cc9a4c60bea29d654b3e3.png"
+  },
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "73": {
+  "class_type": "MiniMaxH3ReferenceToVideo",
+  "inputs": {
+   "ref_images.ref_image_0": [
+    "55",
+    0
+   ],
+   "width": [
+    "32",
+    0
+   ],
+   "length": [
+    "27",
+    1
+   ],
+   "vae": [
+    "33",
+    0
+   ],
+   "prompt": [
+    "144",
+    0
+   ],
+   "ref_image_size": "max",
+   "audio_vae": [
+    "34",
+    0
+   ],
+   "clip": [
+    "4",
+    0
+   ],
+   "height": [
+    "32",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "MiniMax H3 Reference to Video"
+  }
+ },
+ "88": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "guider": [
+    "100",
+    0
+   ],
+   "latent_image": [
+    "219",
+    0
+   ],
+   "noise": [
+    "2",
+    0
+   ],
+   "sigmas": [
+    "222",
+    1
+   ],
+   "sampler": [
+    "95",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "SamplerCustomAdvanced"
+  }
+ },
+ "95": {
+  "class_type": "KSamplerSelect",
+  "inputs": {
+   "sampler_name": "euler"
+  },
+  "_meta": {
+   "title": "KSamplerSelect"
+  }
+ },
+ "100": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "conditioning": [
+    "73",
+    0
+   ],
+   "model": [
+    "37",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Basic Guider"
+  }
+ },
+ "102": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "vae": [
+    "33",
+    0
+   ],
+   "samples": [
+    "88",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "VAE Decode"
+  }
+ },
+ "103": {
+  "class_type": "VAEDecodeAudio",
+  "inputs": {
+   "vae": [
+    "34",
+    0
+   ],
+   "samples": [
+    "88",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "VAE Decode Audio"
+  }
+ },
+ "104": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "images": [
+    "102",
+    0
+   ],
+   "pix_fmt": "yuv420p",
+   "format": "video/h264-mp4",
+   "frame_rate": 24,
+   "pingpong": false,
+   "save_output": true,
+   "filename_prefix": "第二次采样视频",
+   "loop_count": 0,
+   "save_metadata": true,
+   "crf": 19,
+   "trim_to_audio": false,
+   "no_preview": false,
+   "audio": [
+    "103",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Video Combine 🎥🅥🅗🅢"
+  }
+ },
+ "119": {
+  "class_type": "easy cleanGpuUsed",
+  "inputs": {
+   "anything": [
+    "102",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Clean VRAM Used"
+  }
+ },
+ "138": {
+  "class_type": "Float",
+  "inputs": {
+   "value": 0.5000000000000001
+  },
+  "_meta": {
+   "title": "分辨率配置"
+  }
+ },
+ "141": {
+  "class_type": "Float",
+  "inputs": {
+   "value": 6.000000000000001
+  },
+  "_meta": {
+   "title": "视频时长"
+  }
+ },
+ "144": {
+  "class_type": "Text",
+  "inputs": {
+   "text": "subject_definitions:\n<Subject 1> 是雪山战场首帧：暴雪中的灰蓝色荒原、远处覆雪山脉、散落兵器与破损战旗；两名成年黑衣武者对峙。左侧前景武者戴破旧斗笠、长黑发、黑色铠甲与残破披风，手持长刀；右侧中景武者长黑发、黑色铠甲与残破披风，手持长刀。\nsummary:\n6秒，横向16:9，真人实拍电影感高燃动作场面。保持暴雪战场、两名武者身份、黑色铠甲、斗笠、披风与长刀连续一致。两人展开紧张快速的近身刀战，使用高速贴地掠镜、半环绕、甩镜、俯拍与快速硬切蒙太奇；动作凶猛但清晰可读，无血腥画面。\nretention_analysis:\n<Subject 1>：完整保留暴雪荒原、雪山、残旗、散落兵器、冷灰蓝色天空、两名黑衣武者的身份、斗笠、铠甲、披风、长刀与左右对峙关系。戴斗笠者始终为同一名武者，另一名长发武者始终为其对手，不交换身份、服装或武器。\ndetailed_description:\n全片维持低饱和冷灰蓝雪地质感，强风卷起横向飞雪，披风与长发持续受风摆动。刀刃仅反射冰冷天光，战场无鲜血、无断肢、无尸体特写。快速运镜必须服务于动作方向，硬切后动作、武器、人物身份和空间关系保持连续。\n[Shot 1] 00:00.000至00:00.750，超低机位广角贴地快速向前掠镜。戴斗笠武者位于左侧前景，压低身体持刀冲出；右侧武者在中景横刀防守。两人之间的雪地被脚步踏碎，强风卷过战旗。\n[Shot 2] 00:00.750至00:01.500，硬切至双人中近景，高速顺时针半环绕约120度。两人同时挥刀交锋一次，刀刃在画面中央清晰碰撞；披风随环绕镜头甩开，碰撞后立即错身而过。\n[Shot 3] 00:01.500至00:02.050，硬切至极近景。只拍两把长刀交错、手部握柄与飞溅雪粒；刀刃快速格挡后分开，金属撞击声干脆，无血迹。\n[Shot 4] 00:02.050至00:02.900，硬切，快速甩镜跟随右侧武者转身横斩；戴斗笠武者向后侧身闪避，刀锋从斗笠边缘掠过，雪花被动作带出短暂运动模糊。镜头随即反方向甩至戴斗笠武者的反击起势。\n[Shot 5] 00:02.900至00:03.750，硬切至高位俯拍。两人在雪地中快速绕步一圈，脚下留下弧形凌乱痕迹；戴斗笠武者突然向前逼近，对手后撤半步并举刀格挡。镜头短促下压后立即切走。\n[Shot 6] 00:03.750至00:04.800，硬切至对手肩后跟拍，镜头高速推进。前景可见对手虚化肩线，戴斗笠武者在前方清晰完成一次由下向上的挑刀；对手及时偏头闪过，斗笠武者的披风扫过镜头边缘。\n[Shot 7] 00:04.800至00:06.000，硬切至低机位双人中景，镜头围绕两人快速小幅环绕后骤然稳定。两人相隔数步，分别落入新的防守姿势：戴斗笠武者在画面左侧低持长刀，对手在右侧横刀戒备，雪势更强，披风猎猎作响。最后0.6秒保持紧绷的对峙停顿。\n不要慢动作、不要血腥伤口、不要人物变脸、不要交换斗笠或武器、不要多余敌人、不要武器弯曲融合、不要手指异常、不要无意义镜头旋转、不要字幕、文字或水印。\noverall_soundscape:\n暴风雪呼啸、雪地疾跑与急停声、披风拍打声、数次清晰短促的金属刀刃碰撞声；无对白。\nnon_diegetic_music:\n高强度战鼓、低音弦乐与急促打击乐，随硬切不断推进，在最终对峙时骤然收紧。"
+  },
+  "_meta": {
+   "title": "提示词"
+  }
+ },
+ "213": {
+  "class_type": "LTXVSeparateAVLatent",
+  "inputs": {
+   "av_latent": [
+    "23",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "Separate AV Latent"
+  }
+ },
+ "219": {
+  "class_type": "PT_H3ConcatAVLatent",
+  "inputs": {
+   "audio_latent": [
+    "213",
+    1
+   ],
+   "video_latent": [
+    "226",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "PT H3 Concat AV Latent"
+  }
+ },
+ "221": {
+  "class_type": "H3SigmaRefiner",
+  "inputs": {
+   "spacing": "cosine",
+   "end_at_sigma": 0,
+   "extra_steps": 1,
+   "sigmas": [
+    "38",
+    0
+   ],
+   "start_at_sigma": 0.7
+  },
+  "_meta": {
+   "title": "H3 Sigma Refiner"
+  }
+ },
+ "222": {
+  "class_type": "SplitSigmas",
+  "inputs": {
+   "step": 4,
+   "sigmas": [
+    "221",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "SplitSigmas"
+  }
+ },
+ "226": {
+  "class_type": "MinimaxH3LatentUpscaler3D",
+  "inputs": {
+   "mode": "scale by multiplier",
+   "mode.scale": 2,
+   "model_name": "minimax_h3_latent_upscaler_3d_fp16.safetensors",
+   "latent": [
+    "213",
+    0
+   ],
+   "precision": "fp16",
+   "align": 32,
+   "device": "cuda"
+  },
+  "_meta": {
+   "title": "Minimax H3 Latent Upscaler (3D)"
+  }
+ }
+}

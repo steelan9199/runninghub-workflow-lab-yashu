@@ -1,0 +1,21 @@
+{
+ "1": {
+  "class_type": "easy showAnything",
+  "inputs": {},
+  "_meta": {
+   "title": "Show Any"
+  }
+ },
+ "2": {
+  "class_type": "easy showAnything",
+  "inputs": {
+   "anything": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Show Any"
+  }
+ }
+}

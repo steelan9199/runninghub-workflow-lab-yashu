@@ -1,0 +1,385 @@
+{
+ "3": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  },
+  "_meta": {
+   "title": "Load CLIP"
+  }
+ },
+ "6": {
+  "class_type": "ConditioningZeroOut",
+  "inputs": {
+   "conditioning": [
+    "35",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Conditioning Zero Out"
+  }
+ },
+ "7": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_int8_convrot.safetensors"
+  },
+  "_meta": {
+   "title": "Load VAE"
+  }
+ },
+ "8": {
+  "class_type": "ModelPreviewOverrideKJ",
+  "inputs": {
+   "preview_frames": 241,
+   "suppress_default_preview": true,
+   "jpeg_quality": 80,
+   "tiny_vae": "taeh3.safetensors",
+   "model": [
+    "40",
+    0
+   ],
+   "vae": [
+    "7",
+    0
+   ],
+   "preview_fps": 12,
+   "max_resolution": 1024
+  },
+  "_meta": {
+   "title": "Model Preview Override KJ"
+  }
+ },
+ "21": {
+  "class_type": "ModelAttentionBackend",
+  "inputs": {
+   "attention": "comfy kitchen attention",
+   "model": [
+    "45",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "ModelAttentionBackend"
+  }
+ },
+ "22": {
+  "class_type": "KSamplerSelect",
+  "inputs": {
+   "sampler_name": "euler"
+  },
+  "_meta": {
+   "title": "KSamplerSelect"
+  }
+ },
+ "24": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "38",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Preview Image"
+  }
+ },
+ "34": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  },
+  "_meta": {
+   "title": "Load VAE"
+  }
+ },
+ "35": {
+  "class_type": "MiniMaxH3Unified",
+  "inputs": {
+   "mode": "text_to_video",
+   "duration": 18,
+   "media_state": "{\"_ui\":{\"video_count\":0,\"audio_count\":0,\"image_count\":2},\"ref_image_1\":{\"path\":\"minimax_h3_unified/ebd88c080447eed4250381ebaa1de1d6ebbbdee93117e677b534f97760e9a4ed.jpg\",\"name\":\"HS1J7Dea0AARmoM.jpg\",\"kind\":\"image\",\"size\":77520,\"duration\":0,\"has_video\":false,\"has_audio\":false,\"trim_start\":0,\"trim_end\":0,\"use_audio\":false}}",
+   "auto_length_from_audio": false,
+   "width": [
+    "48",
+    0
+   ],
+   "vae": [
+    "7",
+    0
+   ],
+   "prompt": [
+    "51",
+    0
+   ],
+   "audio_vae": [
+    "34",
+    0
+   ],
+   "clip": [
+    "3",
+    0
+   ],
+   "height": [
+    "48",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "Yusu MiniMax H3 Unified"
+  }
+ },
+ "37": {
+  "class_type": "VAEDecodeAudio",
+  "inputs": {
+   "vae": [
+    "34",
+    0
+   ],
+   "samples": [
+    "54",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "VAE Decode Audio"
+  }
+ },
+ "38": {
+  "class_type": "VHS_SelectImages",
+  "inputs": {
+   "image": [
+    "43",
+    0
+   ],
+   "indexes": "-1",
+   "err_if_empty": true,
+   "err_if_missing": true
+  },
+  "_meta": {
+   "title": "Select Images 🎥🅥🅗🅢"
+  }
+ },
+ "39": {
+  "class_type": "MiniMaxLowVRAMAttention",
+  "inputs": {
+   "head_chunks": 4,
+   "model": [
+    "41",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "MiniMax H3 Low VRAM Attention"
+  }
+ },
+ "40": {
+  "class_type": "MiniMaxChunkFeedForward",
+  "inputs": {
+   "chunks": 2,
+   "model": [
+    "39",
+    0
+   ],
+   "seq_threshold": 4096
+  },
+  "_meta": {
+   "title": "MiniMax H3 ChunkFeedForward"
+  }
+ },
+ "41": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "MysticXXX_MMH3-V4-GGG.safetensors",
+   "strength_model": 0.5000000000000001,
+   "model": [
+    "46",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "43": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "vae": [
+    "7",
+    0
+   ],
+   "samples": [
+    "54",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "VAE Decode"
+  }
+ },
+ "45": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "weight_dtype": "default",
+   "unet_name": "minimax_h3_hybrid_fl2va_ref2va_b25-49-int8.safetensors"
+  },
+  "_meta": {
+   "title": "文生/图生"
+  }
+ },
+ "46": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors",
+   "strength_model": 1.0000000000000002,
+   "model": [
+    "21",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "47": {
+  "class_type": "H3SigmaRefiner",
+  "inputs": {
+   "spacing": "cosine",
+   "end_at_sigma": 0,
+   "extra_steps": 1,
+   "sigmas": [
+    "53",
+    0
+   ],
+   "start_at_sigma": 0.7
+  },
+  "_meta": {
+   "title": "H3 Sigma Refiner"
+  }
+ },
+ "48": {
+  "class_type": "ResolutionSelector",
+  "inputs": {
+   "aspect_ratio": "16:9 (Widescreen)",
+   "megapixels": 1.5,
+   "multiple": 32
+  },
+  "_meta": {
+   "title": "Resolution Selector"
+  }
+ },
+ "51": {
+  "class_type": "CR Text",
+  "inputs": {
+   "text": "subject_definitions:\n\n<Subject 1>: 当前镜头的核心视觉系统是一套“非科技感纯 MG 信息视觉”。中文使用粗圆体、胖圆体、手写海报体，英文与数字使用圆润粗几何体；不使用黑体、宋体、细黑、衬线宋体。字体必须超大，常占画面 1/3 以上。视觉语言由圆角卡片、纸片拼贴、贴纸、手绘箭头、粗描边、高饱和撞色、孟菲斯几何、动态海报排版、轻微纸纹和颗粒组成。整体是平面 2D MG，允许轻微 2.5D 视差，但不做写实 3D，不做科技 HUD、电路、代码、赛博、蓝紫光、扫描线、科技粒子背景。\n\n<Subject 2>: 辅助视觉主体包括：模糊低清色块、清晰彩色模块、胖圆计时器、进度条、循环箭头、测试卡片、结果刻度尺、星星贴纸、圆润滚筒、整齐网格、过曝亮白窗口、圆角夹子、Minimax H3 信息卡。所有辅助元素都必须是 MG 动画化、贴纸化、卡片化、手绘标注化，用于解释“DLSS 超分、速度快、重新测试、效果超预期、稳定超分、改善 Minimax H3 过曝”。\n\nsummary:\n\n[reference generation] 生成一段 18 秒的信息视觉 B-roll。只表达已批准的核心语义：DLSS 超分、速度快、重新测试一轮、效果超预期、稳定完成超分、顺手改善 Minimax H3 常见过曝问题。全片无对白、无旁白、无口播、无 BGM，全程只有音效。不把口播做成字幕，只出现少量超大关键词。画面为纯 MG 动画，非科技风，使用圆角几何、纸片拼贴、贴纸、手绘标注、高饱和撞色和动态海报排版。字体必须大，画面必须有视觉冲击力，信息层级清楚，节拍连续，结尾形成明确收束。\n\nintegrated_multimodal_description:\n\n[Shot 1]\n\n【0.0–3.0s】\n\n屏幕文字：\n「DLSS 超分」\n\n核心视觉：\n奶油白背景上，一个巨大的模糊低清色块占据画面中央。一个超大圆角放大镜从左侧猛推入，扫过色块，模糊色块瞬间被切成多个清晰、鲜艳的圆角彩色模块，像贴纸一样吸附排列。右侧压入超大「DLSS 超分」。\n\n画面设计：\n背景为奶油白加细纸纹，中层是模糊色块，主体是放大镜与清晰模块，前景有少量粗描边箭头和星星贴纸。高饱和珊瑚红、亮黄、薄荷绿撞色，字体巨大，压满画面。\n\n动画：\n模糊块先轻微抖动，放大镜硬切进入，扫过时模块逐块变清晰，伴随弹跳和吸附对齐。文字从画外压屏进入，带轻微回弹。\n\n装饰：\n纸纹、粗颗粒、手绘小箭头、贴纸圆点。禁止科技光效。\n\n转场：\n清晰模块中最亮的黄色方块放大，成为下一节拍的计时器卡片。\n\n音效：\n低沉 whoosh + 清脆 pop + 纸片吸附声。无 BGM，无口播。\n\n【3.0–6.0s】\n\n屏幕文字：\n「速度很快」\n\n核心视觉：\n黄色方块放大后变成一个胖圆计时器。计时器指针高速旋转，旁边一条粗进度条瞬间填满。几张圆角测试卡片从右到左快速滑入，像卡牌一样连续翻面。\n\n画面设计：\n主体是胖圆计时器和进度条，背景保持奶油白，前景有速度线贴纸和手绘“快进”符号。文字「速度很快」超大，位于上方或左侧，强对比。\n\n动画：\n计时器快速旋转，进度条从 0 到 100 急速推进，卡片连续甩入并翻面，最后全部吸附成一排。\n\n装饰：\n速度线、小圆点、粗描边、纸片阴影。\n\n转场：\n进度条末端变成一个循环箭头，进入下一节拍。\n\n音效：\n快速 tick tick tick + 冲刺 swoosh + 卡片翻面 click。无 BGM，无口播。\n\n【6.0–9.0s】\n\n屏幕文字：\n「再测一轮」\n\n核心视觉：\n一个圆角测试卡片位于中央，周围两个粗循环箭头环绕旋转。卡片先被推入“测试框”，然后弹回，重新盖上“第二轮”贴纸。旁边出现两个简单选项卡片，旧的滑出，新的滑入。\n\n画面设计：\n中央测试卡片最大，循环箭头为粗描边手绘风，背景有孟菲斯圆点和色块。文字「再测一轮」大号压屏。\n\n动画：\n循环箭头绕圈，卡片被吸入后弹回，旧卡片滑出，新卡片翻入，贴纸“啪”地盖上。\n\n装饰：\n手绘圈选、贴纸、粗描边、纸纹。\n\n转场：\n“第二轮”贴纸旋转，变成下一节拍的刻度尺圆盘。\n\n音效：\n循环 whoosh + 点击 click + 贴纸盖章 thud。无 BGM，无口播。\n\n【9.0–12.0s】\n\n屏幕文字：\n「效果超预期」\n\n核心视觉：\n一个超大结果刻度尺横贯画面。结果卡片从左侧弹出，快速冲过普通刻度，直接冲到“超出预期”区域。星星贴纸、彩纸屑、圆点从卡片周围爆开。\n\n画面设计：\n刻度尺为粗圆线条，结果卡片为高亮橙色，超出区域用亮黄和薄荷绿强调。文字「效果超预期」超大，位于上方，带粗描边。\n\n动画：\n卡片先蓄力，然后弹射，超过刻度时画面轻微震动，星星贴纸爆开，刻度尺高亮锁定。\n\n装饰：\n星星、彩纸屑、圆点、手绘爆炸线，但不要科技粒子。\n\n转场：\n爆开的星星旋转组合成下一节拍的整齐网格。\n\n音效：\n上升 riser + 弹跳 boing + 星星 sparkle + 轻 impact。无 BGM，无口播。\n\n【12.0–15.0s】\n\n屏幕文字：\n「稳定超分」\n\n核心视觉：\n多个低清模糊小方块依次排列。一个圆润滚筒从上方滚过，每个方块被压过后立刻变成清晰、鲜艳、边缘锐利的圆角模块。所有模块最终吸附成整齐网格。\n\n画面设计：\n背景为浅暖灰，网格模块为主体，滚筒为胖圆卡通 MG 风格。文字「稳定超分」巨大，位于画面上方或中央。\n\n动画：\n滚筒匀速滚过，方块逐个从模糊变清晰，伴随弹跳和吸附。最后所有模块对齐，网格锁定。\n\n装饰：\n纸纹、粗描边、手绘对勾、小圆点。\n\n转场：\n整齐网格中的一格突然变白，扩张成下一节拍的过曝窗口。\n\n音效：\n连续 pop pop pop + 对齐 click + 轻扫 whoosh。无 BGM，无口播。\n\n【15.0–18.0s】\n\n屏幕文字：\n「过曝改善」\n「Minimax H3」\n\n核心视觉：\n一个亮到发白的窗口卡片占满中央，边缘细节被白光吞掉。两个圆角夹子从左右出现，把过曝白光向内拉回。窗口逐渐恢复细节，出现清晰色块、线条和层次。最后窗口缩小成一张圆角信息卡，旁边盖上「Minimax H3」大标签。\n\n画面设计：\n过曝窗口为高亮白色，夹子为珊瑚红和薄荷绿，背景回到奶油白。文字「过曝改善」和「Minimax H3」大号、粗圆、强对比，最终形成收束构图。\n\n动画：\n白光先闪一下，夹子夹住并拉回，细节逐层显现。信息卡旋转吸附，标签盖章式出现。结尾留出短促视觉停顿。\n\n装饰：\n纸纹、颗粒、手绘高光线、贴纸对勾。\n\n转场：\n最终信息卡稳定居中，作为整段 18s 的视觉收束。无下一镜头接口，或保留卡片边缘作为后续连续接口。\n\n音效：\n反向 whoosh + 柔和 thud + 亮片 sparkle + 收尾 click。无 BGM，无口播。"
+  },
+  "_meta": {
+   "title": "文本"
+  }
+ },
+ "53": {
+  "class_type": "BasicScheduler",
+  "inputs": {
+   "scheduler": "beta",
+   "denoise": 1,
+   "model": [
+    "8",
+    0
+   ],
+   "steps": 8
+  },
+  "_meta": {
+   "title": "BasicScheduler"
+  }
+ },
+ "54": {
+  "class_type": "SelfLiftH3Sampler",
+  "inputs": {
+   "upscaler_model": "minimax_h3_latent_upscaler_3d_fp16_V2.safetensors",
+   "latent_image": [
+    "35",
+    1
+   ],
+   "seed": 999,
+   "upscaler_unload": true,
+   "cfg": 1,
+   "w_max": 1,
+   "transition_step": 6,
+   "positive": [
+    "35",
+    0
+   ],
+   "lowres_scale": 0.5000000000000001,
+   "sampler": [
+    "22",
+    0
+   ],
+   "negative": [
+    "6",
+    0
+   ],
+   "w_min": 0.5,
+   "rho": 0,
+   "model": [
+    "8",
+    0
+   ],
+   "vae": [
+    "7",
+    0
+   ],
+   "sigmas": [
+    "47",
+    0
+   ],
+   "highres_tiling": true
+  },
+  "_meta": {
+   "title": "SelfLift Progressive Sampler (MiniMax H3)"
+  }
+ },
+ "72": {
+  "class_type": "MemoryCleaner",
+  "inputs": {
+   "clean_intensity": 3,
+   "unload": true,
+   "anything": [
+    "43",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "显存内存清理器"
+  }
+ },
+ "145": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "images": [
+    "43",
+    0
+   ],
+   "pix_fmt": "yuv420p",
+   "format": "video/h264-mp4",
+   "frame_rate": 24,
+   "pingpong": false,
+   "save_output": true,
+   "filename_prefix": "视频修复",
+   "loop_count": 0,
+   "save_metadata": true,
+   "crf": 19,
+   "trim_to_audio": false,
+   "no_preview": false,
+   "audio": [
+    "37",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Video Combine 🎥🅥🅗🅢"
+  }
+ }
+}

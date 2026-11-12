@@ -1,0 +1,30 @@
+# 依赖与产物
+node_modules/
+dist/
+out/
+
+# 密钥与凭据：绝不入库
+.env
+.env.*
+*.key
+*.pem
+*.p12
+secrets.json
+credentials.json
+.rh-config.json
+
+# 素材图片 / 视频：体积大，不入库（见 verified/README.md）
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.mp4
+*.mov
+
+# 系统与编辑器垃圾
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
