@@ -28,3 +28,5 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+
+verified/*/workflow.api.json
