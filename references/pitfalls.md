@@ -67,6 +67,12 @@ SKILL.md 只留指针，细节全在这里；按 `class_type` 归类，同一节
   - 修法：抄源工作流时先查每个采样器的 `noise` 是不是 `DisableNoise`，是就把上游整条支路当装饰，不要当作证据。
   - 证据：`wf_2114707872927014914.json` L214/L221/L324/L429/L433，采样器 106 的 noise 为 `DisableNoise`。
 
+- **2026-11-13** `ComfyMathExpression` 的 `values.a` / `values.b` 是**必填**，纯常量表达式过不了校验。
+  - 症状：`prompt_outputs_failed_validation` / `Required input is missing` / 回溯 `["a"]`，崩在 `ComfyMathExpression`。
+  - 根因：节点校验要求 a 槽有值，与 expression 有没有引用 a 无关；`"832"` 这种纯常量也会被判缺参。
+  - 修法：常数别写死在表达式里 —— 前面挂 `PrimitiveFloat`（值＝目标数）接到 `values.a`，expression 写 `"a"`，取第 2 个输出槽（INT）。`PrimitiveInt` 在本机图里没出现过，别赌它已装。
+  - 证据：失败 taskId=2121261448310247425 → 通过 taskId=2121261669257793538。
+
 ## 命名对照（遇到新节点先查这里，再决定要不要试）
 
 | 节点 | 输入字段 | 备注 |

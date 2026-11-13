@@ -2,7 +2,7 @@
 name: runninghub-workflow-lab-yashu
 description: RunningHub 工作流的「学习—仿写—实测—交付」闭环工具。当用户要 AI 自己写/搭/改 RunningHub 工作流（ComfyUI UI 格式 .json）、想把站上现成工作流交给 AI 学习并复用接线、想用本地 JSON 直接提交测试而不用在网页新建保存、或工作流跑失败要查节点缺失/参数类型/没有输出节点时使用。核心契约（已实测）：POST /task/openapi/create 的 workflowId 必填（缺则 code 301 must not be null），但同时传 workflow=完整 API 格式 JSON 时会覆盖站内那张图，因此可固定用空壳 ID 2120926368186851330 当通道；本技能一律 nodeInfoList=[]，参数直接写进图。交付规范（§4）：可改参数标红 #c0392b/#5b1f1f、输出节点标橙 #d35400/#5a3208、LoadImage 的素材先经 RH 上传换 fileName 再回填。含零成本 smoke 自检、按 ID dump 语料库、失败节点回显与视觉验收判据。不替代 runninghub-cloud-yashu 的成品出图通道。只做工作流的学/写/测/交付：用站上成品模型或现成 AI 应用直接出图出片走 runninghub，生产 alias 与正式出图流水线走 runninghub-cloud-yashu。
 agent_created: true
-version: 0.2.0
+version: 0.2.1
 ---
 
 # RunningHub 工作流实验室
@@ -110,6 +110,15 @@ node <runninghub-cloud-yashu>/scripts/rh.mjs --upload "<本地图>"   # 拿回�
 | Ref2VA（参考图生视频） | 六段，顺序固定：`subject_definitions` / `summary`（带 `[reference generation]` 这类方括号前缀）/ `retention_analysis`（`fully_preserved` 等标记）/ `detailed_description` / `overall_soundscape` / `non_diegetic_music` |
 
 三条最容易写错的：① 正文用英文，只有台词、歌词、画面可见文字保留原文；② 时长必须等于实际帧数换算出来的秒数（8 秒就写 8.00）；③ 镜头用 `[Shot 1]`、后续镜头带 `At MM:SS.mmm`，运镜写成「类型 + 幅度 + 速度」的自然句，不要堆标签。
+
+**强制门（硬规则，交付前逐条核，缺一条不许发）**：
+
+1. **必须**先读 `h3-prompt-writing` 的 `references/ref-en.txt`（Ref2VA）或 `references/base-en.txt`（T2VA/I2VA/FL2VA/L2VA），照原文结构写；**不许凭记忆、不许只看本表**。
+2. 任务类型前缀按参考资产真实角色写：改原片且保留原声 = `[video editing + audio reuse]`，不是 `[reference generation]`；改原片的 summary 必须以 `The target video is an edited version of <Video 1>.` 开头。
+3. 镜头标注：首镜不写时间戳；后续写 `[Shot N] At MM:SS.mmm, ...`，**不许**写成 `At ... the edit cuts to [Shot N]`。
+4. 音频关系只用音频标记 `fully_copy` / `partially_copy` / `reference` / `weak_reference`，**不许**写 `fully_preserved`。
+5. 说话人按首次发声顺序标 `(S1)`、`(S2)`；`retention_analysis` 里不得出现 `(Sx)`。
+6. 声场段要写明 `<Audio N>` 的复用关系；时长与帧数换算一致（141 帧 = 5.875s 就写 5.88），落在 4–15 秒内。
 
 ### 4.4 说明卡片（MarkdownNote）
 
