@@ -2,7 +2,7 @@
 name: runninghub-workflow-lab-yashu
 description: RunningHub 工作流的「学习—仿写—实测—交付」闭环工具。当用户要 AI 自己写/搭/改 RunningHub 工作流（ComfyUI UI 格式 .json）、想把站上现成工作流交给 AI 学习并复用接线、想用本地 JSON 直接提交测试而不用在网页新建保存、或工作流跑失败要查节点缺失/参数类型/没有输出节点时使用。核心契约（已实测）：POST /task/openapi/create 的 workflowId 必填（缺则 code 301 must not be null），但同时传 workflow=完整 API 格式 JSON 时会覆盖站内那张图，因此可固定用空壳 ID 2120926368186851330 当通道；本技能一律 nodeInfoList=[]，参数直接写进图。交付规范（§4）：可改参数标红 #c0392b/#5b1f1f、输出节点标橙 #d35400/#5a3208、LoadImage 的素材先经 RH 上传换 fileName 再回填。含零成本 smoke 自检、按 ID dump 语料库、失败节点回显与视觉验收判据。不替代 runninghub-cloud-yashu 的成品出图通道。只做工作流的学/写/测/交付：用站上成品模型或现成 AI 应用直接出图出片走 runninghub，生产 alias 与正式出图流水线走 runninghub-cloud-yashu。
 agent_created: true
-version: 0.2.1
+version: 0.2.2
 ---
 
 # RunningHub 工作流实验室
@@ -200,6 +200,8 @@ node scripts/rhx.mjs run --workflow my.json --out "<绝对目录>" \
 老板看过成片并确认「可以用」的工作流，按目录包入库，**只进这里，不进 `dist/`**。索引在 `verified/README.md`，每包自带记录卡 `record.md`。
 
 **入库触发**：老板说「入库 / 这个验证完了 / 这个可以」。不要自己判断「应该没问题」就入库。
+
+**包名规则（硬规则，2026-11-13 老板定）**：目录名必须用**中文语义名**，格式「模型 + 适用场景 + 关键技法」，让人不看 `record.md` 也知道这包能干什么，例如 `H3-双人换人-近景对话-二采`。禁止 `v1`、`test`、`new`、`final`、日期、拼音缩写、纯英文代号这类看不出用途的名字。包内文件仍用固定的 ASCII 名（`workflow.ui.json` / `build.mjs` / `check.mjs`），中文只出现在目录名；适用场景同时写进 `record.md` 第一段与 `verified/README.md` 的清单行。
 
 **包结构（固定）**：
 
