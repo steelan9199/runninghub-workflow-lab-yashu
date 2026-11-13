@@ -30,3 +30,5 @@ desktop.ini
 .idea/
 
 verified/*/workflow.api.json
+
+!verified/*/cover-3x4.jpg
