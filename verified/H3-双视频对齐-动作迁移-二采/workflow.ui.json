@@ -1,0 +1,2842 @@
+{
+ "id": "76231093-a5f5-4726-9a6a-e41af8fc76d2",
+ "revision": 0,
+ "last_node_id": 30,
+ "last_link_id": 38,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "UNETLoader",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    380,
+    90
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "unet_name",
+     "name": "unet_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "unet_name"
+     },
+     "link": null
+    },
+    {
+     "label": "weight_dtype",
+     "name": "weight_dtype",
+     "type": "COMBO",
+     "widget": {
+      "name": "weight_dtype"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "MODEL",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      1
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "models": [
+     {
+      "name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+      "directory": "diffusion_models",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors"
+     }
+    ],
+    "ver": "0.29.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    "minimax_h3_ref2va_int8_convrot.safetensors",
+    "default"
+   ],
+   "title": "UNET · ref2va int8",
+   "widgets_values_named": {
+    "unet_name": "minimax_h3_ref2va_int8_convrot.safetensors",
+    "weight_dtype": "default"
+   }
+  },
+  {
+   "id": 2,
+   "type": "LoraLoaderModelOnly",
+   "pos": [
+    0,
+    140
+   ],
+   "size": [
+    380,
+    90
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 1
+    },
+    {
+     "label": "lora_name",
+     "name": "lora_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "lora_name"
+     },
+     "link": null
+    },
+    {
+     "label": "strength_model",
+     "name": "strength_model",
+     "type": "FLOAT",
+     "widget": {
+      "name": "strength_model"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "MODEL",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      2
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "version": "7.0.1"
+    }
+   },
+   "widgets_values": [
+    "minimax_h3_turbo_4step_ckpt500.safetensors",
+    1
+   ],
+   "title": "LoRA · 4 步 turbo",
+   "widgets_values_named": {
+    "lora_name": "minimax_h3_turbo_4step_ckpt500.safetensors",
+    "strength_model": 1
+   }
+  },
+  {
+   "id": 3,
+   "type": "PathchSageAttentionKJ",
+   "pos": [
+    0,
+    280
+   ],
+   "size": [
+    380,
+    90
+   ],
+   "flags": {},
+   "order": 15,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 2
+    },
+    {
+     "label": "sage_attention",
+     "name": "sage_attention",
+     "type": "COMBO",
+     "widget": {
+      "name": "sage_attention"
+     },
+     "link": null
+    },
+    {
+     "label": "allow_compile",
+     "name": "allow_compile",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "allow_compile"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "MODEL",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      3
+     ]
+    }
+   ],
+   "properties": {
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    "auto",
+    false
+   ],
+   "title": "SageAttention",
+   "widgets_values_named": {
+    "sage_attention": "auto",
+    "allow_compile": false
+   }
+  },
+  {
+   "id": 4,
+   "type": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+   "pos": [
+    0,
+    420
+   ],
+   "size": [
+    380,
+    70
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 3
+    }
+   ],
+   "outputs": [
+    {
+     "label": "model",
+     "name": "model",
+     "type": "MODEL",
+     "links": [
+      4,
+      5
+     ]
+    }
+   ],
+   "title": "显存优化补丁",
+   "properties": {
+    "cnr_id": "comfyui-kjnodes",
+    "ver": "1289b52fbb6d64a339a4047b9ea74cf7758ccf1e",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "version": "7.0.1"
+    }
+   }
+  },
+  {
+   "id": 5,
+   "type": "CLIPLoader",
+   "pos": [
+    0,
+    540
+   ],
+   "size": [
+    380,
+    110
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "clip_name",
+     "name": "clip_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "clip_name"
+     },
+     "link": null
+    },
+    {
+     "label": "type",
+     "name": "type",
+     "type": "COMBO",
+     "widget": {
+      "name": "type"
+     },
+     "link": null
+    },
+    {
+     "label": "device",
+     "name": "device",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "device"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "CLIP",
+     "name": "CLIP",
+     "type": "CLIP",
+     "links": [
+      14
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "models": [
+     {
+      "directory_invalid": true,
+      "name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "directory": "text_encoders",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors"
+     }
+    ],
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+    "minimax",
+    "default"
+   ],
+   "title": "CLIP",
+   "widgets_values_named": {
+    "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+    "type": "minimax",
+    "device": "default"
+   }
+  },
+  {
+   "id": 6,
+   "type": "VAELoader",
+   "pos": [
+    0,
+    700
+   ],
+   "size": [
+    380,
+    60
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "vae_name",
+     "name": "vae_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "vae_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "VAE",
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      15,
+      35
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "models": [
+     {
+      "directory_invalid": true,
+      "name": "minimax_h3_video_vae_fp16.safetensors",
+      "directory": "vae",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors"
+     }
+    ],
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    "minimax_h3_video_vae_fp16.safetensors"
+   ],
+   "title": "视频 VAE",
+   "widgets_values_named": {
+    "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+   }
+  },
+  {
+   "id": 7,
+   "type": "VAELoader",
+   "pos": [
+    0,
+    800
+   ],
+   "size": [
+    380,
+    60
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "vae_name",
+     "name": "vae_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "vae_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "VAE",
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      16
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "models": [
+     {
+      "directory_invalid": true,
+      "name": "minimax_h3_video_vae_fp16.safetensors",
+      "directory": "vae",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors"
+     }
+    ],
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    "minimax_h3_audio_vae_fp32.safetensors"
+   ],
+   "title": "音频 VAE",
+   "widgets_values_named": {
+    "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+   }
+  },
+  {
+   "id": 8,
+   "type": "VHS_LoadVideo",
+   "pos": [
+    460,
+    0
+   ],
+   "size": [
+    420,
+    480
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "meta_batch",
+     "name": "meta_batch",
+     "shape": 7,
+     "type": "VHS_BatchManager",
+     "link": null
+    },
+    {
+     "label": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": null
+    },
+    {
+     "label": "video",
+     "name": "video",
+     "type": "STRING",
+     "widget": {
+      "name": "video"
+     },
+     "link": null
+    },
+    {
+     "label": "force_rate",
+     "name": "force_rate",
+     "type": "INT",
+     "widget": {
+      "name": "force_rate"
+     },
+     "link": null
+    },
+    {
+     "label": "force_size",
+     "name": "force_size",
+     "type": "COMBO",
+     "widget": {
+      "name": "force_size"
+     },
+     "link": null
+    },
+    {
+     "label": "custom_width",
+     "name": "custom_width",
+     "type": "INT",
+     "widget": {
+      "name": "custom_width"
+     },
+     "link": null
+    },
+    {
+     "label": "custom_height",
+     "name": "custom_height",
+     "type": "INT",
+     "widget": {
+      "name": "custom_height"
+     },
+     "link": null
+    },
+    {
+     "label": "frame_load_cap",
+     "name": "frame_load_cap",
+     "type": "INT",
+     "widget": {
+      "name": "frame_load_cap"
+     },
+     "link": null
+    },
+    {
+     "label": "skip_first_frames",
+     "name": "skip_first_frames",
+     "type": "INT",
+     "widget": {
+      "name": "skip_first_frames"
+     },
+     "link": null
+    },
+    {
+     "label": "select_every_nth",
+     "name": "select_every_nth",
+     "type": "INT",
+     "widget": {
+      "name": "select_every_nth"
+     },
+     "link": null
+    },
+    {
+     "label": "format",
+     "name": "format",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      11
+     ]
+    },
+    {
+     "label": "frame_count",
+     "name": "frame_count",
+     "type": "INT",
+     "links": []
+    },
+    {
+     "label": "audio",
+     "name": "audio",
+     "type": "AUDIO",
+     "links": [
+      13,
+      38
+     ]
+    },
+    {
+     "label": "video_info",
+     "name": "video_info",
+     "type": "VHS_VIDEOINFO",
+     "links": []
+    }
+   ],
+   "title": "★ 改这里 · 长相来源（03-2 全部换好）",
+   "properties": {
+    "cnr_id": "comfyui-videohelpersuite",
+    "ver": "4ee72c065db22c9d96c2427954dc69e7b908444b",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": {
+    "video": "openapi/611f19a2500ff239b1dce622df358930d44501f387b2cd5c4f7552e3cddee108.mp4",
+    "force_rate": 24,
+    "force_size": "Disabled",
+    "custom_width": 0,
+    "custom_height": 0,
+    "frame_load_cap": 73,
+    "skip_first_frames": 0,
+    "select_every_nth": 1,
+    "format": "AnimateDiff",
+    "choose video to upload": "image",
+    "videopreview": {
+     "paused": false,
+     "hidden": false,
+     "params": {
+      "custom_height": 0,
+      "filename": "openapi/7b659407f092bf92ee4c6ee4c42ecc2063c432c09b95f528637b7440f43f59b5.mp4",
+      "force_rate": 24,
+      "custom_width": 0,
+      "select_every_nth": 1,
+      "frame_load_cap": 260,
+      "format": "video/mp4",
+      "skip_first_frames": 0,
+      "type": "input"
+     }
+    }
+   },
+   "color": "#c0392b",
+   "bgcolor": "#5b1f1f"
+  },
+  {
+   "id": 9,
+   "type": "VHS_LoadVideo",
+   "pos": [
+    460,
+    540
+   ],
+   "size": [
+    420,
+    480
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "meta_batch",
+     "name": "meta_batch",
+     "shape": 7,
+     "type": "VHS_BatchManager",
+     "link": null
+    },
+    {
+     "label": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": null
+    },
+    {
+     "label": "video",
+     "name": "video",
+     "type": "STRING",
+     "widget": {
+      "name": "video"
+     },
+     "link": null
+    },
+    {
+     "label": "force_rate",
+     "name": "force_rate",
+     "type": "INT",
+     "widget": {
+      "name": "force_rate"
+     },
+     "link": null
+    },
+    {
+     "label": "force_size",
+     "name": "force_size",
+     "type": "COMBO",
+     "widget": {
+      "name": "force_size"
+     },
+     "link": null
+    },
+    {
+     "label": "custom_width",
+     "name": "custom_width",
+     "type": "INT",
+     "widget": {
+      "name": "custom_width"
+     },
+     "link": null
+    },
+    {
+     "label": "custom_height",
+     "name": "custom_height",
+     "type": "INT",
+     "widget": {
+      "name": "custom_height"
+     },
+     "link": null
+    },
+    {
+     "label": "frame_load_cap",
+     "name": "frame_load_cap",
+     "type": "INT",
+     "widget": {
+      "name": "frame_load_cap"
+     },
+     "link": null
+    },
+    {
+     "label": "skip_first_frames",
+     "name": "skip_first_frames",
+     "type": "INT",
+     "widget": {
+      "name": "skip_first_frames"
+     },
+     "link": null
+    },
+    {
+     "label": "select_every_nth",
+     "name": "select_every_nth",
+     "type": "INT",
+     "widget": {
+      "name": "select_every_nth"
+     },
+     "link": null
+    },
+    {
+     "label": "format",
+     "name": "format",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      12
+     ]
+    },
+    {
+     "label": "frame_count",
+     "name": "frame_count",
+     "type": "INT",
+     "links": []
+    },
+    {
+     "label": "audio",
+     "name": "audio",
+     "type": "AUDIO",
+     "links": []
+    },
+    {
+     "label": "video_info",
+     "name": "video_info",
+     "type": "VHS_VIDEOINFO",
+     "links": []
+    }
+   ],
+   "title": "★ 改这里 · 动作来源（03 原片）",
+   "properties": {
+    "cnr_id": "comfyui-videohelpersuite",
+    "ver": "4ee72c065db22c9d96c2427954dc69e7b908444b",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": {
+    "video": "openapi/1bec77dbcc1b96ab8fed1b479f0c2634d9fe3d7c1be5ee21e0f0352122b3f717.mp4",
+    "force_rate": 24,
+    "force_size": "Disabled",
+    "custom_width": 0,
+    "custom_height": 0,
+    "frame_load_cap": 73,
+    "skip_first_frames": 0,
+    "select_every_nth": 1,
+    "format": "AnimateDiff",
+    "choose video to upload": "image",
+    "videopreview": {
+     "paused": false,
+     "hidden": false,
+     "params": {
+      "custom_height": 0,
+      "filename": "openapi/7b659407f092bf92ee4c6ee4c42ecc2063c432c09b95f528637b7440f43f59b5.mp4",
+      "force_rate": 24,
+      "custom_width": 0,
+      "select_every_nth": 1,
+      "frame_load_cap": 260,
+      "format": "video/mp4",
+      "skip_first_frames": 0,
+      "type": "input"
+     }
+    }
+   },
+   "color": "#c0392b",
+   "bgcolor": "#5b1f1f"
+  },
+  {
+   "id": 10,
+   "type": "PrimitiveStringMultiline",
+   "pos": [
+    460,
+    1080
+   ],
+   "size": [
+    700,
+    520
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "value",
+     "name": "value",
+     "type": "STRING",
+     "widget": {
+      "name": "value"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "STRING",
+     "name": "STRING",
+     "type": "STRING",
+     "links": [
+      10
+     ]
+    }
+   ],
+   "title": "★ 改这里 · 提示词（长相 1 + 动作 2）",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    "subject_definitions:\n<Video 1> is the appearance source for the target video: a three-second single locked-off wide shot of a corporate boardroom seen from the near end of a long glossy black conference table that runs away from the camera, a large raised \"OSCORP\" wall sign on the far wall, two rows of white recessed ceiling spots, pale grey walls, a dark sideboard holding bottles and glasses, and white teacups and saucers set along both sides of the table, in which every person at the table has already been replaced by a Ming-dynasty figure. At the head of the table stands a young nobleman in a pale blue robe with an indigo cloud collar, a thin dark beard and a black topknot held by a small gold crown. In the left row sit a clean-shaven eunuch in a tall red hood with gold stripes and long red ear flaps, and beside him a man with a short black beard in a gold-striped black hat and a red robe with a large square chest badge. In the right row sit, from the far seat to the near edge, a very old man with a long white beard and a black hat with two very long straight horizontal side wings, an older man with a grey beard in a gold-striped hat, an elderly man with a short grey moustache under a black gold-striped hat, and a middle-aged man with a long black beard in a black hat, cropped by the right border. In the foreground a large figure sits with his back to the camera, and at the bottom-left corner a red-sleeved forearm and hand rest on the table edge.\n<Video 2> is the motion source and the original film of this shot: the same boardroom, the same locked-off wide framing and the same nine bodies, but every person is a modern businessman in a dark western suit and necktie. <Video 2> is used only for performance - head angles, head turns, nods, blinks, lip movements, hand gestures and their exact timing. Its faces, hairstyles, clothing and colours are ignored.\n<Audio 1> is the synchronized dialogue track of <Video 2>, reused unchanged as the target video's complete final audio track.\n\nsummary:\n[video editing + motion retargeting + audio reuse] The target video keeps the complete appearance of <Video 1> - the nine Ming-dynasty figures with their faces, beards, hats, robes, the black table, the white teacups, the OSCORP wall sign and the locked-off wide framing - and copies the physical performance of the nine counterparts in <Video 2> frame for frame: the same head angles at every moment, the same head turns, the same nods, the same blinks, the same lip movements for the English dialogue and the same hand gestures, at the same speed and the same amplitude. <Audio 1> is reused as the complete final audio track.\n\nretention_analysis:\n<Video 1> (appearance): fully_preserved - the pale blue robe and gold crown at the head of the table, the tall red hood and the gold-striped hat in the left row, the four red-robed officials with their white, grey and black beards in the right row, the figure in the foreground seen only from behind, the cropped forearm, the room, the table and the framing.\n<Video 2> (performance): fully_copied - the head angle of every person at every moment, the direction and timing of every head turn, the nods, the blinks, the lip movements synchronized to the English dialogue, the hand and forearm gestures, and the exact frame on which each movement starts and ends.\n<Audio 1>: fully_copy - <Audio 1> is reused 1:1 as the target video's complete final audio track.\n\ndetailed_description:\nLive-action footage, wide static shot from the near end of a long boardroom table, glossy black reflections on the tabletop, soft overhead office lighting from the white ceiling spots, fine film grain, pale grey walls and a large raised metal \"OSCORP\" sign on the far wall.\n[Shot 1] The frame holds exactly the framing of <Video 1> for the whole three seconds, with only the faint handheld drift of <Video 2>. Every person in the frame performs exactly what his counterpart in <Video 2> performs on the same frame number: when the man in <Video 2> turns his head toward the head of the table, his Ming-dynasty counterpart in the same seat turns his head by the same amount, in the same direction, at the same speed and at the same moment; when the speaker at the head of the table lowers his arms, the nobleman in the pale blue robe lowers his arms identically; when a seated man gestures with one hand, the corresponding red-robed official makes the same gesture with the same hand; when a man blinks or speaks, his counterpart blinks and his mouth forms the same shapes at the same time.\nNobody performs a movement that does not happen in <Video 2> on the same frame, and nobody stays frozen while his counterpart in <Video 2> moves. In particular, all heads do not turn in unison: each person follows only his own counterpart in <Video 2>, one by one, at that person's own moment and in that person's own direction. If the men in <Video 2> keep their heads still, the Ming-dynasty figures keep their heads still as well.\nDIVISION OF LABOUR: appearance comes only from <Video 1>; motion comes only from <Video 2>. Never take a face, beard, hat or robe from <Video 2>, and never take a gesture, head turn or timing from <Video 1>. FRAME COUNT LOCK: the target video contains exactly the same nine bodies as <Video 1> and not one more - one man standing at the head of the table, two men in the left row, four men in the right row, one large figure seated in the foreground with his back to the camera, and one cropped forearm and hand at the bottom-left corner. Do not add, duplicate, extend, clone or invent any person, head, face, shoulder, hand or background figure anywhere in the frame, and keep any seat that is empty in <Video 1> empty. FRAME GEOMETRY LOCK: the camera lens, distance, height, tilt and field of view stay identical to <Video 1>, the table keeps its exact length and perspective, the OSCORP sign stays in the same place and the same size, and every person keeps the same size in the frame as in <Video 1>.\nThe camera never moves closer, never tilts, never pans, never cuts, and nobody stands up, walks, enters or leaves the frame.\nThe dialogue is English and is carried entirely by <Audio 1>; the lip movements match it but no new voice is generated.\n\noverall_soundscape:\nQuiet boardroom room tone with a faint ventilation hum and a few distant footstep echoes, all carried by <Audio 1>, which also holds the English dialogue; the sound stays unchanged from the first to the last frame.\n\nnon_diegetic_music:\nN/A"
+   ],
+   "color": "#c0392b",
+   "bgcolor": "#5b1f1f",
+   "widgets_values_named": {
+    "value": "subject_definitions:\n<Video 1> is the appearance source for the target video: a three-second single locked-off wide shot of a corporate boardroom seen from the near end of a long glossy black conference table that runs away from the camera, a large raised \"OSCORP\" wall sign on the far wall, two rows of white recessed ceiling spots, pale grey walls, a dark sideboard holding bottles and glasses, and white teacups and saucers set along both sides of the table, in which every person at the table has already been replaced by a Ming-dynasty figure. At the head of the table stands a young nobleman in a pale blue robe with an indigo cloud collar, a thin dark beard and a black topknot held by a small gold crown. In the left row sit a clean-shaven eunuch in a tall red hood with gold stripes and long red ear flaps, and beside him a man with a short black beard in a gold-striped black hat and a red robe with a large square chest badge. In the right row sit, from the far seat to the near edge, a very old man with a long white beard and a black hat with two very long straight horizontal side wings, an older man with a grey beard in a gold-striped hat, an elderly man with a short grey moustache under a black gold-striped hat, and a middle-aged man with a long black beard in a black hat, cropped by the right border. In the foreground a large figure sits with his back to the camera, and at the bottom-left corner a red-sleeved forearm and hand rest on the table edge.\n<Video 2> is the motion source and the original film of this shot: the same boardroom, the same locked-off wide framing and the same nine bodies, but every person is a modern businessman in a dark western suit and necktie. <Video 2> is used only for performance - head angles, head turns, nods, blinks, lip movements, hand gestures and their exact timing. Its faces, hairstyles, clothing and colours are ignored.\n<Audio 1> is the synchronized dialogue track of <Video 2>, reused unchanged as the target video's complete final audio track.\n\nsummary:\n[video editing + motion retargeting + audio reuse] The target video keeps the complete appearance of <Video 1> - the nine Ming-dynasty figures with their faces, beards, hats, robes, the black table, the white teacups, the OSCORP wall sign and the locked-off wide framing - and copies the physical performance of the nine counterparts in <Video 2> frame for frame: the same head angles at every moment, the same head turns, the same nods, the same blinks, the same lip movements for the English dialogue and the same hand gestures, at the same speed and the same amplitude. <Audio 1> is reused as the complete final audio track.\n\nretention_analysis:\n<Video 1> (appearance): fully_preserved - the pale blue robe and gold crown at the head of the table, the tall red hood and the gold-striped hat in the left row, the four red-robed officials with their white, grey and black beards in the right row, the figure in the foreground seen only from behind, the cropped forearm, the room, the table and the framing.\n<Video 2> (performance): fully_copied - the head angle of every person at every moment, the direction and timing of every head turn, the nods, the blinks, the lip movements synchronized to the English dialogue, the hand and forearm gestures, and the exact frame on which each movement starts and ends.\n<Audio 1>: fully_copy - <Audio 1> is reused 1:1 as the target video's complete final audio track.\n\ndetailed_description:\nLive-action footage, wide static shot from the near end of a long boardroom table, glossy black reflections on the tabletop, soft overhead office lighting from the white ceiling spots, fine film grain, pale grey walls and a large raised metal \"OSCORP\" sign on the far wall.\n[Shot 1] The frame holds exactly the framing of <Video 1> for the whole three seconds, with only the faint handheld drift of <Video 2>. Every person in the frame performs exactly what his counterpart in <Video 2> performs on the same frame number: when the man in <Video 2> turns his head toward the head of the table, his Ming-dynasty counterpart in the same seat turns his head by the same amount, in the same direction, at the same speed and at the same moment; when the speaker at the head of the table lowers his arms, the nobleman in the pale blue robe lowers his arms identically; when a seated man gestures with one hand, the corresponding red-robed official makes the same gesture with the same hand; when a man blinks or speaks, his counterpart blinks and his mouth forms the same shapes at the same time.\nNobody performs a movement that does not happen in <Video 2> on the same frame, and nobody stays frozen while his counterpart in <Video 2> moves. In particular, all heads do not turn in unison: each person follows only his own counterpart in <Video 2>, one by one, at that person's own moment and in that person's own direction. If the men in <Video 2> keep their heads still, the Ming-dynasty figures keep their heads still as well.\nDIVISION OF LABOUR: appearance comes only from <Video 1>; motion comes only from <Video 2>. Never take a face, beard, hat or robe from <Video 2>, and never take a gesture, head turn or timing from <Video 1>. FRAME COUNT LOCK: the target video contains exactly the same nine bodies as <Video 1> and not one more - one man standing at the head of the table, two men in the left row, four men in the right row, one large figure seated in the foreground with his back to the camera, and one cropped forearm and hand at the bottom-left corner. Do not add, duplicate, extend, clone or invent any person, head, face, shoulder, hand or background figure anywhere in the frame, and keep any seat that is empty in <Video 1> empty. FRAME GEOMETRY LOCK: the camera lens, distance, height, tilt and field of view stay identical to <Video 1>, the table keeps its exact length and perspective, the OSCORP sign stays in the same place and the same size, and every person keeps the same size in the frame as in <Video 1>.\nThe camera never moves closer, never tilts, never pans, never cuts, and nobody stands up, walks, enters or leaves the frame.\nThe dialogue is English and is carried entirely by <Audio 1>; the lip movements match it but no new voice is generated.\n\noverall_soundscape:\nQuiet boardroom room tone with a faint ventilation hum and a few distant footstep echoes, all carried by <Audio 1>, which also holds the English dialogue; the sound stays unchanged from the first to the last frame.\n\nnon_diegetic_music:\nN/A"
+   }
+  },
+  {
+   "id": 11,
+   "type": "PrimitiveFloat",
+   "pos": [
+    1240,
+    540
+   ],
+   "size": [
+    300,
+    110
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "value",
+     "name": "value",
+     "type": "FLOAT",
+     "widget": {
+      "name": "value"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "FLOAT",
+     "name": "FLOAT",
+     "type": "FLOAT",
+     "links": [
+      6
+     ]
+    }
+   ],
+   "title": "出片宽（32 的倍数）",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    832
+   ],
+   "widgets_values_named": {
+    "value": 832
+   }
+  },
+  {
+   "id": 12,
+   "type": "ComfyMathExpression",
+   "pos": [
+    1240,
+    680
+   ],
+   "size": [
+    300,
+    110
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "values.a",
+     "name": "values.a",
+     "type": "FLOAT,INT,BOOLEAN",
+     "link": 6
+    },
+    {
+     "label": "values.b",
+     "name": "values.b",
+     "shape": 7,
+     "type": "FLOAT,INT,BOOLEAN",
+     "link": null
+    },
+    {
+     "label": "expression",
+     "name": "expression",
+     "type": "STRING",
+     "widget": {
+      "name": "expression"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "FLOAT",
+     "name": "FLOAT",
+     "type": "FLOAT",
+     "links": []
+    },
+    {
+     "label": "INT",
+     "name": "INT",
+     "type": "INT",
+     "links": [
+      8
+     ]
+    },
+    {
+     "label": "BOOL",
+     "name": "BOOL",
+     "type": "BOOLEAN",
+     "links": []
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    "a"
+   ],
+   "title": "宽 → INT",
+   "widgets_values_named": {
+    "expression": "a"
+   }
+  },
+  {
+   "id": 13,
+   "type": "PrimitiveFloat",
+   "pos": [
+    1240,
+    820
+   ],
+   "size": [
+    300,
+    110
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "value",
+     "name": "value",
+     "type": "FLOAT",
+     "widget": {
+      "name": "value"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "FLOAT",
+     "name": "FLOAT",
+     "type": "FLOAT",
+     "links": [
+      7
+     ]
+    }
+   ],
+   "title": "出片高（32 的倍数）",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    704
+   ],
+   "widgets_values_named": {
+    "value": 704
+   }
+  },
+  {
+   "id": 14,
+   "type": "ComfyMathExpression",
+   "pos": [
+    1240,
+    960
+   ],
+   "size": [
+    300,
+    110
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "values.a",
+     "name": "values.a",
+     "type": "FLOAT,INT,BOOLEAN",
+     "link": 7
+    },
+    {
+     "label": "values.b",
+     "name": "values.b",
+     "shape": 7,
+     "type": "FLOAT,INT,BOOLEAN",
+     "link": null
+    },
+    {
+     "label": "expression",
+     "name": "expression",
+     "type": "STRING",
+     "widget": {
+      "name": "expression"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "FLOAT",
+     "name": "FLOAT",
+     "type": "FLOAT",
+     "links": []
+    },
+    {
+     "label": "INT",
+     "name": "INT",
+     "type": "INT",
+     "links": [
+      9
+     ]
+    },
+    {
+     "label": "BOOL",
+     "name": "BOOL",
+     "type": "BOOLEAN",
+     "links": []
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    "a"
+   ],
+   "title": "高 → INT",
+   "widgets_values_named": {
+    "expression": "a"
+   }
+  },
+  {
+   "id": 15,
+   "type": "MiniMaxH3ReferenceToVideo",
+   "pos": [
+    1600,
+    0
+   ],
+   "size": [
+    340,
+    560
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "clip",
+     "name": "clip",
+     "type": "CLIP",
+     "link": 14
+    },
+    {
+     "label": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 15
+    },
+    {
+     "label": "audio_vae",
+     "name": "audio_vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 16
+    },
+    {
+     "label": "ref_images.ref_image_0",
+     "name": "ref_images.ref_image_0",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "label": "ref_images.ref_image_1",
+     "name": "ref_images.ref_image_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "label": "ref_images.ref_image_2",
+     "name": "ref_images.ref_image_2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "label": "ref_images.ref_image_3",
+     "name": "ref_images.ref_image_3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "label": "ref_videos.ref_video_0",
+     "name": "ref_videos.ref_video_0",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 11
+    },
+    {
+     "label": "ref_videos.ref_video_1",
+     "name": "ref_videos.ref_video_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 12
+    },
+    {
+     "label": "ref_videos.ref_video_2",
+     "name": "ref_videos.ref_video_2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "label": "ref_video_audios.ref_video_audio_0",
+     "name": "ref_video_audios.ref_video_audio_0",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": 13
+    },
+    {
+     "label": "ref_video_audios.ref_video_audio_1",
+     "name": "ref_video_audios.ref_video_audio_1",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "label": "ref_audios.ref_audio_0",
+     "name": "ref_audios.ref_audio_0",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "label": "ref_audios.ref_audio_1",
+     "name": "ref_audios.ref_audio_1",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "label": "ref_audios.ref_audio_2",
+     "name": "ref_audios.ref_audio_2",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "label": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 10
+    },
+    {
+     "label": "width",
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": 8
+    },
+    {
+     "label": "height",
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": 9
+    },
+    {
+     "label": "length",
+     "name": "length",
+     "type": "INT",
+     "widget": {
+      "name": "length"
+     },
+     "link": null
+    },
+    {
+     "label": "ref_image_size",
+     "name": "ref_image_size",
+     "type": "COMBO",
+     "widget": {
+      "name": "ref_image_size"
+     },
+     "link": null
+    },
+    {
+     "label": "ref_video_audios.ref_video_audio_2",
+     "name": "ref_video_audios.ref_video_audio_2",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "positive",
+     "name": "positive",
+     "type": "CONDITIONING",
+     "links": [
+      25
+     ]
+    },
+    {
+     "label": "LATENT",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      28
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {
+      "width": true,
+      "length": true,
+      "prompt": true,
+      "height": true
+     },
+     "version": "7.0.1"
+    }
+   },
+   "widgets_values": [
+    "",
+    832,
+    704,
+    73,
+    "match"
+   ],
+   "title": "MiniMax H3 参考生视频（长相对齐动作）",
+   "widgets_values_named": {
+    "prompt": "",
+    "width": 832,
+    "height": 704,
+    "length": 73,
+    "ref_image_size": "match"
+   }
+  },
+  {
+   "id": 16,
+   "type": "BasicScheduler",
+   "pos": [
+    2000,
+    0
+   ],
+   "size": [
+    300,
+    120
+   ],
+   "flags": {},
+   "order": 18,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 4
+    },
+    {
+     "label": "scheduler",
+     "name": "scheduler",
+     "type": "COMBO",
+     "widget": {
+      "name": "scheduler"
+     },
+     "link": null
+    },
+    {
+     "label": "steps",
+     "name": "steps",
+     "type": "INT",
+     "widget": {
+      "name": "steps"
+     },
+     "link": null
+    },
+    {
+     "label": "denoise",
+     "name": "denoise",
+     "type": "FLOAT",
+     "widget": {
+      "name": "denoise"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "SIGMAS",
+     "name": "SIGMAS",
+     "type": "SIGMAS",
+     "links": [
+      17
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    "beta",
+    4,
+    1
+   ],
+   "title": "调度器 beta / 4 步",
+   "widgets_values_named": {
+    "scheduler": "beta",
+    "steps": 4,
+    "denoise": 1
+   }
+  },
+  {
+   "id": 17,
+   "type": "H3SigmaRefiner",
+   "pos": [
+    2000,
+    160
+   ],
+   "size": [
+    300,
+    150
+   ],
+   "flags": {},
+   "order": 20,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "sigmas",
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 17
+    },
+    {
+     "label": "extra_steps",
+     "name": "extra_steps",
+     "type": "INT",
+     "widget": {
+      "name": "extra_steps"
+     },
+     "link": null
+    },
+    {
+     "label": "start_at_sigma",
+     "name": "start_at_sigma",
+     "type": "FLOAT",
+     "widget": {
+      "name": "start_at_sigma"
+     },
+     "link": null
+    },
+    {
+     "label": "end_at_sigma",
+     "name": "end_at_sigma",
+     "type": "FLOAT",
+     "widget": {
+      "name": "end_at_sigma"
+     },
+     "link": null
+    },
+    {
+     "label": "spacing",
+     "name": "spacing",
+     "type": "COMBO",
+     "widget": {
+      "name": "spacing"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "sigmas",
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "links": [
+      18
+     ]
+    }
+   ],
+   "properties": {
+    "ver": "146207295c1d2bd6b64a6552484cb6ed8be1c9ef",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {}
+    },
+    "aux_id": "yichengup/ComfyUI-YCNodes-MiniMax-H3"
+   },
+   "widgets_values": [
+    2,
+    0.7,
+    0,
+    "cosine"
+   ],
+   "title": "Sigma 尾部加密（0.7 以下 +2 步）",
+   "widgets_values_named": {
+    "extra_steps": 2,
+    "start_at_sigma": 0.7,
+    "end_at_sigma": 0,
+    "spacing": "cosine"
+   }
+  },
+  {
+   "id": 18,
+   "type": "SplitSigmas",
+   "pos": [
+    2000,
+    350
+   ],
+   "size": [
+    300,
+    90
+   ],
+   "flags": {},
+   "order": 21,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "sigmas",
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 18
+    },
+    {
+     "label": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "high_sigmas",
+     "name": "high_sigmas",
+     "type": "SIGMAS",
+     "links": [
+      19
+     ]
+    },
+    {
+     "label": "low_sigmas",
+     "name": "low_sigmas",
+     "type": "SIGMAS",
+     "links": [
+      20
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.33.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    4
+   ],
+   "title": "切分：一采 4 步 / 二采 2 步",
+   "widgets_values_named": {
+    "step": 4
+   }
+  },
+  {
+   "id": 19,
+   "type": "RandomNoise",
+   "pos": [
+    2000,
+    480
+   ],
+   "size": [
+    300,
+    90
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "noise_seed",
+     "name": "noise_seed",
+     "type": "INT",
+     "widget": {
+      "name": "noise_seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "NOISE",
+     "name": "NOISE",
+     "type": "NOISE",
+     "links": [
+      21,
+      22
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    20261114,
+    "fixed"
+   ],
+   "title": "噪声种子",
+   "color": "#c0392b",
+   "bgcolor": "#5b1f1f",
+   "widgets_values_named": {
+    "noise_seed": 20261114,
+    "control_after_generate": "fixed"
+   }
+  },
+  {
+   "id": 20,
+   "type": "KSamplerSelect",
+   "pos": [
+    2000,
+    610
+   ],
+   "size": [
+    300,
+    70
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "sampler_name",
+     "name": "sampler_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "sampler_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "SAMPLER",
+     "name": "SAMPLER",
+     "type": "SAMPLER",
+     "links": [
+      23,
+      24
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    "euler"
+   ],
+   "title": "采样器 euler",
+   "widgets_values_named": {
+    "sampler_name": "euler"
+   }
+  },
+  {
+   "id": 21,
+   "type": "BasicGuider",
+   "pos": [
+    2000,
+    720
+   ],
+   "size": [
+    300,
+    60
+   ],
+   "flags": {},
+   "order": 19,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 5
+    },
+    {
+     "label": "conditioning",
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 25
+    }
+   ],
+   "outputs": [
+    {
+     "label": "GUIDER",
+     "name": "GUIDER",
+     "type": "GUIDER",
+     "links": [
+      26,
+      27
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "title": "引导器（两采共用）"
+  },
+  {
+   "id": 22,
+   "type": "SamplerCustomAdvanced",
+   "pos": [
+    2360,
+    0
+   ],
+   "size": [
+    260,
+    160
+   ],
+   "flags": {},
+   "order": 22,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "noise",
+     "name": "noise",
+     "type": "NOISE",
+     "link": 21
+    },
+    {
+     "label": "guider",
+     "name": "guider",
+     "type": "GUIDER",
+     "link": 26
+    },
+    {
+     "label": "sampler",
+     "name": "sampler",
+     "type": "SAMPLER",
+     "link": 23
+    },
+    {
+     "label": "sigmas",
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 19
+    },
+    {
+     "label": "latent_image",
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 28
+    }
+   ],
+   "outputs": [
+    {
+     "label": "output",
+     "name": "output",
+     "type": "LATENT",
+     "links": []
+    },
+    {
+     "label": "denoised_output",
+     "name": "denoised_output",
+     "type": "LATENT",
+     "links": [
+      29
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "title": "一采（低清对齐动作）"
+  },
+  {
+   "id": 23,
+   "type": "LTXVSeparateAVLatent",
+   "pos": [
+    2360,
+    220
+   ],
+   "size": [
+    260,
+    60
+   ],
+   "flags": {},
+   "order": 23,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "av_latent",
+     "name": "av_latent",
+     "type": "LATENT",
+     "link": 29
+    }
+   ],
+   "outputs": [
+    {
+     "label": "video_latent",
+     "name": "video_latent",
+     "type": "LATENT",
+     "links": [
+      30
+     ]
+    },
+    {
+     "label": "audio_latent",
+     "name": "audio_latent",
+     "type": "LATENT",
+     "links": [
+      32
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.33.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "title": "分离视频 / 音频潜空间",
+   "widgets_values": []
+  },
+  {
+   "id": 24,
+   "type": "MinimaxH3LatentUpscaler3D",
+   "pos": [
+    2360,
+    320
+   ],
+   "size": [
+    440,
+    280
+   ],
+   "flags": {},
+   "order": 24,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "latent",
+     "name": "latent",
+     "type": "*",
+     "link": 30
+    },
+    {
+     "label": "model_name",
+     "name": "model_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "model_name"
+     },
+     "link": null
+    },
+    {
+     "label": "mode",
+     "name": "mode",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "mode"
+     },
+     "link": null
+    },
+    {
+     "label": "mode.scale",
+     "name": "mode.scale",
+     "type": "FLOAT",
+     "widget": {
+      "name": "mode.scale"
+     },
+     "link": null
+    },
+    {
+     "label": "align",
+     "name": "align",
+     "type": "INT",
+     "widget": {
+      "name": "align"
+     },
+     "link": null
+    },
+    {
+     "label": "device",
+     "name": "device",
+     "type": "COMBO",
+     "widget": {
+      "name": "device"
+     },
+     "link": null
+    },
+    {
+     "label": "precision",
+     "name": "precision",
+     "type": "COMBO",
+     "widget": {
+      "name": "precision"
+     },
+     "link": null
+    },
+    {
+     "label": "enable_chunking",
+     "name": "enable_chunking",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "enable_chunking"
+     },
+     "link": null
+    },
+    {
+     "label": "force_unload",
+     "name": "force_unload",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "force_unload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "latent",
+     "name": "latent",
+     "type": "*",
+     "links": [
+      31
+     ]
+    }
+   ],
+   "widgets_values": [
+    "minimax_h3_latent_upscaler_3d_fp16_V2.safetensors",
+    "scale by multiplier",
+    2,
+    32,
+    "cuda",
+    "fp16",
+    true,
+    true
+   ],
+   "title": "潜空间 2× 放大（只放视频）",
+   "widgets_values_named": {
+    "model_name": "minimax_h3_latent_upscaler_3d_fp16_V2.safetensors",
+    "mode": "scale by multiplier",
+    "mode.scale": 2,
+    "align": 32,
+    "device": "cuda",
+    "precision": "fp16",
+    "enable_chunking": true,
+    "force_unload": true
+   }
+  },
+  {
+   "id": 25,
+   "type": "LTXVConcatAVLatent",
+   "pos": [
+    2360,
+    640
+   ],
+   "size": [
+    260,
+    60
+   ],
+   "flags": {},
+   "order": 25,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "video_latent",
+     "name": "video_latent",
+     "type": "LATENT",
+     "link": 31
+    },
+    {
+     "label": "audio_latent",
+     "name": "audio_latent",
+     "type": "LATENT",
+     "link": 32
+    }
+   ],
+   "outputs": [
+    {
+     "label": "latent",
+     "name": "latent",
+     "type": "LATENT",
+     "links": [
+      33
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.33.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "title": "拼回音频潜空间",
+   "widgets_values": []
+  },
+  {
+   "id": 26,
+   "type": "SamplerCustomAdvanced",
+   "pos": [
+    2860,
+    0
+   ],
+   "size": [
+    260,
+    160
+   ],
+   "flags": {},
+   "order": 26,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "noise",
+     "name": "noise",
+     "type": "NOISE",
+     "link": 22
+    },
+    {
+     "label": "guider",
+     "name": "guider",
+     "type": "GUIDER",
+     "link": 27
+    },
+    {
+     "label": "sampler",
+     "name": "sampler",
+     "type": "SAMPLER",
+     "link": 24
+    },
+    {
+     "label": "sigmas",
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 20
+    },
+    {
+     "label": "latent_image",
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 33
+    }
+   ],
+   "outputs": [
+    {
+     "label": "output",
+     "name": "output",
+     "type": "LATENT",
+     "links": []
+    },
+    {
+     "label": "denoised_output",
+     "name": "denoised_output",
+     "type": "LATENT",
+     "links": [
+      34
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "title": "二采（高清补细节）"
+  },
+  {
+   "id": 27,
+   "type": "VAEDecode",
+   "pos": [
+    3200,
+    0
+   ],
+   "size": [
+    240,
+    60
+   ],
+   "flags": {},
+   "order": 27,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "samples",
+     "name": "samples",
+     "type": "LATENT",
+     "link": 34
+    },
+    {
+     "label": "vae",
+     "name": "vae",
+     "type": "VAE",
+     "link": 35
+    }
+   ],
+   "outputs": [
+    {
+     "label": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      36
+     ]
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "title": "视频解码"
+  },
+  {
+   "id": 28,
+   "type": "VRAM_Debug",
+   "pos": [
+    3200,
+    120
+   ],
+   "size": [
+    300,
+    200
+   ],
+   "flags": {},
+   "order": 28,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "any_input",
+     "name": "any_input",
+     "shape": 7,
+     "type": "*",
+     "link": 36
+    },
+    {
+     "label": "image_pass",
+     "name": "image_pass",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "label": "model_pass",
+     "name": "model_pass",
+     "shape": 7,
+     "type": "MODEL",
+     "link": null
+    },
+    {
+     "label": "empty_cache",
+     "name": "empty_cache",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "empty_cache"
+     },
+     "link": null
+    },
+    {
+     "label": "gc_collect",
+     "name": "gc_collect",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "gc_collect"
+     },
+     "link": null
+    },
+    {
+     "label": "unload_all_models",
+     "name": "unload_all_models",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "unload_all_models"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "any_output",
+     "name": "any_output",
+     "type": "*",
+     "links": [
+      37
+     ]
+    },
+    {
+     "label": "image_pass",
+     "name": "image_pass",
+     "type": "IMAGE",
+     "links": []
+    },
+    {
+     "label": "model_pass",
+     "name": "model_pass",
+     "type": "MODEL",
+     "links": []
+    },
+    {
+     "label": "freemem_before",
+     "name": "freemem_before",
+     "type": "INT",
+     "links": []
+    },
+    {
+     "label": "freemem_after",
+     "name": "freemem_after",
+     "type": "INT",
+     "links": []
+    }
+   ],
+   "properties": {
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "version": "7.0.1"
+    }
+   },
+   "widgets_values": [
+    true,
+    true,
+    true
+   ],
+   "title": "显存回收 / 透传",
+   "widgets_values_named": {
+    "empty_cache": true,
+    "gc_collect": true,
+    "unload_all_models": true
+   }
+  },
+  {
+   "id": 29,
+   "type": "VHS_VideoCombine",
+   "pos": [
+    3200,
+    360
+   ],
+   "size": [
+    340,
+    300
+   ],
+   "flags": {},
+   "order": 29,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 37
+    },
+    {
+     "label": "audio",
+     "name": "audio",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": 38
+    },
+    {
+     "label": "meta_batch",
+     "name": "meta_batch",
+     "shape": 7,
+     "type": "VHS_BatchManager",
+     "link": null
+    },
+    {
+     "label": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": null
+    },
+    {
+     "label": "frame_rate",
+     "name": "frame_rate",
+     "type": "FLOAT",
+     "widget": {
+      "name": "frame_rate"
+     },
+     "link": null
+    },
+    {
+     "label": "loop_count",
+     "name": "loop_count",
+     "type": "INT",
+     "widget": {
+      "name": "loop_count"
+     },
+     "link": null
+    },
+    {
+     "label": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "label": "format",
+     "name": "format",
+     "type": "COMBO",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "label": "pingpong",
+     "name": "pingpong",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "pingpong"
+     },
+     "link": null
+    },
+    {
+     "label": "save_output",
+     "name": "save_output",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "save_output"
+     },
+     "link": null
+    },
+    {
+     "label": "no_preview",
+     "name": "no_preview",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "no_preview"
+     },
+     "link": null
+    },
+    {
+     "label": "pix_fmt",
+     "name": "pix_fmt",
+     "type": [
+      "yuv420p",
+      "yuv420p10le"
+     ],
+     "widget": {
+      "name": "pix_fmt"
+     },
+     "link": null
+    },
+    {
+     "label": "crf",
+     "name": "crf",
+     "type": "INT",
+     "widget": {
+      "name": "crf"
+     },
+     "link": null
+    },
+    {
+     "label": "save_metadata",
+     "name": "save_metadata",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "save_metadata"
+     },
+     "link": null
+    },
+    {
+     "label": "trim_to_audio",
+     "name": "trim_to_audio",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "trim_to_audio"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "Filenames",
+     "name": "Filenames",
+     "type": "VHS_FILENAMES",
+     "links": []
+    }
+   ],
+   "properties": {
+    "cnr_id": "comfyui-videohelpersuite",
+    "ver": "dabda5423a9df2d17940e619ba9bd6a6344453c7",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "version": "7.0.1"
+    }
+   },
+   "widgets_values": {
+    "frame_rate": 24,
+    "loop_count": 0,
+    "filename_prefix": "H3_board03_motion",
+    "format": "video/h264-mp4",
+    "pix_fmt": "yuv420p",
+    "crf": 19,
+    "save_metadata": true,
+    "trim_to_audio": false,
+    "pingpong": false,
+    "save_output": true,
+    "no_preview": false,
+    "videopreview": {
+     "paused": false,
+     "hidden": false,
+     "params": {
+      "storageProvider": "tos",
+      "metadata": {
+       "duration": 5.166666666666667,
+       "kind": "video",
+       "frame_count": 124,
+       "width": 1056,
+       "fps": 24,
+       "height": 608
+      },
+      "cos_url": "https://rh-comfyui01.tos-cn-beijing.volces.com/c66a79033815ec8f1556cd4779bf3ea4/output/h3_00001_p84-audio_lahid_1793985500.mp4",
+      "workflow": "h3_00001_p84.png",
+      "format": "video/h264-mp4",
+      "subfolder": "",
+      "label": "Normal",
+      "type": "output",
+      "frame_rate": 24,
+      "bucket": "rh-comfyui01",
+      "score": 0,
+      "filename": "h3_00001_p84-audio_lahid_1793985500.mp4",
+      "fullpath": "/data/ComfyUI/personal/c66a79033815ec8f1556cd4779bf3ea4/output/h3_00001_p84-audio.mp4",
+      "objectKey": "c66a79033815ec8f1556cd4779bf3ea4/output/h3_00001_p84-audio_lahid_1793985500.mp4"
+     }
+    }
+   },
+   "title": "输出成片（动作对齐 · 原声）",
+   "color": "#d35400",
+   "bgcolor": "#5a3208"
+  },
+  {
+   "id": 30,
+   "type": "MarkdownNote",
+   "pos": [
+    3620,
+    0
+   ],
+   "size": [
+    520,
+    760
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "title": "说明",
+   "properties": {
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    "## 动作对齐 · 二采 · 零张图片\n\n**这一版干什么**：不换人，只让 03-2 里的人**动得像原片**。\n\n### 两个视频槽\n- `长相来源`：03-2.mp4（全部换好的成片）→ `ref_video_0`，决定脸、胡须、帽子、袍子、场景\n- `动作来源`：03.mp4（原片）→ `ref_video_1`，决定转头、眨眼、口型、手势与时序\n- 音频只接一条（03-2 自带原声，两条音轨本来就是同一条），避免双音轨叠音\n\n### 硬约束\n- 帧数 73、种子 20261114，与换人三轮一致，方便逐帧对比。\n- 提示词里写死「长相只取 <Video 1>、动作只取 <Video 2>」，并逐个说明谁跟谁的表演。\n- 特别写了「不许全体同步转头」：每个人只跟原片里**自己那一位**的表演。\n\n### 验收\n抽 0.2 / 1.5 / 3.0 秒三帧，与 03.mp4 同帧对比头角：每个人的头朝向应与原片对得上，且**不再出现整齐划一的转头**。\n再看长相：蓝袍金冠、红帽、四顶帽、长须白须都不能变。\n\n### 素材有效期\nvideo 槽填平台 `fileName`，约 24 小时失效；报找不到文件就重传：\n```bash\nnode <runninghub-cloud-yashu>/scripts/rh.mjs --upload \"<本地视频>\"\n```\n"
+   ]
+  }
+ ],
+ "links": [
+  [
+   1,
+   1,
+   0,
+   2,
+   0,
+   "MODEL"
+  ],
+  [
+   2,
+   2,
+   0,
+   3,
+   0,
+   "MODEL"
+  ],
+  [
+   3,
+   3,
+   0,
+   4,
+   0,
+   "MODEL"
+  ],
+  [
+   4,
+   4,
+   0,
+   16,
+   0,
+   "MODEL"
+  ],
+  [
+   5,
+   4,
+   0,
+   21,
+   0,
+   "MODEL"
+  ],
+  [
+   6,
+   11,
+   0,
+   12,
+   0,
+   "FLOAT"
+  ],
+  [
+   7,
+   13,
+   0,
+   14,
+   0,
+   "FLOAT"
+  ],
+  [
+   8,
+   12,
+   1,
+   15,
+   16,
+   "INT"
+  ],
+  [
+   9,
+   14,
+   1,
+   15,
+   17,
+   "INT"
+  ],
+  [
+   10,
+   10,
+   0,
+   15,
+   15,
+   "STRING"
+  ],
+  [
+   11,
+   8,
+   0,
+   15,
+   7,
+   "IMAGE"
+  ],
+  [
+   12,
+   9,
+   0,
+   15,
+   8,
+   "IMAGE"
+  ],
+  [
+   13,
+   8,
+   2,
+   15,
+   10,
+   "AUDIO"
+  ],
+  [
+   14,
+   5,
+   0,
+   15,
+   0,
+   "CLIP"
+  ],
+  [
+   15,
+   6,
+   0,
+   15,
+   1,
+   "VAE"
+  ],
+  [
+   16,
+   7,
+   0,
+   15,
+   2,
+   "VAE"
+  ],
+  [
+   17,
+   16,
+   0,
+   17,
+   0,
+   "SIGMAS"
+  ],
+  [
+   18,
+   17,
+   0,
+   18,
+   0,
+   "SIGMAS"
+  ],
+  [
+   19,
+   18,
+   0,
+   22,
+   3,
+   "SIGMAS"
+  ],
+  [
+   20,
+   18,
+   1,
+   26,
+   3,
+   "SIGMAS"
+  ],
+  [
+   21,
+   19,
+   0,
+   22,
+   0,
+   "NOISE"
+  ],
+  [
+   22,
+   19,
+   0,
+   26,
+   0,
+   "NOISE"
+  ],
+  [
+   23,
+   20,
+   0,
+   22,
+   2,
+   "SAMPLER"
+  ],
+  [
+   24,
+   20,
+   0,
+   26,
+   2,
+   "SAMPLER"
+  ],
+  [
+   25,
+   15,
+   0,
+   21,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   26,
+   21,
+   0,
+   22,
+   1,
+   "GUIDER"
+  ],
+  [
+   27,
+   21,
+   0,
+   26,
+   1,
+   "GUIDER"
+  ],
+  [
+   28,
+   15,
+   1,
+   22,
+   4,
+   "LATENT"
+  ],
+  [
+   29,
+   22,
+   1,
+   23,
+   0,
+   "LATENT"
+  ],
+  [
+   30,
+   23,
+   0,
+   24,
+   0,
+   "LATENT"
+  ],
+  [
+   31,
+   24,
+   0,
+   25,
+   0,
+   "*"
+  ],
+  [
+   32,
+   23,
+   1,
+   25,
+   1,
+   "LATENT"
+  ],
+  [
+   33,
+   25,
+   0,
+   26,
+   4,
+   "LATENT"
+  ],
+  [
+   34,
+   26,
+   1,
+   27,
+   0,
+   "LATENT"
+  ],
+  [
+   35,
+   6,
+   0,
+   27,
+   1,
+   "VAE"
+  ],
+  [
+   36,
+   27,
+   0,
+   28,
+   0,
+   "IMAGE"
+  ],
+  [
+   37,
+   28,
+   0,
+   29,
+   0,
+   "*"
+  ],
+  [
+   38,
+   8,
+   2,
+   29,
+   1,
+   "AUDIO"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.62,
+   "offset": [
+    700,
+    500
+   ]
+  }
+ },
+ "version": 0.4
+}
