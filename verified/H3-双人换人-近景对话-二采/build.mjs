@@ -43,8 +43,8 @@ const ASSETS = {
 
 const P = `subject_definitions:
 <Video 1> is the source video for the target video edit: a 5.88-second office conversation built from three hard cuts of tight close-ups on two men in dark suits, shot on a long lens with a mostly locked-off handheld camera against a plain grey office wall.
-<Subject 1> is the elderly Chinese official whose appearance comes from <Picture 1> (full body) and <Picture 2> (face close-up): a thin white beard, deep wrinkles, a black and gold Ming-style hat, a gold-trimmed collar and a deep red robe with a gold dragon and cloud pattern across the chest. He appears in [Shot 1] and [Shot 3].
-<Subject 2> is the middle-aged Chinese man whose appearance comes from <Picture 3> (front view) and <Picture 4> (face close-up): long black hair, a small gold crown, a moustache and a goatee, and a pale blue robe with blue embroidered lapels. He appears in [Shot 2].
+<Subject 1> is the middle-aged Chinese man whose appearance comes from <Picture 3> (front view) and <Picture 4> (face close-up): long black hair, a small gold crown, a moustache and a goatee, and a pale blue robe with blue embroidered lapels. He appears in [Shot 1] and [Shot 3].
+<Subject 2> is the elderly Chinese official whose appearance comes from <Picture 1> (full body) and <Picture 2> (face close-up): a thin white beard, deep wrinkles, a black and gold Ming-style hat, a gold-trimmed collar and a deep red robe with a gold dragon and cloud pattern across the chest. He appears in [Shot 2].
 <Audio 1> is the synchronized audio track of <Video 1> and is reused unchanged in the target video, containing both men's English dialogue.
 
 summary:
@@ -52,14 +52,14 @@ summary:
 
 retention_analysis:
 <Video 1> (cut and performance structure): fully_preserved - the cut points at 0.00, 0.458 and 4.00 seconds, the tight close-up framing, the slight handheld drift, the grey office background, every facial action (brow raises, eye direction, blink timing, jaw and lip shapes while speaking), and the body lift at the end of [Shot 3] are reproduced.
-<Subject 1> (appears in [Shot 1], [Shot 3]): fully_preserved - the white beard, the black and gold hat, the gold-trimmed collar and the red dragon robe stay identical to <Picture 1> and <Picture 2>.
-<Subject 2> (appears in [Shot 2]): fully_preserved - the long black hair, the gold crown, the moustache and the pale blue robe with embroidered lapels stay identical to <Picture 3> and <Picture 4>.
+<Subject 1> (appears in [Shot 1], [Shot 3]): fully_preserved - the long black hair, the small gold crown, the moustache and the pale blue robe with blue embroidered lapels stay identical to <Picture 3> and <Picture 4>.
+<Subject 2> (appears in [Shot 2]): fully_preserved - the white beard, the black and gold hat, the gold-trimmed collar and the red dragon robe stay identical to <Picture 1> and <Picture 2>.
 <Audio 1>: fully_copy - <Audio 1> is reused 1:1 as the target video's complete final audio track.
 
 detailed_description:
 Live-action footage shot on a long lens in tight close-up, shallow depth of field, soft overhead office light from slightly screen left, visible skin pores and beard strands, fine film grain, and a flat grey-green wall behind both men.
-[Shot 1] A tight close-up frames <Subject 1> at a slight three-quarter angle, his eyes turned to screen left and away from the lens, mouth slightly open as he listens. The black hat, the red robe collar and the top of a dark leather chair back sit behind his neck inside the frame. His head stays nearly still and only his eyes move; this shot lasts only eleven frames.
-[Shot 2] At 00:00.458, the shot cuts to a tight close-up of <Subject 2> (S1), who begins speaking with his eyes turned to screen right. Around one second he brings his gaze back to screen left while his lips keep moving, and around three seconds he turns his eyes to screen right again, without stopping the sentence. His brows lift on the stressed words and his jaw works through each phrase, while the pale blue robe and embroidered lapels stay steady on his shoulders.
+[Shot 1] A tight close-up frames <Subject 1> at a slight three-quarter angle, his eyes turned to screen left and away from the lens, mouth slightly open as he listens. The gold crown, the long black hair falling past his shoulders and the top of a dark leather chair back sit behind his neck inside the frame. His head stays nearly still and only his eyes move; this shot lasts only eleven frames.
+[Shot 2] At 00:00.458, the shot cuts to a tight close-up of <Subject 2> (S1), who begins speaking with his eyes turned to screen right. Around one second he brings his gaze back to screen left while his lips keep moving, and around three seconds he turns his eyes to screen right again, without stopping the sentence. His brows lift on the stressed words and his jaw works through each phrase, while the red robe and its gold dragon pattern stay steady across his chest.
 [Shot 3] At 00:04.000, the shot cuts back to <Subject 1>, now with his eyes wide, brows raised and mouth open, holding a stunned expression for about a second. He then pushes himself up out of the chair: his shoulders and head rise toward the lens while the camera stays locked on his face and does not tilt or pull back, so the dark chair back behind his neck slides down and out of the bottom of the frame. By the middle of the shot the chair is no longer visible behind him, and he keeps rising with his mouth open and his gaze fixed off the lens until the final frame.
 Throughout all three shots the camera keeps only the slight handheld drift of <Video 1>, with no zoom, no reframing, no cutaway, and no other person entering the frame.
 
@@ -90,14 +90,14 @@ const nodes = [
   { key: 'video', type: 'VHS_LoadVideo', title: '★ 改这里 · 参考视频（要换人的原片）', red: true,
     x: 460, y: 0, size: [420, 500],
     widgets: { video: ASSETS.video, frame_load_cap: FRAMES } },
-  { key: 'img1', type: 'LoadImage', title: '★ 改这里 · 人物1 全身（红袍老者）', red: true,
-    x: 460, y: 540, size: [300, 300], widgets: [ASSETS.ref1Full, 'image'] },
-  { key: 'img2', type: 'LoadImage', title: '★ 改这里 · 人物1 脸部特写', red: true,
-    x: 780, y: 540, size: [300, 300], widgets: [ASSETS.ref1Face, 'image'] },
-  { key: 'img3', type: 'LoadImage', title: '★ 改这里 · 人物2 全身（蓝袍男子）', red: true,
-    x: 460, y: 880, size: [300, 300], widgets: [ASSETS.ref2Body, 'image'] },
-  { key: 'img4', type: 'LoadImage', title: '★ 改这里 · 人物2 脸部特写', red: true,
-    x: 780, y: 880, size: [300, 300], widgets: [ASSETS.ref2Face, 'image'] },
+  { key: 'img1', type: 'LoadImage', title: '★ 改这里 · 红衣老者 全身（Shot 2 光头）', red: true,
+    x: 460, y: 520, size: [300, 300], widgets: [ASSETS.ref1Full, 'image'] },
+  { key: 'img2', type: 'LoadImage', title: '★ 改这里 · 红衣老者 脸部特写', red: true,
+    x: 780, y: 520, size: [300, 300], widgets: [ASSETS.ref1Face, 'image'] },
+  { key: 'img3', type: 'LoadImage', title: '★ 改这里 · 白衣男子 全身（Shot 1/3 诺曼）', red: true,
+    x: 460, y: 860, size: [300, 300], widgets: [ASSETS.ref2Body, 'image'] },
+  { key: 'img4', type: 'LoadImage', title: '★ 改这里 · 白衣男子 脸部特写', red: true,
+    x: 780, y: 860, size: [300, 300], widgets: [ASSETS.ref2Face, 'image'] },
   { key: 'wv', type: 'PrimitiveFloat', title: '出片宽（32 的倍数）', x: 460, y: 1220, size: [300, 110], widgets: [WIDTH] },
   { key: 'w', type: 'ComfyMathExpression', title: '宽 → INT', x: 780, y: 1220, size: [300, 110], widgets: ['a'] },
   { key: 'hv', type: 'PrimitiveFloat', title: '出片高（32 的倍数）', x: 460, y: 1360, size: [300, 110], widgets: [HEIGHT] },
@@ -192,10 +192,10 @@ const note = `## H3 双人换人 · 二采（低清跑表演 → 2× 放大 → 
 4. 输出：24fps mp4，**音轨用原片原声**，H3 自编声轨丢弃。
 
 ### 参考图对应（顺序不能错）
-- \`Picture 1\` 人物1 全身 = 红袍老者 → 出镜于 Shot 1 / Shot 3
-- \`Picture 2\` 人物1 脸部特写
-- \`Picture 3\` 人物2 全身 = 蓝袍男子 → 出镜于 Shot 2
-- \`Picture 4\` 人物2 脸部特写
+- \`Picture 1\` 红衣老者 全身 → 出镜于 Shot 2（光头）
+- \`Picture 2\` 红衣老者 脸部特写
+- \`Picture 3\` 白衣男子 全身 → 出镜于 Shot 1 / Shot 3（诺曼）
+- \`Picture 4\` 白衣男子 脸部特写
 
 ### 换片时改哪里
 1. 参考视频：填新片；同时改 \`frame_load_cap\` 与 \`MiniMaxH3 参考生视频\` 的 \`length\` 为同一帧数，且必须落在 **17k+5** 网格（5、22、39…141、158、260），否则报错。
