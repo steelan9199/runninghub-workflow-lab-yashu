@@ -1,0 +1,23 @@
+subject_definitions:
+<Video 1> is the source clip for the target edit: a 5.2-second, 24 fps, single continuous extreme wide low-angle shot tilted up a narrow stone stairway between two brick tenements with iron fire escapes, in which a man in full clown costume dances down the steps toward the camera and gradually grows larger in the frame.
+<Picture 1> is a character sheet of the replacement character: a front view, a full-body front view and a back view of the same man.
+<Subject 1> is that man, exactly as drawn in <Picture 1>: a tall ornate gold crown pierced crosswise by a long gold pin, a black topknot, long dark hair, thick level black brows, a thin black moustache, a long pointed black goatee, bare unpainted skin, a pale ice-blue wide-sleeved robe with a white inner collar, white trousers and black cloth shoes.
+
+summary:
+[video editing + reference generation] The target video is an edited version of <Video 1>. The man in <Video 1> is replaced by <Subject 1> from <Picture 1>, who performs the same stair dance in the same place, at the same scale and in the same timing; the brick walls, fire escapes, lamp posts, sky and camera work of <Video 1> are kept unchanged. The dance is the main action for almost the whole clip, and he only comes to a stop in the final half second.
+
+retention_analysis:
+<Video 1> (shot structure and camera): fully_preserved - one continuous static extreme wide low-angle shot, no cut, no zoom and no camera move, the figure staying small inside a tall vertical canyon of brick facades with a soft orange flare low in the frame.
+<Video 1> (person): partially_preserved - the body position, silhouette scale, position in frame and movement path of the figure are kept, while his identity, clothing, headwear and hair are replaced by <Subject 1>.
+<Video 1> (dance performance): fully_preserved - the hop down two steps at a time, the wide two-arm swings, the forward leg kicks, the shoulder rolls and the head tilts keep their original count, speed and order.
+<Picture 1>: attribute_transfer - the gold crown and its crosswise pin, the topknot, the long dark hair, the brows, the moustache, the long pointed goatee, the unpainted skin and the pale ice-blue robe are transferred onto the dancing figure, with natural body proportions matching the figure in <Video 1>.
+<Video 1> (ending): fully_preserved - in the last frames he plants both feet on a tread, raises his right hand toward his mouth with the right elbow lifted out to shoulder height, lowers his head slightly and holds that pose until the final frame.
+
+detailed_description:
+[Shot 1] Realistic live-action street footage, cool overcast daylight, fine film grain, a tall vertical canyon between two brick tenements with iron fire escapes on both sides, blue lamp posts, pale bright sky and a soft orange lens flare low in the frame. The camera stays at the bottom of the stairway in a static extreme wide low-angle view, with no cut and no zoom. One man, <Subject 1>, dances down the stone steps toward the camera for almost the whole clip: hopping down two steps at a time, throwing both arms out to the sides, kicking one leg forward on the beat, rolling his shoulders and tipping his head back, swaying from side to side as he descends, his whole body from crown to shoes staying inside the frame and growing larger as he approaches. The wide pale-blue sleeves and the long dark hair swing with every arm throw, the robe opening as he kicks, the gold crown and its long crosswise pin staying fixed on his head and catching the pale light. His body position, silhouette scale and movement path follow the figure in <Video 1> exactly, and only the person himself is different: headwear, hair, brows, moustache, goatee, unpainted skin and the ice-blue robe come from <Picture 1>. In the final half second he stops dancing: he plants both feet on a tread, raises his right hand to his mouth with the right elbow lifted out to shoulder height, lowers his head a little and holds that pose until the last frame, the empty stairway and the brick walls continuing behind him. The building walls, fire escapes, lamp posts and sky stay exactly as in <Video 1>. Only this one man is in the frame.
+
+overall_soundscape:
+Wind moving between the buildings, distant city traffic, the scuff of cloth shoes on stone treads, loose cloth rustling with the dance.
+
+non_diegetic_music:
+N/A
