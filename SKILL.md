@@ -2,7 +2,7 @@
 name: runninghub-workflow-lab-yashu
 description: RunningHub 工作流的「学习—仿写—实测—交付」闭环工具。当用户要 AI 自己写/搭/改 RunningHub 工作流（ComfyUI UI 格式 .json）、想把站上现成工作流交给 AI 学习并复用接线、想用本地 JSON 直接提交测试而不用在网页新建保存、或工作流跑失败要查节点缺失/参数类型/没有输出节点时使用。核心契约（已实测）：POST /task/openapi/create 的 workflowId 必填（缺则 code 301 must not be null），但同时传 workflow=完整 API 格式 JSON 时会覆盖站内那张图，因此可固定用空壳 ID 2120926368186851330 当通道；本技能一律 nodeInfoList=[]，参数直接写进图。交付规范（§4）：可改参数标红 #c0392b/#5b1f1f、输出节点标橙 #d35400/#5a3208、LoadImage 的素材先经 RH 上传换 fileName 再回填。含零成本 smoke 自检、按 ID dump 语料库、失败节点回显与视觉验收判据。不替代 runninghub-cloud-yashu 的成品出图通道。只做工作流的学/写/测/交付：用站上成品模型或现成 AI 应用直接出图出片走 runninghub，生产 alias 与正式出图流水线走 runninghub-cloud-yashu。
 agent_created: true
-version: 0.2.6
+version: 0.2.7
 ---
 
 # RunningHub 工作流实验室
@@ -126,6 +126,24 @@ node scripts/rhx.mjs index --grep SaveVideo           # 按类名筛
 - `LoadImage` 只吃 `fileName`（`openapi/xxx.png` 这种），不吃 URL；上传得到的 fileName **1 天过期**；
 - JSON 里不能有注释、BOM、尾逗号；
 - 参数**直接写进图**，不要塞 `nodeInfoList`——服务端会拿已存工作流校验它，本地新增节点对不上就报 803。
+
+### 3.1 手写 UI 节点前，先查 `/object_info`（2026-11-15 实测）
+
+自己拼 UI 格式 `.json` 时，`widgets_values` 的顺序必须和节点的真实定义一致，错一位就整排参数串位（见 `references/pitfalls.md`「命名对照」）。**不要凭 API 图的 key 顺序猜**——API 图里的顺序是执行字典序，不是控件序。真实定义直接问平台：
+
+```bash
+curl -s "https://www.runninghub.cn/object_info/MatAnyone2"
+# 也可直接取：.../object_info/LayerMask%3A%20SegmentAnythingUltra%20V3
+```
+
+**不用鉴权、不要 KEY**，返回该节点的 `input.required` / `input.optional` / `output` / `output_name`。
+
+四条用法：
+
+1. **控件顺序 = `required` 顺序 + `optional` 顺序**，逐个筛：「带枚举/默认值、且没有 `forceInput: true`」的才是控件（进 `widgets_values`）；`forceInput: true` 的是纯连线槽（如 `MatAnyone2.mask_frame_index` 接 `PrimitiveInt`）。
+2. **`widgets_values` 的长度 = 筛出来的控件数**，多一个少一个都会串位。
+3. **输出槽顺序看 `output` 数组**，名字看 `output_name`，别按直觉写（`MatAnyone2` 是 `rgba_image` / `alpha_mask`）。
+4. **接口只证明「有定义」，不证明「已安装」**。实测 `ImageThreshold` 查得到完整定义，但提交后报 `missing_node_type`——装没装只能真跑一次才知道；查不到定义（404/空）才是这台机器根本没有该节点包。
 
 ## 4. 交付：红 / 橙 / 素材预填（写完工作流必做，别等老板催）
 
