@@ -181,7 +181,7 @@ curl -s "https://www.runninghub.cn/object_info/MatAnyone2"
 | 步 | 做法 |
 |---|---|
 | 1 判定 | 列出图里所有素材槽位，分「必需」（不填就跑不起来：首帧、参考图、控制图）与「可选」 |
-| 2 生成 | 必需素材 **≤ 2 张直接生成，不再请示**；> 2 张或非必需才先问一句。通道走 `runninghub-cloud-yashu`：`rh-h3-t2i` 出图，多帧要同一角色用 `rh-h3-edit` |
+| 2 生成 | 必需素材 **≤ 2 张直接生成，不再请示**；> 2 张或非必需才先问一句。通道走 `runninghub-cloud-yashu`：`rh1 --in batch=4` 出图（一次 4 张候选），多帧要同一角色用 `rh2 --in batch=4` |
 | 3 上传 | `POST https://www.runninghub.cn/openapi/v2/media/upload/binary`，multipart 字段名固定 `file`，`Authorization: Bearer <KEY>` → 取 `data.fileName`（形如 `openapi/<hash>.png`）。等价捷径：`node <runninghub-cloud-yashu>/scripts/rh.mjs --upload <本地图>` |
 | 4 回填 | `fileName` 原样写进 `LoadImage.image`。**只认 fileName，不认 URL、不认本地路径** |
 | 5 留底 | 原图另存到交付目录 `assets/`，说明卡片写明有效期与重传方式 |
