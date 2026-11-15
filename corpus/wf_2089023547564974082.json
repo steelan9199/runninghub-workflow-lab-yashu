@@ -1,0 +1,473 @@
+{
+ "1": {
+  "class_type": "VHS_LoadVideo",
+  "inputs": {
+   "custom_height": 0,
+   "force_rate": [
+    "11",
+    0
+   ],
+   "custom_width": 0,
+   "select_every_nth": 1,
+   "frame_load_cap": 0,
+   "format": "AnimateDiff",
+   "video": "c6f1f8b81cb0982ca2de65ca58f46463fc22413004de447e8f71551427875bb3.mp4",
+   "skip_first_frames": 0,
+   "force_size": "Disabled"
+  },
+  "_meta": {
+   "title": "Load Video (Upload) 🎥🅥🅗🅢"
+  }
+ },
+ "3": {
+  "class_type": "DWPreprocessor",
+  "inputs": {
+   "image": [
+    "1",
+    0
+   ],
+   "detect_body": "enable",
+   "detect_hand": "enable",
+   "detect_face": "enable",
+   "pose_estimator": "dw-ll_ucoco_384.onnx",
+   "scale_stick_for_xinsr_cn": "disable",
+   "bbox_detector": "yolox_l.onnx",
+   "resolution": [
+    "9",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "DWPose Estimator"
+  }
+ },
+ "4": {
+  "class_type": "ImageResizeKJv2",
+  "inputs": {
+   "crop_position": "center",
+   "image": [
+    "3",
+    0
+   ],
+   "pad_color": "0, 0, 0",
+   "divisible_by": 16,
+   "width": 768,
+   "keep_proportion": "pad",
+   "upscale_method": "lanczos",
+   "device": "cpu",
+   "height": 768
+  },
+  "_meta": {
+   "title": "Resize Image v2"
+  }
+ },
+ "5": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "images": [
+    "4",
+    0
+   ],
+   "pix_fmt": "yuv420p",
+   "format": "video/h264-mp4",
+   "frame_rate": [
+    "11",
+    0
+   ],
+   "pingpong": false,
+   "save_output": true,
+   "filename_prefix": "skeleton_output",
+   "loop_count": 0,
+   "save_metadata": true,
+   "crf": 19,
+   "trim_to_audio": false,
+   "no_preview": false,
+   "audio": [
+    "1",
+    2
+   ]
+  },
+  "_meta": {
+   "title": "Video Combine 🎥🅥🅗🅢"
+  }
+ },
+ "6": {
+  "class_type": "Int",
+  "inputs": {
+   "value": 1
+  },
+  "_meta": {
+   "title": "Int"
+  }
+ },
+ "7": {
+  "class_type": "Int",
+  "inputs": {
+   "value": 1
+  },
+  "_meta": {
+   "title": "Int"
+  }
+ },
+ "9": {
+  "class_type": "Int",
+  "inputs": {
+   "value": 512
+  },
+  "_meta": {
+   "title": "Int"
+  }
+ },
+ "11": {
+  "class_type": "Int",
+  "inputs": {
+   "value": 30
+  },
+  "_meta": {
+   "title": "Int"
+  }
+ },
+ "17": {
+  "class_type": "Int",
+  "inputs": {
+   "value": 1
+  },
+  "_meta": {
+   "title": "Int"
+  }
+ },
+ "319": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": [
+    "419",
+    0
+   ],
+   "clip": [
+    "320",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "CLIP Text Encode (Prompt)"
+  }
+ },
+ "320": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen_3_06b_base.safetensors",
+   "type": "stable_diffusion",
+   "device": "default"
+  },
+  "_meta": {
+   "title": "Load CLIP"
+  }
+ },
+ "321": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "vae": [
+    "332",
+    0
+   ],
+   "samples": [
+    "323",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "VAE Decode"
+  }
+ },
+ "322": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "batch_size": 1,
+   "width": 80,
+   "height": 80
+  },
+  "_meta": {
+   "title": "Empty Latent Image"
+  }
+ },
+ "323": {
+  "class_type": "KSampler",
+  "inputs": {
+   "scheduler": "beta",
+   "negative": [
+    "326",
+    0
+   ],
+   "denoise": 1,
+   "latent_image": [
+    "322",
+    0
+   ],
+   "seed": 598626327129635,
+   "cfg": 4.5,
+   "sampler_name": "er_sde",
+   "model": [
+    "404",
+    0
+   ],
+   "positive": [
+    "319",
+    0
+   ],
+   "steps": 4
+  },
+  "_meta": {
+   "title": "KSampler"
+  }
+ },
+ "326": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "score_1, score_2, score_3,bad anatomy, bad proportions, deformed anatomy, deformed face, deformed eyes, text, multiple fingers,azyneg, lazyhand, censored, mosaic censoring, photorealistic, realistic, artist name, signature, lowres, bad anatomy, bad hands, text, error, missing fingers, extra fingers, fewer digits, cropped, worst quality, low quality, jpeg artifacts, watermark, username, sketch, jpeg Closed eyes, artifacts, signature, watermark, username, simple background, conjoined, bad ai-generated, shiny clothes, shiny skin, gold skin, white hair, halo,three hands",
+   "clip": [
+    "320",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "CLIP Text Encode (Prompt)"
+  }
+ },
+ "328": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "weight_dtype": "default",
+   "unet_name": "anima_baseV10.safetensors"
+  },
+  "_meta": {
+   "title": "Load Diffusion Model"
+  }
+ },
+ "331": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "family.safetensors",
+   "strength_model": 1,
+   "model": [
+    "328",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "332": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "qwen_image_vae.safetensors"
+  },
+  "_meta": {
+   "title": "Load VAE"
+  }
+ },
+ "402": {
+  "class_type": "solarL_SaveImagesToZip",
+  "inputs": {
+   "zip": [
+    "321",
+    0
+   ],
+   "zip_filename": ""
+  },
+  "_meta": {
+   "title": "保存Zip格式"
+  }
+ },
+ "404": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "salamonQwen1000.safetensors",
+   "strength_model": 1,
+   "model": [
+    "414",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "409": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "book.safetensors",
+   "strength_model": 1,
+   "model": [
+    "432",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "410": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "apple.safetensors",
+   "strength_model": 1,
+   "model": [
+    "409",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "411": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "house.safetensors",
+   "strength_model": 1,
+   "model": [
+    "426",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "412": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "small.safetensors",
+   "strength_model": 1,
+   "model": [
+    "411",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "413": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "FacelessPMQwen_000001600.safetensors",
+   "strength_model": 1,
+   "model": [
+    "412",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "414": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "outlined_illustration_qwen2512.safetensors",
+   "strength_model": 1,
+   "model": [
+    "416",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "416": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "music.safetensors",
+   "strength_model": 1,
+   "model": [
+    "413",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "419": {
+  "class_type": "JjkText",
+  "inputs": {
+   "text": "这里不用输入任何提示词，不需要修改"
+  },
+  "_meta": {
+   "title": "Text"
+  }
+ },
+ "426": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "3y_first_lora_v1_000003500.safetensors",
+   "strength_model": 1,
+   "model": [
+    "427",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "427": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "zyj1.safetensors",
+   "strength_model": 1,
+   "model": [
+    "410",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "428": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "bright-happy-odd-qwen_000002250.safetensors",
+   "strength_model": 1,
+   "model": [
+    "331",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "431": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "water.safetensors",
+   "strength_model": 1,
+   "model": [
+    "428",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "432": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "AbsArt01e_CE_QWEN_AIT3k.safetensors",
+   "strength_model": 1,
+   "model": [
+    "431",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ }
+}

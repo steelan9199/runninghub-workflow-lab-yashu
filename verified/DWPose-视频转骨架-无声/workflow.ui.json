@@ -1,0 +1,589 @@
+{
+ "id": "15140120-1466-4d36-85a3-b2772239efe3",
+ "revision": 0,
+ "last_node_id": 5,
+ "last_link_id": 3,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "VHS_LoadVideo",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    440,
+    520
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "meta_batch",
+     "name": "meta_batch",
+     "shape": 7,
+     "type": "VHS_BatchManager",
+     "link": null
+    },
+    {
+     "label": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": null
+    },
+    {
+     "label": "video",
+     "name": "video",
+     "type": "STRING",
+     "widget": {
+      "name": "video"
+     },
+     "link": null
+    },
+    {
+     "label": "force_rate",
+     "name": "force_rate",
+     "type": "INT",
+     "widget": {
+      "name": "force_rate"
+     },
+     "link": null
+    },
+    {
+     "label": "force_size",
+     "name": "force_size",
+     "type": "COMBO",
+     "widget": {
+      "name": "force_size"
+     },
+     "link": null
+    },
+    {
+     "label": "custom_width",
+     "name": "custom_width",
+     "type": "INT",
+     "widget": {
+      "name": "custom_width"
+     },
+     "link": null
+    },
+    {
+     "label": "custom_height",
+     "name": "custom_height",
+     "type": "INT",
+     "widget": {
+      "name": "custom_height"
+     },
+     "link": null
+    },
+    {
+     "label": "frame_load_cap",
+     "name": "frame_load_cap",
+     "type": "INT",
+     "widget": {
+      "name": "frame_load_cap"
+     },
+     "link": null
+    },
+    {
+     "label": "skip_first_frames",
+     "name": "skip_first_frames",
+     "type": "INT",
+     "widget": {
+      "name": "skip_first_frames"
+     },
+     "link": null
+    },
+    {
+     "label": "select_every_nth",
+     "name": "select_every_nth",
+     "type": "INT",
+     "widget": {
+      "name": "select_every_nth"
+     },
+     "link": null
+    },
+    {
+     "label": "format",
+     "name": "format",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      1
+     ]
+    },
+    {
+     "label": "frame_count",
+     "name": "frame_count",
+     "type": "INT",
+     "links": []
+    },
+    {
+     "label": "audio",
+     "name": "audio",
+     "type": "AUDIO",
+     "links": []
+    },
+    {
+     "label": "video_info",
+     "name": "video_info",
+     "type": "VHS_VIDEOINFO",
+     "links": []
+    }
+   ],
+   "title": "★ 改这里 · 源片（要提骨骼的视频）",
+   "properties": {
+    "Node name for S&R": "VHS_LoadVideo",
+    "cnr_id": "comfyui-videohelpersuite",
+    "ver": "4ee72c065db22c9d96c2427954dc69e7b908444b",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": {
+    "video": "openapi/6ccbc766c8186c9bfcd459a8c522d0206154234353da62294120f1793ecdf4a8.mp4",
+    "force_rate": 0,
+    "force_size": "Disabled",
+    "custom_width": 0,
+    "custom_height": 0,
+    "frame_load_cap": 0,
+    "skip_first_frames": 0,
+    "select_every_nth": 1,
+    "format": "AnimateDiff",
+    "choose video to upload": "image"
+   },
+   "color": "#c0392b",
+   "bgcolor": "#5b1f1f"
+  },
+  {
+   "id": 2,
+   "type": "DWPreprocessor",
+   "order": 1,
+   "mode": 0,
+   "flags": {},
+   "pos": [
+    500,
+    0
+   ],
+   "size": [
+    340,
+    380
+   ],
+   "title": "★ 改这里 · DWPose 提骨骼（手部开 / 脸部关）",
+   "color": "#c0392b",
+   "bgcolor": "#5b1f1f",
+   "inputs": [
+    {
+     "name": "image",
+     "type": "IMAGE",
+     "link": 1
+    },
+    {
+     "name": "detect_hand",
+     "type": "COMBO",
+     "widget": {
+      "name": "detect_hand"
+     },
+     "link": null
+    },
+    {
+     "name": "detect_body",
+     "type": "COMBO",
+     "widget": {
+      "name": "detect_body"
+     },
+     "link": null
+    },
+    {
+     "name": "detect_face",
+     "type": "COMBO",
+     "widget": {
+      "name": "detect_face"
+     },
+     "link": null
+    },
+    {
+     "name": "resolution",
+     "type": "INT",
+     "widget": {
+      "name": "resolution"
+     },
+     "link": null
+    },
+    {
+     "name": "bbox_detector",
+     "type": "COMBO",
+     "widget": {
+      "name": "bbox_detector"
+     },
+     "link": null
+    },
+    {
+     "name": "pose_estimator",
+     "type": "COMBO",
+     "widget": {
+      "name": "pose_estimator"
+     },
+     "link": null
+    },
+    {
+     "name": "scale_stick_for_xinsr_cn",
+     "type": "COMBO",
+     "widget": {
+      "name": "scale_stick_for_xinsr_cn"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      2
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "DWPreprocessor"
+   },
+   "widgets_values": [
+    "enable",
+    "enable",
+    "disable",
+    1024,
+    "yolox_l.onnx",
+    "dw-ll_ucoco_384.onnx",
+    "disable"
+   ]
+  },
+  {
+   "id": 3,
+   "type": "ImageScale",
+   "order": 2,
+   "mode": 0,
+   "flags": {},
+   "pos": [
+    500,
+    420
+   ],
+   "size": [
+    340,
+    180
+   ],
+   "title": "拉回源片宽高（与输入等大）",
+   "inputs": [
+    {
+     "name": "image",
+     "type": "IMAGE",
+     "link": 2
+    },
+    {
+     "name": "upscale_method",
+     "type": "COMBO",
+     "widget": {
+      "name": "upscale_method"
+     },
+     "link": null
+    },
+    {
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": null
+    },
+    {
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": null
+    },
+    {
+     "name": "crop",
+     "type": "COMBO",
+     "widget": {
+      "name": "crop"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      3
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ImageScale"
+   },
+   "widgets_values": [
+    "lanczos",
+    864,
+    736,
+    "disabled"
+   ]
+  },
+  {
+   "id": 4,
+   "type": "VHS_VideoCombine",
+   "pos": [
+    900,
+    0
+   ],
+   "size": [
+    360,
+    420
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 3
+    },
+    {
+     "label": "audio",
+     "name": "audio",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "label": "meta_batch",
+     "name": "meta_batch",
+     "shape": 7,
+     "type": "VHS_BatchManager",
+     "link": null
+    },
+    {
+     "label": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": null
+    },
+    {
+     "label": "frame_rate",
+     "name": "frame_rate",
+     "type": "FLOAT",
+     "widget": {
+      "name": "frame_rate"
+     },
+     "link": null
+    },
+    {
+     "label": "loop_count",
+     "name": "loop_count",
+     "type": "INT",
+     "widget": {
+      "name": "loop_count"
+     },
+     "link": null
+    },
+    {
+     "label": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "label": "format",
+     "name": "format",
+     "type": "COMBO",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "label": "pingpong",
+     "name": "pingpong",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "pingpong"
+     },
+     "link": null
+    },
+    {
+     "label": "save_output",
+     "name": "save_output",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "save_output"
+     },
+     "link": null
+    },
+    {
+     "label": "no_preview",
+     "name": "no_preview",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "no_preview"
+     },
+     "link": null
+    },
+    {
+     "label": "pix_fmt",
+     "name": "pix_fmt",
+     "type": [
+      "yuv420p",
+      "yuv420p10le"
+     ],
+     "widget": {
+      "name": "pix_fmt"
+     },
+     "link": null
+    },
+    {
+     "label": "crf",
+     "name": "crf",
+     "type": "INT",
+     "widget": {
+      "name": "crf"
+     },
+     "link": null
+    },
+    {
+     "label": "save_metadata",
+     "name": "save_metadata",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "save_metadata"
+     },
+     "link": null
+    },
+    {
+     "label": "trim_to_audio",
+     "name": "trim_to_audio",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "trim_to_audio"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "Filenames",
+     "name": "Filenames",
+     "type": "VHS_FILENAMES",
+     "links": []
+    }
+   ],
+   "title": "输出骨架视频（无声 mp4，同宽高同帧率）",
+   "properties": {
+    "Node name for S&R": "VHS_VideoCombine",
+    "cnr_id": "comfyui-videohelpersuite",
+    "ver": "dabda5423a9df2d17940e619ba9bd6a6344453c7",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "version": "7.0.1"
+    }
+   },
+   "widgets_values": {
+    "frame_rate": 24,
+    "loop_count": 0,
+    "filename_prefix": "skeleton_joker02",
+    "format": "video/h264-mp4",
+    "pix_fmt": "yuv420p",
+    "crf": 18,
+    "save_metadata": true,
+    "trim_to_audio": false,
+    "pingpong": false,
+    "save_output": true,
+    "no_preview": false
+   },
+   "color": "#d35400",
+   "bgcolor": "#5a3208"
+  },
+  {
+   "id": 5,
+   "type": "MarkdownNote",
+   "order": 4,
+   "mode": 0,
+   "flags": {},
+   "pos": [
+    900,
+    450
+   ],
+   "size": [
+    480,
+    520
+   ],
+   "title": "说明",
+   "inputs": [],
+   "outputs": [],
+   "properties": {},
+   "widgets_values": [
+    "## 姿势提取 · 视频 → 骨架视频（DWPose）\n\n**红块 = 你要改的**：源片、DWPose 参数、宽高。**橙块 = 输出**。\n\n### 它做什么\n逐帧跑 DWPose，把每一帧画成黑底彩色骨骼，再拉回**源片宽高**，按**源片帧率**输出无声 mp4。\n产物直接当 H3 的参考视频用（H3 没有姿势输入口，这是它能接受姿势的唯一通道）。\n\n### 默认参数\n- 源片：已预填，全帧读取（`frame_load_cap=0`）。\n- DWPose：body `enable` / hand `enable` / face `disable`。\n  手部开是因为这段是跳舞；脸部关是因为脸的关键点会糊成一团，头的朝向靠鼻/眼/耳三点已经够了。\n- 出片：864×736 / 24fps / 无音轨。换片时把宽高改成新源片的宽高。\n- `resolution=1024`：检测分辨率，调高更准但更慢。\n\n### 已知限制\n1. 检测不到人的帧（远景小人、大幅失焦）会输出纯黑帧，属于正常，不是接线错。\n2. 328 帧逐帧检测较慢，先拿一条短片段试跑再跑整条。\n3. 骨架视频本身不含原片画面；如果你想让 H3 同时看到背景，需要另做一条\"原片+骨骼叠加\"的版本。\n4. 素材 `fileName` 约 24 小时过期，重新上传后改节点里的视频名即可，接线不动。"
+   ]
+  }
+ ],
+ "links": [
+  [
+   1,
+   1,
+   0,
+   2,
+   0,
+   "IMAGE"
+  ],
+  [
+   2,
+   2,
+   0,
+   3,
+   0,
+   "IMAGE"
+  ],
+  [
+   3,
+   3,
+   0,
+   4,
+   0,
+   "IMAGE"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.6,
+   "offset": [
+    400,
+    300
+   ]
+  }
+ },
+ "version": 0.4
+}

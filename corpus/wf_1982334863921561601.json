@@ -1,0 +1,406 @@
+{
+ "26": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "vae": [
+    "40",
+    0
+   ],
+   "samples": [
+    "34",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "VAE解码"
+  }
+ },
+ "28": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "wan2.2_i2v_A14b_high_noise_lora_rank64_lightx2v_4step_1022.safetensors",
+   "strength_model": 1,
+   "model": [
+    "37",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "LoRA加载器(仅模型)"
+  }
+ },
+ "29": {
+  "class_type": "ModelSamplingSD3",
+  "inputs": {
+   "shift": 5,
+   "model": [
+    "28",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "模型采样算法SD3"
+  }
+ },
+ "30": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "wan2.2_i2v_A14b_low_noise_lora_rank64_lightx2v_4step_1022_modified.safetensors",
+   "strength_model": 1,
+   "model": [
+    "36",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "LoRA加载器(仅模型)"
+  }
+ },
+ "31": {
+  "class_type": "ModelSamplingSD3",
+  "inputs": {
+   "shift": 5,
+   "model": [
+    "30",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "模型采样算法SD3"
+  }
+ },
+ "33": {
+  "class_type": "KSamplerAdvanced",
+  "inputs": {
+   "latent_image": [
+    "83",
+    3
+   ],
+   "cfg": 1,
+   "return_with_leftover_noise": "enable",
+   "end_at_step": [
+    "49",
+    0
+   ],
+   "positive": [
+    "83",
+    0
+   ],
+   "add_noise": "enable",
+   "steps": [
+    "48",
+    0
+   ],
+   "scheduler": "simple",
+   "negative": [
+    "83",
+    2
+   ],
+   "start_at_step": 0,
+   "sampler_name": "euler",
+   "noise_seed": 1000,
+   "model": [
+    "29",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "K采样器(高级)"
+  }
+ },
+ "34": {
+  "class_type": "KSamplerAdvanced",
+  "inputs": {
+   "latent_image": [
+    "33",
+    0
+   ],
+   "cfg": 1,
+   "return_with_leftover_noise": "disable",
+   "end_at_step": 10000,
+   "positive": [
+    "83",
+    1
+   ],
+   "add_noise": "disable",
+   "steps": [
+    "48",
+    0
+   ],
+   "scheduler": "simple",
+   "negative": [
+    "83",
+    2
+   ],
+   "start_at_step": [
+    "49",
+    0
+   ],
+   "sampler_name": "euler",
+   "noise_seed": 667,
+   "model": [
+    "31",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "K采样器(高级)"
+  }
+ },
+ "35": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+   "type": "wan",
+   "device": "default"
+  },
+  "_meta": {
+   "title": "CLIP加载器"
+  }
+ },
+ "36": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "weight_dtype": "fp8_e4m3fn",
+   "unet_name": "wan2.2_i2v_low_noise_14B_fp16.safetensors"
+  },
+  "_meta": {
+   "title": "UNET加载器"
+  }
+ },
+ "37": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "weight_dtype": "fp8_e4m3fn",
+   "unet_name": "wan2.2_i2v_high_noise_14B_fp16.safetensors"
+  },
+  "_meta": {
+   "title": "UNET加载器"
+  }
+ },
+ "38": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，倒着走，",
+   "clip": [
+    "35",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "CLIP文本编码器"
+  }
+ },
+ "39": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "pasted/bdefe1ff68a49cdb1c43acb82b89aabde8a877a10652d9ebee9553e2503740e1.png"
+  },
+  "_meta": {
+   "title": "加载图像"
+  }
+ },
+ "40": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "wan_2.1_vae_Comfy-Org.safetensors"
+  },
+  "_meta": {
+   "title": "VAE加载器"
+  }
+ },
+ "41": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "pasted/0b73c2b15365c487c2e9232943e4c075f6fc4a5af5167c780650d9a3ecd9ba4f.png"
+  },
+  "_meta": {
+   "title": "加载图像"
+  }
+ },
+ "42": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "一个女人站起来从一个男人手里接过一束花",
+   "clip": [
+    "35",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "CLIP文本编码器"
+  }
+ },
+ "44": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "save_output": true,
+   "filename_prefix": "AnimateDiff",
+   "images": [
+    "59",
+    0
+   ],
+   "loop_count": 0,
+   "pix_fmt": "yuv420p",
+   "save_metadata": true,
+   "crf": 19,
+   "trim_to_audio": false,
+   "format": "video/h264-mp4",
+   "no_preview": false,
+   "frame_rate": 16,
+   "pingpong": false
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ },
+ "45": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "pasted/b7f7ff1b72331f7ec0e202c2aba489052e5b056550e5c7de8e947be4999acaac.png"
+  },
+  "_meta": {
+   "title": "加载图像"
+  }
+ },
+ "48": {
+  "class_type": "INTConstant",
+  "inputs": {
+   "value": 8
+  },
+  "_meta": {
+   "title": "整数常量"
+  }
+ },
+ "49": {
+  "class_type": "INTConstant",
+  "inputs": {
+   "value": 4
+  },
+  "_meta": {
+   "title": "整数常量"
+  }
+ },
+ "55": {
+  "class_type": "ImageScaleBy",
+  "inputs": {
+   "image": [
+    "39",
+    0
+   ],
+   "scale_by": 0.2,
+   "upscale_method": "nearest-exact"
+  },
+  "_meta": {
+   "title": "图像按系数缩放"
+  }
+ },
+ "56": {
+  "class_type": "ImageScaleBy",
+  "inputs": {
+   "image": [
+    "45",
+    0
+   ],
+   "scale_by": 0.2,
+   "upscale_method": "nearest-exact"
+  },
+  "_meta": {
+   "title": "图像按系数缩放"
+  }
+ },
+ "57": {
+  "class_type": "ImageScaleBy",
+  "inputs": {
+   "image": [
+    "41",
+    0
+   ],
+   "scale_by": 0.2,
+   "upscale_method": "nearest-exact"
+  },
+  "_meta": {
+   "title": "图像按系数缩放"
+  }
+ },
+ "58": {
+  "class_type": "ImageConcatMulti",
+  "inputs": {
+   "inputcount": 3,
+   "image_1": [
+    "55",
+    0
+   ],
+   "image_3": [
+    "57",
+    0
+   ],
+   "image_2": [
+    "56",
+    0
+   ],
+   "match_image_size": true,
+   "direction": "down"
+  },
+  "_meta": {
+   "title": "图像联结（多个）"
+  }
+ },
+ "59": {
+  "class_type": "ImageConcanate",
+  "inputs": {
+   "match_image_size": true,
+   "image1": [
+    "58",
+    0
+   ],
+   "image2": [
+    "26",
+    0
+   ],
+   "direction": "right"
+  },
+  "_meta": {
+   "title": "图像联结"
+  }
+ },
+ "83": {
+  "class_type": "WanFirstMiddleLastFrameToVideo",
+  "inputs": {
+   "batch_size": 1,
+   "length": 81,
+   "positive": [
+    "42",
+    0
+   ],
+   "high_noise_strength": 0.5,
+   "end_image": [
+    "41",
+    0
+   ],
+   "negative": [
+    "38",
+    0
+   ],
+   "middle_image": [
+    "45",
+    0
+   ],
+   "low_noise_strength": 0.2,
+   "width": 720,
+   "vae": [
+    "40",
+    0
+   ],
+   "height": 1280,
+   "middle_frame_ratio": 0.6,
+   "start_image": [
+    "39",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Wan First-Middle-Last Frame"
+  }
+ }
+}

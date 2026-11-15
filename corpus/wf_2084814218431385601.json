@@ -1,0 +1,389 @@
+{
+ "115": {
+  "class_type": "ResolutionSelector",
+  "inputs": {
+   "aspect_ratio": "16:9 (Widescreen)",
+   "megapixels": 1,
+   "multiple": 32
+  },
+  "_meta": {
+   "title": "Resolution Selector (Size)"
+  }
+ },
+ "119": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  },
+  "_meta": {
+   "title": "Load VAE"
+  }
+ },
+ "120": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  },
+  "_meta": {
+   "title": "Load VAE"
+  }
+ },
+ "122": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "vae": [
+    "119",
+    0
+   ],
+   "samples": [
+    "125",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "VAE Decode"
+  }
+ },
+ "123": {
+  "class_type": "KSamplerSelect",
+  "inputs": {
+   "sampler_name": "res_multistep"
+  },
+  "_meta": {
+   "title": "KSamplerSelect"
+  }
+ },
+ "124": {
+  "class_type": "BasicScheduler",
+  "inputs": {
+   "scheduler": "simple",
+   "denoise": 1,
+   "model": [
+    "198",
+    0
+   ],
+   "steps": 6
+  },
+  "_meta": {
+   "title": "BasicScheduler"
+  }
+ },
+ "125": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "guider": [
+    "126",
+    0
+   ],
+   "latent_image": [
+    "172",
+    0
+   ],
+   "noise": [
+    "129",
+    0
+   ],
+   "sigmas": [
+    "124",
+    0
+   ],
+   "sampler": [
+    "123",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "SamplerCustomAdvanced"
+  }
+ },
+ "126": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "conditioning": [
+    "136",
+    0
+   ],
+   "model": [
+    "198",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Basic Guider"
+  }
+ },
+ "128": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  },
+  "_meta": {
+   "title": "Load CLIP"
+  }
+ },
+ "129": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 999
+  },
+  "_meta": {
+   "title": "RandomNoise"
+  }
+ },
+ "131": {
+  "class_type": "ComfyMathExpression",
+  "inputs": {
+   "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17",
+   "values.a": [
+    "132",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Math Expression"
+  }
+ },
+ "132": {
+  "class_type": "PrimitiveFloat",
+  "inputs": {
+   "value": [
+    "179",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Float (Duration)"
+  }
+ },
+ "136": {
+  "class_type": "MiniMaxH3ReferenceToVideo",
+  "inputs": {
+   "ref_images.ref_image_0": [
+    "137",
+    0
+   ],
+   "width": [
+    "115",
+    0
+   ],
+   "length": [
+    "131",
+    1
+   ],
+   "vae": [
+    "119",
+    0
+   ],
+   "prompt": [
+    "138",
+    0
+   ],
+   "ref_image_size": "max",
+   "audio_vae": [
+    "120",
+    0
+   ],
+   "ref_audios.ref_audio_0": [
+    "199",
+    0
+   ],
+   "clip": [
+    "128",
+    0
+   ],
+   "height": [
+    "115",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "MiniMax H3 Reference to Video"
+  }
+ },
+ "137": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "pasted/81aac0c48dfbbbfe13c2414b86b62132f822d9bf260156300c11395e370baf40.png"
+  },
+  "_meta": {
+   "title": "Load Image"
+  }
+ },
+ "138": {
+  "class_type": "PrimitiveStringMultiline",
+  "inputs": {
+   "value": "subject_definitions:\n<Subject 1> is the young East Asian woman from the supplied reference image, with long, voluminous wavy black hair parted to one side, luminous fair skin, large almond-shaped brown-green eyes, pronounced winged eyeliner, sculpted cheekbones, and full glossy dark-rose lips. She wears geometric gold earrings, a gold bracelet, and a black satin one-shoulder evening dress. Her recognizable identity, hairstyle, makeup, jewelry, skin tone, costume, and elegant appearance remain consistent throughout the target video. The reference image’s indoor background, “AI生成” watermark, Douyin logo, platform marks, and all visible text must not appear.\n\n<Subject 2> is a single fresh deep-red rose held in <Subject 1>’s hand beside her face. It begins with firm crimson petals, a green stem, and small leaves. It rapidly dehydrates, wilts, crumbles into red-brown dust, and transforms into thin translucent gray smoke that disperses in the coastal wind.\n\nsummary:\n[reference generation] An exact 6-second melancholic cinematic music-video close-up shows <Subject 1> at a deserted beach late at night. A camera positioned close to the wet sand looks upward at her lowered face while she continuously sings a fragile wordless melody. <Subject 2>, held beside her cheek, rapidly withers and disintegrates into dust and smoke that drift toward the dark ocean. Moonlight, sea mist, distant waves, and restrained performance create a lonely MV atmosphere.\n\nretention_analysis:\n<Subject 1> (appears throughout [Shot 1]): fully_preserved - her facial identity, long wavy black hair, makeup, gold jewelry, black satin outfit, age, and overall appearance remain unchanged. Her bowed head, continuous wordless singing, slow breathing, wet wind-blown hair, and subtle sadness are added.\n<Subject 2> (appears throughout [Shot 1]): partially_preserved - the same rose remains in her hand while its fresh petals and green structure transform into dry fragments, fine dust, and translucent smoke before dispersing.\n\ndetailed_description:\nThe target video is an exact 6-second, 16:9 melancholic cinematic MV captured as one uninterrupted take on a deserted beach late at night. Use one fixed 50mm prime lens with a large aperture and shallow depth of field. Position the camera approximately 30 centimeters above wet sand and 45 centimeters below <Subject 1>’s face, looking upward from beneath her chin and eye line. Maintain a tight facial close-up that includes her eyes, nose, lips, cheek, wet hair, one hand, and <Subject 2>. Keep her face and the rose inside the same readable focus zone.\n\nThere is no cut, transition, hidden edit, zoom, focal-length change, focus pull, time jump, or sudden camera movement. The camera makes only a nearly imperceptible upward micro-tilt. Use cold silver moonlight, blue-black ocean shadows, soft wave highlights, drifting sea mist, faint moisture on the lens, and subtle film grain. The rose’s disintegration is poetic and physical, without flames, bright magic, or an explosive effect.\n\n[Shot 1] The take opens with <Subject 1> standing near the nighttime shoreline, her head bowed and chin lowered. Wet strands of long black hair cross one cheek and partially hide one eye. Cold moonlight outlines her face, gold earring, shoulder, and black satin dress. Behind her, the ocean is heavily defocused, with small white wave crests appearing as soft moving highlights. She holds <Subject 2>, a fresh deep-red rose, beside her cheek and continuously sings a slow, sorrowful female melody without intelligible words or specified lyrics.\n\nFrom 00:00.000 to 00:01.000, the rose remains fresh and upright. <Subject 1> keeps her eyes lowered while her lips, jaw, throat, and breathing move naturally with the wordless vocal line. Coastal wind gently moves her wet hair, but her posture remains stable.\n\nFrom 00:01.000 to 00:02.200, the rose rapidly loses moisture. Its outer petals curl inward, darken at the edges, and develop fine dry wrinkles. The leaves contract and the stem bends slightly toward her fingers. A subtle tremor passes through her lower lip while she continues singing without interruption.\n\nFrom 00:02.200 to 00:03.500, the flower head droops and begins breaking apart. Petal edges crack into dark red-brown particles. The leaves crumble into fine fragments, and a thin gray vapor rises between the rose and her cheek. Her fingers tighten around the stem briefly, then relax. Her face, hair, jewelry, and clothing remain unchanged.\n\nFrom 00:03.500 to 00:04.800, the rose loses its recognizable shape. Its remaining petals collapse inward and dissolve into a concentrated cloud of dry crimson dust mixed with delicate translucent smoke. The coastal wind carries the particles sideways, away from her face and toward the ocean. The smoke never obscures her eyes or mouth. She continues singing with her head lowered.\n\nFrom 00:04.800 to 00:06.000, the final flower fragments disintegrate, leaving only a short bare stem between her fingers. Red-brown dust and thin smoke strands drift across the moonlit background and disperse above the waves. <Subject 1> briefly closes her eyes while sustaining the final wordless note, then loosens her grip on the stem. The shot ends on her bowed face, the empty stem, and the last smoke fading into the sea mist. No subtitles, captions, lyrics, dialogue, readable text, logos, watermarks, extra people, flames, magical flashes, or abrupt ending appear.\n\noverall_soundscape:\n<Subject 1>’s singing, breathing, wet hair movement, faint satin movement, and finger contact with the stem remain clear and unaccelerated. Gentle waves, retreating foam, low coastal wind, and distant surf continue throughout. The rose adds delicate dry sounds: petal friction, brittle cracking, fragments falling onto wet sand, and a faint airy dispersion as the dust and smoke are carried seaward. No intelligible words are present.\n\nnon_diegetic_music:\nA sparse melancholic score remains at normal tempo: isolated minor-key piano, sustained cello, soft ambient electric-guitar harmonics, and a restrained atmospheric pad at approximately 56 BPM. It begins almost empty beneath the waves, gains subtle harmonic weight as the rose withers, reaches a quiet emotional swell as the flower becomes smoke, and ends on an unresolved chord beneath her sustained vocal note. No choir, no additional vocals, no lyrics, and no abrupt ending."
+  },
+  "_meta": {
+   "title": "Input Text (Prompt)"
+  }
+ },
+ "142": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "images": [
+    "122",
+    0
+   ],
+   "pix_fmt": "yuv420p",
+   "format": "video/h264-mp4",
+   "frame_rate": 24,
+   "pingpong": false,
+   "save_output": true,
+   "filename_prefix": "AnimateDiff",
+   "loop_count": 0,
+   "save_metadata": false,
+   "crf": 19,
+   "trim_to_audio": false,
+   "no_preview": false,
+   "audio": [
+    "172",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "Video Combine 🎥🅥🅗🅢"
+  }
+ },
+ "171": {
+  "class_type": "LoadAudio",
+  "inputs": {
+   "audio": "2933ff1780d5e3a49a8135ff271e590a40464feae960d7ad0c391416e9e6c5c1.mp3",
+   "audioUI": ""
+  },
+  "_meta": {
+   "title": "SOURCE AUDIO — drives lips and final soundtrack"
+  }
+ },
+ "172": {
+  "class_type": "VRGDG_MiniMaxH3AudioDrive",
+  "inputs": {
+   "source_audio": [
+    "199",
+    0
+   ],
+   "av_latent": [
+    "136",
+    1
+   ],
+   "audio_vae": [
+    "120",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "LOCK SOURCE AUDIO / GENERATE VIDEO ONLY"
+  }
+ },
+ "174": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "weight_dtype": "default",
+   "unet_name": "minimax_h3_ref2va_int8_convrot.safetensors"
+  },
+  "_meta": {
+   "title": "Load Diffusion Model"
+  }
+ },
+ "176": {
+  "class_type": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+  "inputs": {
+   "model": [
+    "197",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "MiniMax H3 Memory Efficient Sage Attention Patch"
+  }
+ },
+ "179": {
+  "class_type": "SoundFlow_GetLength",
+  "inputs": {
+   "audio": [
+    "199",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Audio Get Length"
+  }
+ },
+ "188": {
+  "class_type": "PreviewAudio",
+  "inputs": {
+   "audio": [
+    "199",
+    0
+   ],
+   "audioUI": ""
+  },
+  "_meta": {
+   "title": "Preview Audio"
+  }
+ },
+ "196": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "minimax_h3_fl2v_lightx2v_turbo_4step_v0.1_comfy.safetensors",
+   "strength_model": 0.7500000000000001,
+   "model": [
+    "174",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Load LoRA"
+  }
+ },
+ "197": {
+  "class_type": "ModelAttentionBackend",
+  "inputs": {
+   "attention": "comfy kitchen attention",
+   "model": [
+    "196",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "ModelAttentionBackend"
+  }
+ },
+ "198": {
+  "class_type": "ModelPreviewOverrideKJ",
+  "inputs": {
+   "preview_frames": [
+    "131",
+    1
+   ],
+   "suppress_default_preview": true,
+   "jpeg_quality": 80,
+   "tiny_vae": "taeh3.safetensors",
+   "model": [
+    "176",
+    0
+   ],
+   "preview_fps": 12,
+   "max_resolution": 1024
+  },
+  "_meta": {
+   "title": "Model Preview Override KJ"
+  }
+ },
+ "199": {
+  "class_type": "TrimAudioDuration",
+  "inputs": {
+   "duration": 10.000000000000002,
+   "start_index": 40.00000000000001,
+   "audio": [
+    "171",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Trim Audio Duration"
+  }
+ }
+}

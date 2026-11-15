@@ -1,0 +1,1 @@
+<Video 1> is the source clip. <Video 2> is its grayscale depth map, only for spatial reference. Replace the clown in <Video 1> with the man in <Picture 1>: tall gold crown, long black hair, thin black moustache, long pointed goatee, pale ice-blue robe. Keep everything else as in <Video 1>.

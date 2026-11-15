@@ -1,0 +1,171 @@
+{
+ "2": {
+  "class_type": "VHS_LoadVideo",
+  "inputs": {
+   "custom_height": 0,
+   "force_rate": 24,
+   "custom_width": 0,
+   "select_every_nth": 1,
+   "frame_load_cap": 0,
+   "format": "AnimateDiff",
+   "video": "27bb87e64855b9a2123bdce04a5fc8e1ea335707d55f42c85d01ca8ed5763357.mp4",
+   "skip_first_frames": 0,
+   "force_size": "Disabled"
+  },
+  "_meta": {
+   "title": "加载视频"
+  }
+ },
+ "4": {
+  "class_type": "ImageResizeKJv2",
+  "inputs": {
+   "crop_position": "center",
+   "image": [
+    "2",
+    0
+   ],
+   "pad_color": "0, 0, 0",
+   "divisible_by": 2,
+   "width": 480,
+   "keep_proportion": "crop",
+   "upscale_method": "nearest-exact",
+   "device": "cpu",
+   "height": 832
+  },
+  "_meta": {
+   "title": "Resize Image v2"
+  }
+ },
+ "5": {
+  "class_type": "SegmentV2",
+  "inputs": {
+   "mask_offset": 0,
+   "image": [
+    "11",
+    0
+   ],
+   "invert_output": false,
+   "background_color": "#222222",
+   "background": "Alpha",
+   "dino_model": "GroundingDINO_SwinT_OGC (694MB)",
+   "threshold": 0.35,
+   "mask_blur": 0,
+   "prompt": "男人",
+   "sam_model": "sam_vit_h (2.56GB)"
+  },
+  "_meta": {
+   "title": "Segmentation V2 (RMBG)"
+  }
+ },
+ "6": {
+  "class_type": "SolidColorBatched",
+  "inputs": {
+   "red": 0,
+   "batch_size": 1,
+   "green": 255,
+   "blue": 0,
+   "width": [
+    "4",
+    1
+   ],
+   "height": [
+    "4",
+    2
+   ]
+  },
+  "_meta": {
+   "title": "Solid Color Batched"
+  }
+ },
+ "7": {
+  "class_type": "MatAnyone2",
+  "inputs": {
+   "r_erode": 0,
+   "max_mem_frames": 5,
+   "max_internal_size": -1,
+   "src_video": [
+    "4",
+    0
+   ],
+   "use_long_term": false,
+   "foreground_mask": [
+    "10",
+    0
+   ],
+   "r_dilate": 0,
+   "mask_frame": 0,
+   "solid_color": [
+    "6",
+    0
+   ],
+   "n_warmup": 10
+  },
+  "_meta": {
+   "title": "MatAnyone2"
+  }
+ },
+ "8": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "save_output": true,
+   "filename_prefix": "AnimateDiff",
+   "images": [
+    "7",
+    0
+   ],
+   "loop_count": 0,
+   "format": "video/h264-mp4",
+   "no_preview": false,
+   "frame_rate": 24,
+   "pingpong": false
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ },
+ "10": {
+  "class_type": "MaskToImage",
+  "inputs": {
+   "mask": [
+    "5",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "遮罩到图像"
+  }
+ },
+ "11": {
+  "class_type": "GetImageRangeFromBatch",
+  "inputs": {
+   "images": [
+    "4",
+    0
+   ],
+   "start_index": 0,
+   "num_frames": 1
+  },
+  "_meta": {
+   "title": "获取图像范围"
+  }
+ },
+ "13": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "save_output": true,
+   "filename_prefix": "AnimateDiff",
+   "images": [
+    "7",
+    1
+   ],
+   "loop_count": 0,
+   "format": "video/h264-mp4",
+   "no_preview": false,
+   "frame_rate": 24,
+   "pingpong": false
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ }
+}

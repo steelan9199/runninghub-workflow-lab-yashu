@@ -1,0 +1,292 @@
+{
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "minimax_h3_ref2va_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "2": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "minimax_h3_turbo_4step_ckpt500.safetensors",
+   "strength_model": 1,
+   "model": [
+    "1",
+    0
+   ]
+  }
+ },
+ "3": {
+  "class_type": "PathchSageAttentionKJ",
+  "inputs": {
+   "sage_attention": "auto",
+   "allow_compile": false,
+   "model": [
+    "2",
+    0
+   ]
+  }
+ },
+ "4": {
+  "class_type": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+  "inputs": {
+   "model": [
+    "3",
+    0
+   ]
+  }
+ },
+ "5": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  }
+ },
+ "6": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  }
+ },
+ "7": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  }
+ },
+ "8": {
+  "class_type": "VHS_LoadVideo",
+  "inputs": {
+   "video": "openapi/59a27ccb7da0fef58a759b7084aa1d0ec5c0864656e4e2c7c357aec12feb072e.mp4",
+   "force_rate": 24,
+   "force_size": "Disabled",
+   "custom_width": 0,
+   "custom_height": 0,
+   "frame_load_cap": 90,
+   "skip_first_frames": 0,
+   "select_every_nth": 1,
+   "format": "AnimateDiff"
+  }
+ },
+ "9": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/c8a5fb11528e7afa62f0aa9538908d51c3a6263221f8f22ee1cca70a1c82e7a9.png"
+  }
+ },
+ "10": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/3daceebc09d0e10e8fbab86de5106cdca8f275dfab04d1aaaf8fdbf78ce2acf3.png"
+  }
+ },
+ "11": {
+  "class_type": "PrimitiveStringMultiline",
+  "inputs": {
+   "value": "subject_definitions:\n<Video 1> is the source video for the target video edit: a 3.75-second two-shot sequence inside a corporate boardroom, delivered at 864x736 with a thin pure-black border on all four sides. [Shot 1] is a locked close-up of one man's head and shoulders facing the lens, and [Shot 2] is an even tighter close-up of a different man's face, with the last fourteen frames of the whole video repeating the final image as a frozen hold. In <Video 1> both men wear modern western business clothing — dark business suits, pale dress shirts, neckties — the man in [Shot 1] is an old man with white hair and a white moustache behind thin gold-rimmed spectacles, and the man in [Shot 2] is younger, with swept-back auburn hair and pale blue eyes. Those modern clothes, haircuts and spectacles are the state being replaced.\n<Audio 1> is the synchronized audio track of <Video 1> and is reused unchanged in the target video. It carries one spoken English line from <Subject 1> (S1) that begins about half a second into [Shot 1] and ends just as the picture cuts; after the cut the track falls to near-silence, with only a faint distant voice and room tone under [Shot 2] that no visible face performs.\n<Subject 1> is the man shown in <Picture 1>: a lean middle-aged Chinese man with a narrow face, black hair combed flat and drawn up into a topknot under a tall narrow gold crown, a thin gold pin running crosswise through the crown, a thin black moustache and a short pointed goatee, and a calm level gaze. He wears no spectacles. He is dressed in a muted gold wide-sleeved outer robe hanging in soft folds, a black under-layer patterned with pale rope-like gold motifs across the chest and belly, and a wide belt of pale rectangular plaques in a gold frame, with a dark collar closing at the throat. In [Shot 1] he is the only person in the frame, and he is the one who speaks.\n<Subject 2> is the man shown in <Picture 2>: a man of about forty-five with long black hair swept back from a high hairline into a small round gold crown pierced by two long crosswise gold pins, thick black brows, deep-set eyes, a thin moustache and a full pointed goatee that hangs over his collar. His expression starts exactly like the source's: the thick brows slightly drawn together, the eyes open with a startled look, and the lips parted around one narrow still gap that shows the edge of his teeth; in [Shot 2] that look turns into shock — his brows lift, his gaze comes up to the lens, his eyes open clearly wider than in the source and his mouth drops slightly open. He wears a pale ice-blue robe whose front opening is bordered by a wide dark-blue cloud-scroll band, over a white crossed inner collar. In [Shot 2] he is the only person in the frame, and he does not speak.\n\nsummary:\n[video editing + audio reuse] The target video is an edited version of <Video 1>. The old white-haired man in [Shot 1] becomes <Subject 1> and the younger auburn-haired man in [Shot 2] becomes <Subject 2>, each one completely re-dressed in the historical Chinese robe, crown and beard described above, so that every dark business suit, pale dress shirt, necktie and pair of spectacles disappears from the frame, while the two-shot structure with its hard cut at 00:01.375, both close-up framings, the head angles, the background walls, the blurred metal wall letters behind [Shot 2], the thin black border and the frozen last fourteen frames stay identical, and <Audio 1> is reused as the complete final audio track with its one English line spoken on camera by <Subject 1>. Both faces start from the exact expression of the source — the same brow tension, the same eye direction, the same cheek and jaw shapes — and only two things move: the lips and lower jaw of <Subject 1> while he speaks his one line, and, in [Shot 2], <Subject 2>'s expression turning into shock as his brows lift, his gaze comes up to the lens, his eyes open clearly wider than in the source and his mouth drops slightly open, all of it reaching its widest by about 00:02.300 and then holding unchanged to the frozen hold. Every other movement keeps exactly the amplitude it has in <Video 1>: nothing else is amplified, repeated or invented.\n\nretention_analysis:\n<Video 1> (two-shot structure and framing): fully_preserved - the locked close-up of [Shot 1] with the man's head slightly left of centre and his shoulders cut by the bottom frame edge, the hard cut at 00:01.375, the extreme close-up of [Shot 2] with the face filling the frame, both head angles and gaze directions, the flat pale grey wall and the dark brown wood panelling behind [Shot 1], the grey wall with the large blurred dark metal letters at the left edge of [Shot 2], the thin black border on all four sides, and the frozen hold over the last fourteen frames with no movement, no blink and no change of light.\n<Video 1> (modern clothing, hair and spectacles): not_retained - the charcoal business suits, the pale blue striped dress shirt and its white collar, the navy neckties, the white hair and white moustache, the thin gold-rimmed spectacles and the auburn swept-back hair are completely replaced; not one suit lapel, shirt collar, necktie, spectacle frame or strand of auburn hair may remain anywhere in the frame.\n<Subject 1> ([Shot 1]): fully_preserved - the tall narrow gold crown with its crosswise pin, the black topknot, the thin moustache and pointed goatee, the bare eyes without spectacles, the muted gold outer robe with its black gold-patterned under-layer and the pale-plaque belt; his facial expression stays the source's, with flat brows at the same height, the same steady gaze slightly toward screen right and the same cheek and jaw shapes, and only his lips and lower jaw move, only while the one line is spoken.\n<Subject 2> ([Shot 2]): fully_preserved - the long black hair swept back into the small round gold crown with two crosswise pins, the thick brows, the thin moustache and full pointed goatee, the pale ice-blue robe with its wide dark-blue cloud-scroll border and white crossed inner collar, at the same head angle as the source, while his gaze lifts from the source's downward drift to the lens.\n<Subject 2> ([Shot 2] expression): partially_preserved - the source's startled look is the starting shape and then turns into shock in one continuous movement that never reverses: his thick brows lift, his upper eyelids rise straight away until his eyes are clearly wider open than the source with a thin band of white above and below the iris, his lower jaw drops a fraction so his mouth opens slightly, and his head pulls back a little; the eyes reach their widest by about 00:02.300 and stay there, the lids never come down, and there is no blink, no flutter and no half-closed moment anywhere in the shot.\n<Audio 1>: fully_copy - <Audio 1> is reused 1:1 as the target video's complete final audio track; its one English line is performed on camera by <Subject 1>, and the faint voice audible under [Shot 2] belongs to no visible face.\n\ndetailed_description:\nLive-action boardroom drama footage, long lens, shallow depth of field, soft overhead key light, fine film grain. Every person in the frame wears historical Chinese court costume; there is not a single business suit, dress shirt, necktie or pair of spectacles anywhere. All cloth is matte woven fabric under ordinary room light, with no glow, no neon edge and no self-illumination.\n[Shot 1] The frame is filled by the head and shoulders of <Subject 1>, held at exactly the position and angle of the source: the face slightly left of centre and turned a little toward screen right, the tall narrow gold crown with its crosswise pin rising above the black topknot, the thin moustache and pointed goatee on the chin, the bare eyes with no spectacles on them, the muted gold robe across his shoulders above the black gold-patterned under-layer and the pale-plaque belt. Behind his left shoulder is the flat pale grey wall; behind his right shoulder, the dark brown wood panelling and the top of a black leather chair. His whole expression is copied from <Video 1> and does not change: his brows stay flat at the same height, his eyes keep the same steady, slightly narrowed gaze toward screen right, his cheeks and jaw keep the same shapes, and his head drifts only by the few pixels it drifts in the source. The only part of his face that moves is his mouth. About half a second into the shot <Subject 1> (S1) speaks one short line in English in a low, level, unhurried voice, <d>[English] You're out, Norman.</d> He articulates each word with small contained movements of the lips and lower jaw that stay inside the size of the mouth in the source, the moustache above his lip moving with the upper lip and the goatee moving with the chin; the last syllable runs into the cut. Between and after the words his lips rest closed behind his teeth as one still shape. The camera is locked off: no push-in, no zoom, no handheld shake, so the framing of every frame matches the first frame of this shot.\n[Shot 2] At 00:01.375 the picture cuts hard to an extreme close-up of <Subject 2> with his face filling the frame: long black hair swept back into the small round gold crown pierced by two crosswise gold pins, thick black brows, deep-set eyes, the thin moustache and the full pointed goatee hanging over the pale ice-blue robe, whose front opening is bordered by the wide dark-blue cloud-scroll band above the white crossed inner collar. Behind him is a flat grey wall, and at the left edge of the frame the large blurred dark metal letters of a wall sign stay out of focus exactly as in the source. His face performs one single movement from the first frame of this shot and then holds it: the shock of being told he is out. His thick brows lift, his upper eyelids rise at once — they never sink first — until his eyes are clearly wider open than in the source, with a thin band of white visible above and below the iris while the almond shape of the eye stays the same, and his gaze comes up off the floor and settles level toward the lens. At the same time his lower jaw drops a fraction, so the narrow dark gap of his mouth opens into a small open mouth, and his head pulls back and rises a few pixels as if he has been pushed. Everything reaches its widest by about 00:02.300 and then holds unchanged: his eyelids stay up for the rest of the shot and never come down again, he does not blink even once, there is no flutter, no second opening, no half-closed moment and no repeated movement. His gaze stays level and does not drift back down, the tension of his cheeks and forehead stays fixed at the shocked shape, he does not speak and does not mouth any word, he does not smile, and the faint off-screen voice under this shot is answered by no mouth. The camera is locked off completely, so the framing of every frame matches the first frame of this shot, and for the last fourteen frames the picture is a frozen hold of the final image with no movement, no blink and no change of light.\nThe two black border strips on the left and right and the strips at the top and bottom stay black and perfectly still in every frame.\n\noverall_soundscape:\nA quiet boardroom room tone with a faint ventilation hum, one short low English line spoken on camera by <Subject 1> in the first shot, a faint distant voice and near-silence under the second shot, all carried unchanged by <Audio 1>.\n\nnon_diegetic_music:\nN/A"
+  }
+ },
+ "12": {
+  "class_type": "PrimitiveFloat",
+  "inputs": {
+   "value": 864
+  }
+ },
+ "13": {
+  "class_type": "ComfyMathExpression",
+  "inputs": {
+   "expression": "a",
+   "values.a": [
+    "12",
+    0
+   ]
+  }
+ },
+ "14": {
+  "class_type": "PrimitiveFloat",
+  "inputs": {
+   "value": 736
+  }
+ },
+ "15": {
+  "class_type": "ComfyMathExpression",
+  "inputs": {
+   "expression": "a",
+   "values.a": [
+    "14",
+    0
+   ]
+  }
+ },
+ "16": {
+  "class_type": "MiniMaxH3ReferenceToVideo",
+  "inputs": {
+   "prompt": [
+    "11",
+    0
+   ],
+   "width": [
+    "13",
+    1
+   ],
+   "height": [
+    "15",
+    1
+   ],
+   "length": 90,
+   "ref_image_size": "match",
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "audio_vae": [
+    "7",
+    0
+   ],
+   "ref_images.ref_image_0": [
+    "9",
+    0
+   ],
+   "ref_images.ref_image_1": [
+    "10",
+    0
+   ],
+   "ref_videos.ref_video_0": [
+    "8",
+    0
+   ],
+   "ref_video_audios.ref_video_audio_0": [
+    "8",
+    2
+   ]
+  }
+ },
+ "17": {
+  "class_type": "BasicScheduler",
+  "inputs": {
+   "scheduler": "beta",
+   "steps": 4,
+   "denoise": 1,
+   "model": [
+    "4",
+    0
+   ]
+  }
+ },
+ "18": {
+  "class_type": "H3SigmaRefiner",
+  "inputs": {
+   "extra_steps": 2,
+   "start_at_sigma": 0.7,
+   "end_at_sigma": 0,
+   "spacing": "cosine",
+   "sigmas": [
+    "17",
+    0
+   ]
+  }
+ },
+ "19": {
+  "class_type": "SplitSigmas",
+  "inputs": {
+   "step": 4,
+   "sigmas": [
+    "18",
+    0
+   ]
+  }
+ },
+ "20": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 20261114,
+   "control_after_generate": "fixed"
+  }
+ },
+ "21": {
+  "class_type": "KSamplerSelect",
+  "inputs": {
+   "sampler_name": "euler"
+  }
+ },
+ "22": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "conditioning": [
+    "16",
+    0
+   ]
+  }
+ },
+ "23": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "20",
+    0
+   ],
+   "guider": [
+    "22",
+    0
+   ],
+   "sampler": [
+    "21",
+    0
+   ],
+   "sigmas": [
+    "19",
+    0
+   ],
+   "latent_image": [
+    "16",
+    1
+   ]
+  }
+ },
+ "24": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "23",
+    1
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "26": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "frame_rate": 24,
+   "loop_count": 0,
+   "filename_prefix": "norman06_onepass_2p",
+   "format": "video/h264-mp4",
+   "pix_fmt": "yuv420p",
+   "crf": 19,
+   "save_output": true,
+   "save_metadata": true,
+   "trim_to_audio": false,
+   "images": [
+    "24",
+    0
+   ],
+   "audio": [
+    "8",
+    2
+   ]
+  }
+ }
+}

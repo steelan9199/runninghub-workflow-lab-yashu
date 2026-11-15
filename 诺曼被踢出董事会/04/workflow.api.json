@@ -1,0 +1,322 @@
+{
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "minimax_h3_ref2va_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "2": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "minimax_h3_turbo_4step_ckpt500.safetensors",
+   "strength_model": 1,
+   "model": [
+    "1",
+    0
+   ]
+  }
+ },
+ "3": {
+  "class_type": "PathchSageAttentionKJ",
+  "inputs": {
+   "sage_attention": "auto",
+   "allow_compile": false,
+   "model": [
+    "2",
+    0
+   ]
+  }
+ },
+ "4": {
+  "class_type": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+  "inputs": {
+   "model": [
+    "3",
+    0
+   ]
+  }
+ },
+ "5": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  }
+ },
+ "6": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  }
+ },
+ "7": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  }
+ },
+ "8": {
+  "class_type": "VHS_LoadVideo",
+  "inputs": {
+   "video": "openapi/e68cde0e2a8011c30279d88825e82ae5924eae422ee46a73439ebe4d6ec2af70.mp4",
+   "force_rate": 24,
+   "force_size": "Disabled",
+   "custom_width": 0,
+   "custom_height": 0,
+   "frame_load_cap": 90,
+   "skip_first_frames": 0,
+   "select_every_nth": 1,
+   "format": "AnimateDiff"
+  }
+ },
+ "9": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/3daceebc09d0e10e8fbab86de5106cdca8f275dfab04d1aaaf8fdbf78ce2acf3.png"
+  }
+ },
+ "10": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/5bade78c180a6c7bff3e9f7293fdd9b7f29515a918bce8bca544b907673dd105.png"
+  }
+ },
+ "11": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/04eca517dcf9a3152ec1511c8ddbe3f2a43b23f6d3012803869d449c66ffe224.png"
+  }
+ },
+ "12": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/9a7f61b3ef9c2d32bbe2856c4efcd5646997be2ed20e9c7d76dbb4f43f804d73.png"
+  }
+ },
+ "13": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/fd97b654899729e1acf0c39ca4d253f31d4c502293a37134d3a6a30aab517889.png"
+  }
+ },
+ "14": {
+  "class_type": "PrimitiveStringMultiline",
+  "inputs": {
+   "value": "subject_definitions:\n<Video 1> is the source video for the target video edit: a 3.75-second two-shot sequence inside a corporate boardroom, delivered at 864x736 with a thin pure-black border on all four sides. [Shot 1] is a locked-off extreme close-up of one man's face and left shoulder filling the frame, his head in three-quarter left profile turned toward screen right, with a plain grey wall behind him that is darker on the left and carries a slightly lighter vertical band at the right edge; the top of his head is clipped by the top frame edge. [Shot 2] begins with a hard cut at 00:03.417 and holds a medium-wide view of four board members seated behind a long glossy black table: a pale grey wall with a dark horizontal band runs behind them, black leather high-backed chairs stand in a row, and white teacups on saucers, a dark red leather folder and a pen lie on the reflective tabletop in the foreground. In <Video 1> every person wears modern western business clothing: dark business suits, white dress shirts and neckties, and the person at the extreme left edge of [Shot 2] wears a plain black top. Those modern clothes and haircuts are the state being replaced.\n<Audio 1> is the synchronized audio track of <Video 1> and is reused unchanged in the target video. It carries the voice of the single man in [Shot 1] speaking English, beginning with a short laugh and turning into an angry shout, followed after the cut by near-silent boardroom room tone; nobody speaks in [Shot 2].\n<Subject 1> is the man shown in <Picture 1>: a Chinese man with long straight black hair swept back and gathered at the crown, a small gold crown with two thin crosswise pins, a thin moustache and a small pointed goatee, a pale ice-blue robe with a dark blue cloud-patterned border running down the front opening and around the wide cuffs, worn over a white inner collar. In [Shot 1] he is the only person in the frame, and his face, hair, neck, left shoulder and the top of his chest fill it; his auburn slicked-back hair, pale skin, light blue eyes, charcoal suit, white dress shirt and blue necktie are all replaced by the black hair, the gold crown, the dark brown eyes and the ice-blue robe described above. The top of his head is cropped by the top frame edge, so only the lower rim of the gold crown and the two pin ends stay inside the frame. He keeps the same head angle, the same gaze direction and the same profile as the source.\n<Subject 2> is the man shown in <Picture 2>: an older Chinese official with short grey hair, a short grey beard and moustache, a tall black hat with vertical gold stripes and two short upright side wings, a red robe with a large dark-green square badge embroidered in gold on the chest, and a black belt of round gold plaques. In [Shot 2] he sits at the extreme left edge of the frame, nearest the camera, and only the left part of his face and one shoulder stay inside the frame: the cheek, the nose profile, one eye, the edge of the hat and the raised right hand near his chest. His black top, short dark hair and bare forearm are replaced by the red robe, its wide sleeve and the black-and-gold hat.\n<Subject 3> is the man shown in <Picture 3>: an older Chinese official with short grey hair, a short grey beard, thin metal-rimmed spectacles, a tall black hat with vertical gold stripes and two short upright side wings, a red robe with a large dark-green square badge embroidered in gold on the chest, and a black belt of round gold plaques. In [Shot 2] he sits at the centre-left of the frame, body turned toward the camera, the largest figure in the shot, leaning slightly forward with his left hand flat on a dark red leather folder on the table. His charcoal suit, white shirt, dark striped necktie and short grey hair are replaced by the red robe, the badge and the tall black hat; the thin spectacles stay on his face.\n<Subject 4> is the man shown in <Picture 4>: a middle-aged Chinese official with a long black beard falling over his chest, a tall black hat with vertical gold stripes and two short upright side wings, a red robe with a large dark-green square badge embroidered in gold on the chest, and a black belt of round gold plaques. In [Shot 2] he sits at the centre-right of the frame, a little farther back than <Subject 3> and higher in the frame, his hands clasped on the edge of the table in front of him, looking straight ahead. His receding blond-grey hair, deep frown, dark grey suit, white shirt and brown patterned necktie are replaced by the black beard, the tall black hat and the red robe.\n<Subject 5> is the man shown in <Picture 5>: a lean middle-aged Chinese official with a thin moustache and a short pointed goatee, a tall black hat with vertical gold stripes and two short upright side wings, a red robe with a large dark-green square badge embroidered in gold on the chest, and a black belt of round gold plaques. In [Shot 2] he sits at the extreme right edge of the frame, deepest in the room, and only the left half of his body and face stays inside the frame, cut by the right frame edge, his eyes turned toward screen left. His dark suit, white shirt, dark red necktie and dark brown side-parted hair are replaced by the red robe, the tall black hat and the pointed goatee.\n\nsummary:\n[video editing + audio reuse] The target video is an edited version of <Video 1>. The single man in the extreme close-up of [Shot 1] is replaced by <Subject 1>, and after the hard cut the four board members of [Shot 2] are replaced one for one, seat by seat, by <Subject 2>, <Subject 3>, <Subject 4> and <Subject 5>, each completely re-dressed in the historical Chinese robe, hat and beard described above, so that every dark business suit, white dress shirt, necktie and modern haircut disappears from the frame, while the two-shot structure with its hard cut at 00:03.417, the close-up framing and head angle of [Shot 1], the four seating positions, gazes and expressions of [Shot 2], the grey walls, the black table, the black leather chairs, the white teacups, the thin black border and every lip movement stay identical, and <Audio 1> is reused as the complete final audio track.\n\nretention_analysis:\n<Video 1> (two-shot structure and framing): fully_preserved - the locked-off extreme close-up of [Shot 1], the hard cut at 00:03.417, the medium-wide view of the four seated board members in [Shot 2], their seating order and depth, the reflective black tabletop with the white teacups, dark red folder and pen, the black leather chairs, the pale grey walls, the thin black border on all four sides, the close-up head angle, and the absence of any camera move, zoom or extra cut.\n<Video 1> (modern clothing and haircuts): not_retained - the auburn slicked-back hair, the short grey and blond hairs, the dark business suits, white dress shirts, neckties and black top are completely replaced on every person; not one suit lapel, shirt collar, white cuff or necktie may remain anywhere in the frame.\n<Subject 1> (extreme close-up of [Shot 1]): fully_preserved - the long black hair, the small gold crown with two crosswise pins cropped by the top edge, the thin moustache and pointed goatee, the pale ice-blue robe with its dark blue patterned border and the white inner collar stay in the same profile, at the same head angle, in the same light; the laugh that opens his mouth into a wide smile and the angry shout that follows stay in step with the voice in <Audio 1>.\n<Subject 2> (extreme left edge of [Shot 2]): fully_preserved - only one side of his face, the edge of his tall black hat and one raised hand stay inside the frame at the left edge, cropped exactly as the source is cropped, the red robe replacing the black top.\n<Subject 3> (centre-left of [Shot 2]): fully_preserved - the short grey hair and beard, the thin spectacles, the tall black hat with gold stripes and upright wings, the red robe with the dark-green gold-embroidered badge, the gold-plaque belt, the forward lean and the left hand flat on the dark red folder.\n<Subject 4> (centre-right of [Shot 2], set farther back): fully_preserved - the long black beard over the chest, the tall black hat with gold stripes and upright wings, the red robe with the dark-green gold-embroidered badge, the gold-plaque belt, the upright posture and the hands clasped on the table edge.\n<Subject 5> (extreme right edge of [Shot 2], cropped): fully_preserved - only the left half of his body and face stay inside the frame at the right edge, with the thin moustache, the short pointed goatee, the tall black hat with gold stripes and upright wings, the red robe with the dark-green gold-embroidered badge and the gold-plaque belt.\n<Audio 1>: fully_copy - <Audio 1> is reused 1:1 as the target video's complete final audio track.\n\ndetailed_description:\nLive-action boardroom drama footage, long lens, shallow depth of field, soft overhead key light, fine film grain, a plain grey wall in [Shot 1] and a pale grey wall with a dark horizontal band above black leather chairs in [Shot 2]. Every person in the frame wears historical Chinese official costume; there is not a single business suit, dress shirt, white cuff, necktie or modern haircut anywhere. All cloth is matte woven fabric under ordinary room light, with no glow, no neon edge and no self-illumination.\n[Shot 1] The frame is filled by the face of <Subject 1> in three-quarter left profile turned toward screen right, his long black hair swept back and gathered under the small gold crown whose lower rim and two pin ends are clipped by the top frame edge, the thin moustache and small pointed goatee on his chin, the dark brown eyes, and the pale ice-blue robe with its dark blue patterned border over the white inner collar across the bottom left of the frame. The camera is locked off and does not move. <Subject 1> (S1) first laughs: his mouth opens into a wide toothy smile, his eyes crease and he holds the laugh for about a second and a half. Then his smile collapses, his brows knit, his eyes narrow, and he turns his anger outward, shouting in English with his jaw wide open, lips and tongue moving exactly in step with the angry voice carried by <Audio 1>, his head staying at the same angle and never turning to face the lens. He is the only person in this shot.\n[Shot 2] At 00:03.417 the picture cuts hard to the four seated board members, all turned toward the close-up side of the room and listening in silence with their mouths closed. <Subject 2> sits at the extreme left edge, nearest the camera and almost entirely cropped by it: only the left side of his face, one eye, the nose profile, the edge of his tall black hat and his raised right hand stay inside the frame, the wide cuff of his red robe falling back from the wrist. <Subject 3> occupies the centre-left as the largest figure, his short grey hair and short grey beard framed by the tall black-and-gold hat, the thin spectacles on his nose, his red robe with the gold-embroidered dark-green badge on the chest and the gold-plaque belt, leaning slightly forward with his left hand flat on the dark red leather folder. <Subject 4> sits behind and to his right, a little higher in the frame, his long black beard falling over the gold-embroidered badge of his red robe, his hands clasped on the table edge in front of him, staring straight ahead. <Subject 5> sits deepest at the extreme right edge, only the left half of his face and shoulder inside the frame, his thin moustache and short pointed goatee visible, his eyes turned toward screen left. Behind them the pale grey wall, the dark horizontal band and the row of black leather high-backed chairs stay exactly as in the source, and the white teacups, saucers, dark red folder and pen on the glossy black table do not move. All four are four different men and must stay visibly distinct: only <Subject 2> is a half face at the left edge, only <Subject 3> wears spectacles and a short grey beard, only <Subject 4> has a long black beard, only <Subject 5> has a thin moustache with a pointed goatee. Nobody in this shot speaks, nobody stands up, walks, enters or leaves, and the shot holds still until the last frame.\nThe two black border strips on the left and right and the strips at the top and bottom stay black and perfectly still in every frame.\n\noverall_soundscape:\nA quiet boardroom room tone with a faint ventilation hum, the English voice of the single man laughing and then shouting in the first shot, and near-silence after the cut, all carried unchanged by <Audio 1>.\n\nnon_diegetic_music:\nN/A"
+  }
+ },
+ "15": {
+  "class_type": "PrimitiveFloat",
+  "inputs": {
+   "value": 864
+  }
+ },
+ "16": {
+  "class_type": "ComfyMathExpression",
+  "inputs": {
+   "expression": "a",
+   "values.a": [
+    "15",
+    0
+   ]
+  }
+ },
+ "17": {
+  "class_type": "PrimitiveFloat",
+  "inputs": {
+   "value": 736
+  }
+ },
+ "18": {
+  "class_type": "ComfyMathExpression",
+  "inputs": {
+   "expression": "a",
+   "values.a": [
+    "17",
+    0
+   ]
+  }
+ },
+ "19": {
+  "class_type": "MiniMaxH3ReferenceToVideo",
+  "inputs": {
+   "prompt": [
+    "14",
+    0
+   ],
+   "width": [
+    "16",
+    1
+   ],
+   "height": [
+    "18",
+    1
+   ],
+   "length": 90,
+   "ref_image_size": "match",
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "audio_vae": [
+    "7",
+    0
+   ],
+   "ref_images.ref_image_0": [
+    "9",
+    0
+   ],
+   "ref_images.ref_image_1": [
+    "10",
+    0
+   ],
+   "ref_images.ref_image_2": [
+    "11",
+    0
+   ],
+   "ref_images.ref_image_3": [
+    "12",
+    0
+   ],
+   "ref_images.ref_image_4": [
+    "13",
+    0
+   ],
+   "ref_videos.ref_video_0": [
+    "8",
+    0
+   ],
+   "ref_video_audios.ref_video_audio_0": [
+    "8",
+    2
+   ]
+  }
+ },
+ "20": {
+  "class_type": "BasicScheduler",
+  "inputs": {
+   "scheduler": "beta",
+   "steps": 4,
+   "denoise": 1,
+   "model": [
+    "4",
+    0
+   ]
+  }
+ },
+ "21": {
+  "class_type": "H3SigmaRefiner",
+  "inputs": {
+   "extra_steps": 2,
+   "start_at_sigma": 0.7,
+   "end_at_sigma": 0,
+   "spacing": "cosine",
+   "sigmas": [
+    "20",
+    0
+   ]
+  }
+ },
+ "22": {
+  "class_type": "SplitSigmas",
+  "inputs": {
+   "step": 4,
+   "sigmas": [
+    "21",
+    0
+   ]
+  }
+ },
+ "23": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 20261114,
+   "control_after_generate": "fixed"
+  }
+ },
+ "24": {
+  "class_type": "KSamplerSelect",
+  "inputs": {
+   "sampler_name": "euler"
+  }
+ },
+ "25": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "conditioning": [
+    "19",
+    0
+   ]
+  }
+ },
+ "26": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "23",
+    0
+   ],
+   "guider": [
+    "25",
+    0
+   ],
+   "sampler": [
+    "24",
+    0
+   ],
+   "sigmas": [
+    "22",
+    0
+   ],
+   "latent_image": [
+    "19",
+    1
+   ]
+  }
+ },
+ "27": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "26",
+    1
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "29": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "frame_rate": 24,
+   "loop_count": 0,
+   "filename_prefix": "norman04_onepass_5p",
+   "format": "video/h264-mp4",
+   "pix_fmt": "yuv420p",
+   "crf": 19,
+   "save_output": true,
+   "save_metadata": true,
+   "trim_to_audio": false,
+   "images": [
+    "27",
+    0
+   ],
+   "audio": [
+    "8",
+    2
+   ]
+  }
+ }
+}

@@ -1,0 +1,2442 @@
+{
+ "id": "ae552b3c-a087-4d80-9fcb-2cf817a6b34a",
+ "revision": 0,
+ "last_node_id": 28,
+ "last_link_id": 31,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "UNETLoader",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    380,
+    90
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "unet_name",
+     "name": "unet_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "unet_name"
+     },
+     "link": null
+    },
+    {
+     "label": "weight_dtype",
+     "name": "weight_dtype",
+     "type": "COMBO",
+     "widget": {
+      "name": "weight_dtype"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "MODEL",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      1
+     ]
+    }
+   ],
+   "title": "UNET · ref2va int8",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "models": [
+     {
+      "name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+      "directory": "diffusion_models",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors"
+     }
+    ],
+    "ver": "0.29.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    "minimax_h3_ref2va_int8_convrot.safetensors",
+    "default"
+   ],
+   "widgets_values_named": {
+    "unet_name": "minimax_h3_ref2va_int8_convrot.safetensors",
+    "weight_dtype": "default"
+   }
+  },
+  {
+   "id": 2,
+   "type": "LoraLoaderModelOnly",
+   "pos": [
+    0,
+    140
+   ],
+   "size": [
+    380,
+    90
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 1
+    },
+    {
+     "label": "lora_name",
+     "name": "lora_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "lora_name"
+     },
+     "link": null
+    },
+    {
+     "label": "strength_model",
+     "name": "strength_model",
+     "type": "FLOAT",
+     "widget": {
+      "name": "strength_model"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "MODEL",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      2
+     ]
+    }
+   ],
+   "title": "LoRA · 4 步 turbo",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "version": "7.0.1"
+    }
+   },
+   "widgets_values": [
+    "minimax_h3_turbo_4step_ckpt500.safetensors",
+    1
+   ],
+   "widgets_values_named": {
+    "lora_name": "minimax_h3_turbo_4step_ckpt500.safetensors",
+    "strength_model": 1
+   }
+  },
+  {
+   "id": 3,
+   "type": "PathchSageAttentionKJ",
+   "pos": [
+    0,
+    280
+   ],
+   "size": [
+    380,
+    90
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 2
+    },
+    {
+     "label": "sage_attention",
+     "name": "sage_attention",
+     "type": "COMBO",
+     "widget": {
+      "name": "sage_attention"
+     },
+     "link": null
+    },
+    {
+     "label": "allow_compile",
+     "name": "allow_compile",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "allow_compile"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "MODEL",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      3
+     ]
+    }
+   ],
+   "title": "SageAttention",
+   "properties": {
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    "auto",
+    false
+   ],
+   "widgets_values_named": {
+    "sage_attention": "auto",
+    "allow_compile": false
+   }
+  },
+  {
+   "id": 4,
+   "type": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+   "pos": [
+    0,
+    420
+   ],
+   "size": [
+    380,
+    70
+   ],
+   "flags": {},
+   "order": 19,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 3
+    }
+   ],
+   "outputs": [
+    {
+     "label": "model",
+     "name": "model",
+     "type": "MODEL",
+     "links": [
+      4,
+      5
+     ]
+    }
+   ],
+   "title": "显存优化补丁",
+   "properties": {
+    "cnr_id": "comfyui-kjnodes",
+    "ver": "1289b52fbb6d64a339a4047b9ea74cf7758ccf1e",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "version": "7.0.1"
+    }
+   }
+  },
+  {
+   "id": 5,
+   "type": "CLIPLoader",
+   "pos": [
+    0,
+    540
+   ],
+   "size": [
+    380,
+    110
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "clip_name",
+     "name": "clip_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "clip_name"
+     },
+     "link": null
+    },
+    {
+     "label": "type",
+     "name": "type",
+     "type": "COMBO",
+     "widget": {
+      "name": "type"
+     },
+     "link": null
+    },
+    {
+     "label": "device",
+     "name": "device",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "device"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "CLIP",
+     "name": "CLIP",
+     "type": "CLIP",
+     "links": [
+      16
+     ]
+    }
+   ],
+   "title": "CLIP",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "models": [
+     {
+      "directory_invalid": true,
+      "name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "directory": "text_encoders",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors"
+     }
+    ],
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+    "minimax",
+    "default"
+   ],
+   "widgets_values_named": {
+    "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+    "type": "minimax",
+    "device": "default"
+   }
+  },
+  {
+   "id": 6,
+   "type": "VAELoader",
+   "pos": [
+    0,
+    700
+   ],
+   "size": [
+    380,
+    60
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "vae_name",
+     "name": "vae_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "vae_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "VAE",
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      17,
+      28
+     ]
+    }
+   ],
+   "title": "视频 VAE",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "models": [
+     {
+      "directory_invalid": true,
+      "name": "minimax_h3_video_vae_fp16.safetensors",
+      "directory": "vae",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors"
+     }
+    ],
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    "minimax_h3_video_vae_fp16.safetensors"
+   ],
+   "widgets_values_named": {
+    "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+   }
+  },
+  {
+   "id": 7,
+   "type": "VAELoader",
+   "pos": [
+    0,
+    800
+   ],
+   "size": [
+    380,
+    60
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "vae_name",
+     "name": "vae_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "vae_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "VAE",
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      18
+     ]
+    }
+   ],
+   "title": "音频 VAE",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "models": [
+     {
+      "directory_invalid": true,
+      "name": "minimax_h3_video_vae_fp16.safetensors",
+      "directory": "vae",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors"
+     }
+    ],
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    "minimax_h3_audio_vae_fp32.safetensors"
+   ],
+   "widgets_values_named": {
+    "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+   }
+  },
+  {
+   "id": 8,
+   "type": "VHS_LoadVideo",
+   "pos": [
+    460,
+    0
+   ],
+   "size": [
+    420,
+    500
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "meta_batch",
+     "name": "meta_batch",
+     "shape": 7,
+     "type": "VHS_BatchManager",
+     "link": null
+    },
+    {
+     "label": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": null
+    },
+    {
+     "label": "video",
+     "name": "video",
+     "type": "STRING",
+     "widget": {
+      "name": "video"
+     },
+     "link": null
+    },
+    {
+     "label": "force_rate",
+     "name": "force_rate",
+     "type": "INT",
+     "widget": {
+      "name": "force_rate"
+     },
+     "link": null
+    },
+    {
+     "label": "force_size",
+     "name": "force_size",
+     "type": "COMBO",
+     "widget": {
+      "name": "force_size"
+     },
+     "link": null
+    },
+    {
+     "label": "custom_width",
+     "name": "custom_width",
+     "type": "INT",
+     "widget": {
+      "name": "custom_width"
+     },
+     "link": null
+    },
+    {
+     "label": "custom_height",
+     "name": "custom_height",
+     "type": "INT",
+     "widget": {
+      "name": "custom_height"
+     },
+     "link": null
+    },
+    {
+     "label": "frame_load_cap",
+     "name": "frame_load_cap",
+     "type": "INT",
+     "widget": {
+      "name": "frame_load_cap"
+     },
+     "link": null
+    },
+    {
+     "label": "skip_first_frames",
+     "name": "skip_first_frames",
+     "type": "INT",
+     "widget": {
+      "name": "skip_first_frames"
+     },
+     "link": null
+    },
+    {
+     "label": "select_every_nth",
+     "name": "select_every_nth",
+     "type": "INT",
+     "widget": {
+      "name": "select_every_nth"
+     },
+     "link": null
+    },
+    {
+     "label": "format",
+     "name": "format",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      14
+     ]
+    },
+    {
+     "label": "frame_count",
+     "name": "frame_count",
+     "type": "INT",
+     "links": []
+    },
+    {
+     "label": "audio",
+     "name": "audio",
+     "type": "AUDIO",
+     "links": [
+      15,
+      31
+     ]
+    },
+    {
+     "label": "video_info",
+     "name": "video_info",
+     "type": "VHS_VIDEOINFO",
+     "links": []
+    }
+   ],
+   "title": "★ 改这里 · 参考视频（要换人的原片）",
+   "properties": {
+    "cnr_id": "comfyui-videohelpersuite",
+    "ver": "4ee72c065db22c9d96c2427954dc69e7b908444b",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": {
+    "video": "openapi/0ae50d019091838da08a87349311d2b07a4a3bdbea20617064d1ea7c321e13bd.mp4",
+    "force_rate": 24,
+    "force_size": "Disabled",
+    "custom_width": 0,
+    "custom_height": 0,
+    "frame_load_cap": 107,
+    "skip_first_frames": 0,
+    "select_every_nth": 1,
+    "format": "AnimateDiff",
+    "choose video to upload": "image"
+   },
+   "color": "#c0392b",
+   "bgcolor": "#5b1f1f"
+  },
+  {
+   "id": 9,
+   "type": "LoadImage",
+   "pos": [
+    460,
+    520
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "image",
+     "name": "image",
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "label": "upload",
+     "name": "upload",
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      11
+     ]
+    },
+    {
+     "label": "MASK",
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "title": "★ 改这里 · 胡宗宪（第1镜左边缘虚焦半头 / 第2镜左中最前·说话者）",
+   "widgets_values": [
+    "openapi/3981ed54d8ec515429cbdb995a52e75953d5453b3c6ce4b9052128988b3eb075.png",
+    "image"
+   ],
+   "color": "#c0392b",
+   "bgcolor": "#5b1f1f",
+   "widgets_values_named": {
+    "image": "openapi/3981ed54d8ec515429cbdb995a52e75953d5453b3c6ce4b9052128988b3eb075.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 10,
+   "type": "LoadImage",
+   "pos": [
+    790,
+    520
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "image",
+     "name": "image",
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "label": "upload",
+     "name": "upload",
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      12
+     ]
+    },
+    {
+     "label": "MASK",
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "title": "★ 改这里 · 吕芳（第1镜背对镜头 / 第2镜右侧近景·不说话）",
+   "widgets_values": [
+    "openapi/025df0d4c693b8d51f040bdda8a2f29b4684ee1c669bfe21a46d7005e3f07c0d.png",
+    "image"
+   ],
+   "color": "#c0392b",
+   "bgcolor": "#5b1f1f",
+   "widgets_values_named": {
+    "image": "openapi/025df0d4c693b8d51f040bdda8a2f29b4684ee1c669bfe21a46d7005e3f07c0d.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 11,
+   "type": "LoadImage",
+   "pos": [
+    460,
+    860
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "image",
+     "name": "image",
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "label": "upload",
+     "name": "upload",
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      13
+     ]
+    },
+    {
+     "label": "MASK",
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "title": "★ 改这里 · 人物2（第1镜右侧站立·唯一大脸）",
+   "widgets_values": [
+    "openapi/3daceebc09d0e10e8fbab86de5106cdca8f275dfab04d1aaaf8fdbf78ce2acf3.png",
+    "image"
+   ],
+   "color": "#c0392b",
+   "bgcolor": "#5b1f1f",
+   "widgets_values_named": {
+    "image": "openapi/3daceebc09d0e10e8fbab86de5106cdca8f275dfab04d1aaaf8fdbf78ce2acf3.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 12,
+   "type": "PrimitiveStringMultiline",
+   "pos": [
+    460,
+    2000
+   ],
+   "size": [
+    620,
+    420
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "value",
+     "name": "value",
+     "type": "STRING",
+     "widget": {
+      "name": "value"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "STRING",
+     "name": "STRING",
+     "type": "STRING",
+     "links": [
+      10
+     ]
+    }
+   ],
+   "title": "★ 改这里 · 提示词（H3 Ref2VA 六段式）",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    "subject_definitions:\n<Video 1> is the source video for the target video edit: a 4.458-second two-shot sequence inside a corporate boardroom, delivered at 864x736 with a thin pure-black border on all four sides. [Shot 1] is a hand-held medium shot of three men in a meeting room, slightly drifting but never cutting or zooming: at the extreme left, in the immediate foreground and strongly out of focus, the side and back of a bald man's head, his ear, his neck and one shoulder are cropped by the left frame edge, and he faces screen right into the room; in the centre-left an older man with thin metal-rimmed spectacles sits with his back almost fully to the lens, only the back of his grey-haired head, his ear, one spectacle temple and his shoulder inside the frame, turned toward screen right; at the right a younger man stands facing the lens, slightly turned toward screen left, one hand open palm-up at waist height, a pale grey wall with the dark metal letters \"CORP\" and a row of black leather chair backs behind him. [Shot 2] begins with a hard cut at 00:01.083 and holds a near-static medium view of two men seated side by side facing the lens: on the left a bald man leaning slightly forward with his left hand on the table in the lower left corner, on the right, nearer the lens and larger in frame, a grey-haired man with thin metal-rimmed spectacles whose right hand rests on the table edge at the bottom centre; black leather chair backs, a pale grey wall and a white column at the right edge stand behind them, and the picture stops moving completely for its last thirteen frames, which repeat the final image as a frozen hold. In <Video 1> every person wears modern western business clothing — dark business suits, white dress shirts, neckties, white pocket squares — and the men at the left edge of [Shot 1] are either bald or have short grey or auburn hair. Those modern clothes and haircuts are the state being replaced.\n<Audio 1> is the synchronized audio track of <Video 1> and is reused unchanged in the target video. It carries a disembodied off-screen English plea (S1) during [Shot 1] — it belongs to someone outside the frame, not to any of the three men who are visible — then, after the cut, a flat English statement from <Subject 1> (S2) early in [Shot 2], and silence for the rest of the shot.\n<Subject 1> is the man shown in <Picture 1>: an older Chinese official with black hair, a thin moustache and a short pointed goatee, a tall black hat with vertical gold ribs, gold cloud trim around the band and two short upright side wings, a deep red robe with a large dark-green square badge embroidered in gold on the chest, gold-patterned shoulder panels and cuffs, and a black belt of round gold plaques with a pale jade centre. In [Shot 1] he is the defocused half head at the extreme left edge: only the right side of his tall black hat, one ear, the nape of his neck and one shoulder stay inside the frame, cropped by the left edge, and the black hat replaces the bare scalp. In [Shot 2] he is the man seated left of centre, and his charcoal suit, white shirt and dark striped necktie are replaced by the red robe with its gold-embroidered badge and the black-and-gold hat.\n<Subject 2> is the man shown in <Picture 2>: an older clean-shaven Chinese official with thinning black hair, a tall red hat with vertical gold ribs and a blue-and-red cloud-patterned band, long red side flaps hanging down beside his face, a red robe edged with blue piping carrying round red-and-gold dragon-and-cloud medallions on the chest and shoulders, a dark blue cloud-patterned inner collar, a bead necklace with one wooden bead, and a dark belt of rectangular pale jade plaques. He has no beard and no spectacles. In [Shot 1] he is the seated man who is turned away from the lens, so only the back of his red hat, his long black hair, his ear, the side flaps, the nape of his neck and one shoulder stay inside the frame; his suit, white shirt, grey hair and thin metal-rimmed spectacles are replaced by the red hat, the black hair and the red robe. In [Shot 2] he is the nearer man on the right, and the spectacles disappear entirely, leaving his eyes bare, while the red hat, the red robe and its medallions replace the suit, the white pocket square and the necktie.\n<Subject 3> is the man shown in <Picture 3>: a middle-aged Chinese man with long straight black hair swept back and gathered at the crown under a small gold crown pierced by two thin crosswise pins, a thin moustache and a small pointed goatee, dark brown eyes, and a pale ice-blue robe with a dark blue cloud-patterned border running down the front opening and around the wide cuffs, worn over a white inner collar. In [Shot 1] he is the standing man at the right, his whole head, shoulders, chest, arms and hands fully inside the frame; his auburn swept-back hair, pale skin, blue eyes, dark suit, white shirt and navy necktie are all replaced by the black hair, the gold crown, the dark brown eyes and the ice-blue robe described above. He keeps the same head angle, the same gaze direction and the same open right hand as the source.\n\nsummary:\n[video editing + audio reuse] The target video is an edited version of <Video 1>. All three people in the frame are replaced: the defocused half head at the left edge of [Shot 1] and the bald man seated left of centre in [Shot 2] become <Subject 1>, the man turned away from the lens in [Shot 1] and the grey-haired man with spectacles in [Shot 2] become <Subject 2>, and the standing man at the right of [Shot 1] becomes <Subject 3>, each one completely re-dressed in the historical Chinese robe, hat, crown and beard described above, so that every dark business suit, white dress shirt, necktie, white pocket square and modern haircut disappears from the frame, while the two-shot structure with its hard cut at 00:01.083, the three standing and seated positions, the framing and depth of field of both shots, the defocused foreground head at the left edge, the grey walls, the metal \"CORP\" letters, the black leather chairs, the thin black border, the frozen last thirteen frames and every lip movement stay identical, and <Audio 1> is reused as the complete final audio track while the English plea heard over [Shot 1] stays an unseen off-screen voice with no lip-sync on any visible face. Every head, hand, shoulder and lip movement keeps exactly the amplitude it has in <Video 1>: one small nod for the standing man in [Shot 1], a few pixels of slow head sway and small finger movement for the seated speaker in [Shot 2], with no motion amplified, repeated or invented.\n\nretention_analysis:\n<Video 1> (two-shot structure and framing): fully_preserved - the drifting medium shot of [Shot 1], the hard cut at 00:01.083, the near-static medium view of the two seated men in [Shot 2], their seating order and depth, the out-of-focus head cropped by the left edge, the pale grey walls, the dark metal \"CORP\" letters, the row of black leather high-backed chairs, the table edge and the thin black border on all four sides, plus the frozen hold over the last thirteen frames with no movement, blink or camera move.\n<Video 1> (modern clothing and haircuts): not_retained - the charcoal and dark grey business suits, white dress shirts, neckties, white pocket squares, the bald scalps, the short grey hair, the thin metal-rimmed spectacles and the auburn swept-back hair are completely replaced on every person; not one suit lapel, shirt collar, white cuff, necktie or pair of spectacles may remain anywhere in the frame.\n<Subject 1> ([Shot 1] left edge, [Shot 2] left of centre): fully_preserved - the tall black hat with vertical gold ribs and upright side wings, the thin moustache and short pointed goatee, the deep red robe with its gold-embroidered dark-green chest badge, the gold-patterned shoulders and cuffs and the gold-plaque belt; at the left edge of [Shot 1] only the cropped, defocused right side of that hat, one ear and one shoulder are inside the frame; in [Shot 2] his head keeps only the source's few-pixel slow sway and slight tilt, never a repeated shake, and his left hand and fingers keep their small table movements.\n<Subject 2> ([Shot 1] centre-left, [Shot 2] right): fully_preserved - the tall red hat with gold ribs, the blue-and-red band and the long hanging side flaps, the long black hair, the clean-shaven face without spectacles, the red robe with blue piping and round dragon-and-cloud medallions, the dark blue inner collar, the bead necklace and the jade-plaque belt; in [Shot 1] only the back of the hat, the hair, one ear and one shoulder are visible.\n<Subject 3> ([Shot 1] right, standing): fully_preserved - the long black hair swept back under the small gold crown with two crosswise pins, the thin moustache and pointed goatee, the dark brown eyes and the pale ice-blue robe with its dark blue patterned border and white inner collar, at the same head angle, with the same slight frown, the same gaze off the lens and the same open palm-up right hand; his mouth is held as one still, slightly parted shape with the same narrow lip gap in every frame, and the only motion he makes is one small nod of a few degrees.\n<Audio 1>: fully_copy - <Audio 1> is reused 1:1 as the target video's complete final audio track; the plea over [Shot 1] stays an unseen off-screen voice belonging to no one in the frame, and only the statement in [Shot 2] is lip-synced, to <Subject 1>.\n\ndetailed_description:\nLive-action boardroom drama footage, long lens, shallow depth of field, soft overhead key light, fine film grain, a pale grey wall with dark metal signage in [Shot 1] and a pale grey wall with a white column behind black leather chairs in [Shot 2]. Every person in the frame wears historical Chinese court costume; there is not a single business suit, dress shirt, white cuff, necktie, pocket square or pair of spectacles anywhere. All cloth is matte woven fabric under ordinary room light, with no glow, no neon edge and no self-illumination.\n[Shot 1] The frame holds three men in the same arrangement and at the same angles as the source. At the extreme left edge, filling the immediate foreground and far out of focus, is the cropped right side of <Subject 1>: the side of his tall black-and-gold hat, one ear, a strip of nape and one shoulder in a red robe, softened into blur and cut by the frame edge. Centre-left, <Subject 2> sits with his back almost fully toward the lens in a black leather chair, only the back of his tall red hat, his long black hair, one ear, the hanging red side flap and one shoulder inside the frame. At the right, <Subject 3> stands facing the lens, turned slightly toward screen left, his long black hair gathered under the small gold crown with its two crosswise pins, the thin moustache and pointed goatee on his chin, the ice-blue robe with its dark blue border over the white inner collar, his right hand open palm-up at waist height, his mouth held in one still shape copied from <Video 1>: lips slightly parted, relaxed, with the same narrow gap in every single frame, as if the mouth were a painted detail of a still picture. A voiceover from outside the room (S1), a quiet adult male voice heard as narration, says, <d>[English] Please, Norman.</d> This voice plays over the silent room and belongs to no one in the frame: it is not performed by any visible mouth, and <Subject 3> keeps his lips, jaw and chin completely still while it is heard. His only motion in this shot is one small slow nod of a few degrees, and the mouth keeps the same shape during that nod; his gaze stays fixed off the lens. <Subject 2> keeps his face turned away and stays otherwise still. The camera keeps the slight hand-held drift of <Video 1> and never cuts, zooms or changes framing.\n[Shot 2] At 00:01.083 the picture cuts hard to the two seated men facing the lens, both in black leather chairs against the pale grey wall and the white column at the right edge. <Subject 1> (S2) sits left of centre, leaning slightly forward, his tall black-and-gold hat and thin moustache and pointed goatee on his face, the gold-embroidered dark-green badge on the chest of his deep red robe, his left hand resting on the table in the lower left corner; from the first frames of the shot he speaks, <d>[English] The board is unanimous.</d> and his mouth articulates each word: his jaw drops and rises with the syllables, his lips part and close around the consonants, his moustache and goatee move with his jaw, his brows lift slightly, and after the line ends his lips settle closed and stay closed. <Subject 2> sits to his right, nearer the lens and larger in the frame, his tall red hat, long black hair, bare eyes without spectacles and clean-shaven jaw clearly visible, the round dragon-and-cloud medallions on the chest of his red robe, his right hand resting on the table edge at the bottom centre; he does not speak at all, his mouth stays closed, and he only looks straight ahead with a slow blink. The two men are different people and must stay visibly distinct: only <Subject 1> wears a black-and-gold hat with moustache and goatee, only <Subject 2> wears the tall red hat with hanging side flaps and is clean-shaven. <Subject 1> keeps the source's own small head movement and nothing more: a slow sway of only a few pixels and a slight tilt while he speaks, never a repeated left-right shake, never a rhythmic nodding, never an amplified swing; his left hand and fingers keep the small movements they make on the table in the source, and his shoulders barely move. Nobody stands up, walks, enters or leaves, the camera is locked off completely with no handheld shake, no push-in, no zoom and no drift, so the framing of every frame in this shot matches its first frame, and for the last thirteen frames the picture is a frozen hold of the final image with no movement, no blink and no change of light.\nThe two black border strips on the left and right and the strips at the top and bottom stay black and perfectly still in every frame.\n\noverall_soundscape:\nA quiet boardroom room tone with a faint ventilation hum, one short muffled English plea spoken by an unseen person outside the frame during the first shot and matched by no visible mouth, then one flat English statement from the seated man early in the second shot, then near-silence, all carried unchanged by <Audio 1>.\n\nnon_diegetic_music:\nN/A"
+   ],
+   "color": "#c0392b",
+   "bgcolor": "#5b1f1f",
+   "widgets_values_named": {
+    "value": "subject_definitions:\n<Video 1> is the source video for the target video edit: a 4.458-second two-shot sequence inside a corporate boardroom, delivered at 864x736 with a thin pure-black border on all four sides. [Shot 1] is a hand-held medium shot of three men in a meeting room, slightly drifting but never cutting or zooming: at the extreme left, in the immediate foreground and strongly out of focus, the side and back of a bald man's head, his ear, his neck and one shoulder are cropped by the left frame edge, and he faces screen right into the room; in the centre-left an older man with thin metal-rimmed spectacles sits with his back almost fully to the lens, only the back of his grey-haired head, his ear, one spectacle temple and his shoulder inside the frame, turned toward screen right; at the right a younger man stands facing the lens, slightly turned toward screen left, one hand open palm-up at waist height, a pale grey wall with the dark metal letters \"CORP\" and a row of black leather chair backs behind him. [Shot 2] begins with a hard cut at 00:01.083 and holds a near-static medium view of two men seated side by side facing the lens: on the left a bald man leaning slightly forward with his left hand on the table in the lower left corner, on the right, nearer the lens and larger in frame, a grey-haired man with thin metal-rimmed spectacles whose right hand rests on the table edge at the bottom centre; black leather chair backs, a pale grey wall and a white column at the right edge stand behind them, and the picture stops moving completely for its last thirteen frames, which repeat the final image as a frozen hold. In <Video 1> every person wears modern western business clothing — dark business suits, white dress shirts, neckties, white pocket squares — and the men at the left edge of [Shot 1] are either bald or have short grey or auburn hair. Those modern clothes and haircuts are the state being replaced.\n<Audio 1> is the synchronized audio track of <Video 1> and is reused unchanged in the target video. It carries a disembodied off-screen English plea (S1) during [Shot 1] — it belongs to someone outside the frame, not to any of the three men who are visible — then, after the cut, a flat English statement from <Subject 1> (S2) early in [Shot 2], and silence for the rest of the shot.\n<Subject 1> is the man shown in <Picture 1>: an older Chinese official with black hair, a thin moustache and a short pointed goatee, a tall black hat with vertical gold ribs, gold cloud trim around the band and two short upright side wings, a deep red robe with a large dark-green square badge embroidered in gold on the chest, gold-patterned shoulder panels and cuffs, and a black belt of round gold plaques with a pale jade centre. In [Shot 1] he is the defocused half head at the extreme left edge: only the right side of his tall black hat, one ear, the nape of his neck and one shoulder stay inside the frame, cropped by the left edge, and the black hat replaces the bare scalp. In [Shot 2] he is the man seated left of centre, and his charcoal suit, white shirt and dark striped necktie are replaced by the red robe with its gold-embroidered badge and the black-and-gold hat.\n<Subject 2> is the man shown in <Picture 2>: an older clean-shaven Chinese official with thinning black hair, a tall red hat with vertical gold ribs and a blue-and-red cloud-patterned band, long red side flaps hanging down beside his face, a red robe edged with blue piping carrying round red-and-gold dragon-and-cloud medallions on the chest and shoulders, a dark blue cloud-patterned inner collar, a bead necklace with one wooden bead, and a dark belt of rectangular pale jade plaques. He has no beard and no spectacles. In [Shot 1] he is the seated man who is turned away from the lens, so only the back of his red hat, his long black hair, his ear, the side flaps, the nape of his neck and one shoulder stay inside the frame; his suit, white shirt, grey hair and thin metal-rimmed spectacles are replaced by the red hat, the black hair and the red robe. In [Shot 2] he is the nearer man on the right, and the spectacles disappear entirely, leaving his eyes bare, while the red hat, the red robe and its medallions replace the suit, the white pocket square and the necktie.\n<Subject 3> is the man shown in <Picture 3>: a middle-aged Chinese man with long straight black hair swept back and gathered at the crown under a small gold crown pierced by two thin crosswise pins, a thin moustache and a small pointed goatee, dark brown eyes, and a pale ice-blue robe with a dark blue cloud-patterned border running down the front opening and around the wide cuffs, worn over a white inner collar. In [Shot 1] he is the standing man at the right, his whole head, shoulders, chest, arms and hands fully inside the frame; his auburn swept-back hair, pale skin, blue eyes, dark suit, white shirt and navy necktie are all replaced by the black hair, the gold crown, the dark brown eyes and the ice-blue robe described above. He keeps the same head angle, the same gaze direction and the same open right hand as the source.\n\nsummary:\n[video editing + audio reuse] The target video is an edited version of <Video 1>. All three people in the frame are replaced: the defocused half head at the left edge of [Shot 1] and the bald man seated left of centre in [Shot 2] become <Subject 1>, the man turned away from the lens in [Shot 1] and the grey-haired man with spectacles in [Shot 2] become <Subject 2>, and the standing man at the right of [Shot 1] becomes <Subject 3>, each one completely re-dressed in the historical Chinese robe, hat, crown and beard described above, so that every dark business suit, white dress shirt, necktie, white pocket square and modern haircut disappears from the frame, while the two-shot structure with its hard cut at 00:01.083, the three standing and seated positions, the framing and depth of field of both shots, the defocused foreground head at the left edge, the grey walls, the metal \"CORP\" letters, the black leather chairs, the thin black border, the frozen last thirteen frames and every lip movement stay identical, and <Audio 1> is reused as the complete final audio track while the English plea heard over [Shot 1] stays an unseen off-screen voice with no lip-sync on any visible face. Every head, hand, shoulder and lip movement keeps exactly the amplitude it has in <Video 1>: one small nod for the standing man in [Shot 1], a few pixels of slow head sway and small finger movement for the seated speaker in [Shot 2], with no motion amplified, repeated or invented.\n\nretention_analysis:\n<Video 1> (two-shot structure and framing): fully_preserved - the drifting medium shot of [Shot 1], the hard cut at 00:01.083, the near-static medium view of the two seated men in [Shot 2], their seating order and depth, the out-of-focus head cropped by the left edge, the pale grey walls, the dark metal \"CORP\" letters, the row of black leather high-backed chairs, the table edge and the thin black border on all four sides, plus the frozen hold over the last thirteen frames with no movement, blink or camera move.\n<Video 1> (modern clothing and haircuts): not_retained - the charcoal and dark grey business suits, white dress shirts, neckties, white pocket squares, the bald scalps, the short grey hair, the thin metal-rimmed spectacles and the auburn swept-back hair are completely replaced on every person; not one suit lapel, shirt collar, white cuff, necktie or pair of spectacles may remain anywhere in the frame.\n<Subject 1> ([Shot 1] left edge, [Shot 2] left of centre): fully_preserved - the tall black hat with vertical gold ribs and upright side wings, the thin moustache and short pointed goatee, the deep red robe with its gold-embroidered dark-green chest badge, the gold-patterned shoulders and cuffs and the gold-plaque belt; at the left edge of [Shot 1] only the cropped, defocused right side of that hat, one ear and one shoulder are inside the frame; in [Shot 2] his head keeps only the source's few-pixel slow sway and slight tilt, never a repeated shake, and his left hand and fingers keep their small table movements.\n<Subject 2> ([Shot 1] centre-left, [Shot 2] right): fully_preserved - the tall red hat with gold ribs, the blue-and-red band and the long hanging side flaps, the long black hair, the clean-shaven face without spectacles, the red robe with blue piping and round dragon-and-cloud medallions, the dark blue inner collar, the bead necklace and the jade-plaque belt; in [Shot 1] only the back of the hat, the hair, one ear and one shoulder are visible.\n<Subject 3> ([Shot 1] right, standing): fully_preserved - the long black hair swept back under the small gold crown with two crosswise pins, the thin moustache and pointed goatee, the dark brown eyes and the pale ice-blue robe with its dark blue patterned border and white inner collar, at the same head angle, with the same slight frown, the same gaze off the lens and the same open palm-up right hand; his mouth is held as one still, slightly parted shape with the same narrow lip gap in every frame, and the only motion he makes is one small nod of a few degrees.\n<Audio 1>: fully_copy - <Audio 1> is reused 1:1 as the target video's complete final audio track; the plea over [Shot 1] stays an unseen off-screen voice belonging to no one in the frame, and only the statement in [Shot 2] is lip-synced, to <Subject 1>.\n\ndetailed_description:\nLive-action boardroom drama footage, long lens, shallow depth of field, soft overhead key light, fine film grain, a pale grey wall with dark metal signage in [Shot 1] and a pale grey wall with a white column behind black leather chairs in [Shot 2]. Every person in the frame wears historical Chinese court costume; there is not a single business suit, dress shirt, white cuff, necktie, pocket square or pair of spectacles anywhere. All cloth is matte woven fabric under ordinary room light, with no glow, no neon edge and no self-illumination.\n[Shot 1] The frame holds three men in the same arrangement and at the same angles as the source. At the extreme left edge, filling the immediate foreground and far out of focus, is the cropped right side of <Subject 1>: the side of his tall black-and-gold hat, one ear, a strip of nape and one shoulder in a red robe, softened into blur and cut by the frame edge. Centre-left, <Subject 2> sits with his back almost fully toward the lens in a black leather chair, only the back of his tall red hat, his long black hair, one ear, the hanging red side flap and one shoulder inside the frame. At the right, <Subject 3> stands facing the lens, turned slightly toward screen left, his long black hair gathered under the small gold crown with its two crosswise pins, the thin moustache and pointed goatee on his chin, the ice-blue robe with its dark blue border over the white inner collar, his right hand open palm-up at waist height, his mouth held in one still shape copied from <Video 1>: lips slightly parted, relaxed, with the same narrow gap in every single frame, as if the mouth were a painted detail of a still picture. A voiceover from outside the room (S1), a quiet adult male voice heard as narration, says, <d>[English] Please, Norman.</d> This voice plays over the silent room and belongs to no one in the frame: it is not performed by any visible mouth, and <Subject 3> keeps his lips, jaw and chin completely still while it is heard. His only motion in this shot is one small slow nod of a few degrees, and the mouth keeps the same shape during that nod; his gaze stays fixed off the lens. <Subject 2> keeps his face turned away and stays otherwise still. The camera keeps the slight hand-held drift of <Video 1> and never cuts, zooms or changes framing.\n[Shot 2] At 00:01.083 the picture cuts hard to the two seated men facing the lens, both in black leather chairs against the pale grey wall and the white column at the right edge. <Subject 1> (S2) sits left of centre, leaning slightly forward, his tall black-and-gold hat and thin moustache and pointed goatee on his face, the gold-embroidered dark-green badge on the chest of his deep red robe, his left hand resting on the table in the lower left corner; from the first frames of the shot he speaks, <d>[English] The board is unanimous.</d> and his mouth articulates each word: his jaw drops and rises with the syllables, his lips part and close around the consonants, his moustache and goatee move with his jaw, his brows lift slightly, and after the line ends his lips settle closed and stay closed. <Subject 2> sits to his right, nearer the lens and larger in the frame, his tall red hat, long black hair, bare eyes without spectacles and clean-shaven jaw clearly visible, the round dragon-and-cloud medallions on the chest of his red robe, his right hand resting on the table edge at the bottom centre; he does not speak at all, his mouth stays closed, and he only looks straight ahead with a slow blink. The two men are different people and must stay visibly distinct: only <Subject 1> wears a black-and-gold hat with moustache and goatee, only <Subject 2> wears the tall red hat with hanging side flaps and is clean-shaven. <Subject 1> keeps the source's own small head movement and nothing more: a slow sway of only a few pixels and a slight tilt while he speaks, never a repeated left-right shake, never a rhythmic nodding, never an amplified swing; his left hand and fingers keep the small movements they make on the table in the source, and his shoulders barely move. Nobody stands up, walks, enters or leaves, the camera is locked off completely with no handheld shake, no push-in, no zoom and no drift, so the framing of every frame in this shot matches its first frame, and for the last thirteen frames the picture is a frozen hold of the final image with no movement, no blink and no change of light.\nThe two black border strips on the left and right and the strips at the top and bottom stay black and perfectly still in every frame.\n\noverall_soundscape:\nA quiet boardroom room tone with a faint ventilation hum, one short muffled English plea spoken by an unseen person outside the frame during the first shot and matched by no visible mouth, then one flat English statement from the seated man early in the second shot, then near-silence, all carried unchanged by <Audio 1>.\n\nnon_diegetic_music:\nN/A"
+   }
+  },
+  {
+   "id": 13,
+   "type": "PrimitiveFloat",
+   "pos": [
+    1140,
+    520
+   ],
+   "size": [
+    300,
+    110
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "value",
+     "name": "value",
+     "type": "FLOAT",
+     "widget": {
+      "name": "value"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "FLOAT",
+     "name": "FLOAT",
+     "type": "FLOAT",
+     "links": [
+      6
+     ]
+    }
+   ],
+   "title": "出片宽（32 的倍数）",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    864
+   ],
+   "widgets_values_named": {
+    "value": 864
+   }
+  },
+  {
+   "id": 14,
+   "type": "ComfyMathExpression",
+   "pos": [
+    1140,
+    660
+   ],
+   "size": [
+    300,
+    110
+   ],
+   "flags": {},
+   "order": 15,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "values.a",
+     "name": "values.a",
+     "type": "FLOAT,INT,BOOLEAN",
+     "link": 6
+    },
+    {
+     "label": "values.b",
+     "name": "values.b",
+     "shape": 7,
+     "type": "FLOAT,INT,BOOLEAN",
+     "link": null
+    },
+    {
+     "label": "expression",
+     "name": "expression",
+     "type": "STRING",
+     "widget": {
+      "name": "expression"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "FLOAT",
+     "name": "FLOAT",
+     "type": "FLOAT",
+     "links": []
+    },
+    {
+     "label": "INT",
+     "name": "INT",
+     "type": "INT",
+     "links": [
+      8
+     ]
+    },
+    {
+     "label": "BOOL",
+     "name": "BOOL",
+     "type": "BOOLEAN",
+     "links": []
+    }
+   ],
+   "title": "宽 → INT",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    "a"
+   ],
+   "widgets_values_named": {
+    "expression": "a"
+   }
+  },
+  {
+   "id": 15,
+   "type": "PrimitiveFloat",
+   "pos": [
+    1140,
+    800
+   ],
+   "size": [
+    300,
+    110
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "value",
+     "name": "value",
+     "type": "FLOAT",
+     "widget": {
+      "name": "value"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "FLOAT",
+     "name": "FLOAT",
+     "type": "FLOAT",
+     "links": [
+      7
+     ]
+    }
+   ],
+   "title": "出片高（32 的倍数）",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    736
+   ],
+   "widgets_values_named": {
+    "value": 736
+   }
+  },
+  {
+   "id": 16,
+   "type": "ComfyMathExpression",
+   "pos": [
+    1140,
+    940
+   ],
+   "size": [
+    300,
+    110
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "values.a",
+     "name": "values.a",
+     "type": "FLOAT,INT,BOOLEAN",
+     "link": 7
+    },
+    {
+     "label": "values.b",
+     "name": "values.b",
+     "shape": 7,
+     "type": "FLOAT,INT,BOOLEAN",
+     "link": null
+    },
+    {
+     "label": "expression",
+     "name": "expression",
+     "type": "STRING",
+     "widget": {
+      "name": "expression"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "FLOAT",
+     "name": "FLOAT",
+     "type": "FLOAT",
+     "links": []
+    },
+    {
+     "label": "INT",
+     "name": "INT",
+     "type": "INT",
+     "links": [
+      9
+     ]
+    },
+    {
+     "label": "BOOL",
+     "name": "BOOL",
+     "type": "BOOLEAN",
+     "links": []
+    }
+   ],
+   "title": "高 → INT",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    "a"
+   ],
+   "widgets_values_named": {
+    "expression": "a"
+   }
+  },
+  {
+   "id": 17,
+   "type": "MiniMaxH3ReferenceToVideo",
+   "pos": [
+    1500,
+    0
+   ],
+   "size": [
+    340,
+    520
+   ],
+   "flags": {},
+   "order": 18,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "clip",
+     "name": "clip",
+     "type": "CLIP",
+     "link": 16
+    },
+    {
+     "label": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 17
+    },
+    {
+     "label": "audio_vae",
+     "name": "audio_vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 18
+    },
+    {
+     "label": "ref_images.ref_image_0",
+     "name": "ref_images.ref_image_0",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 11
+    },
+    {
+     "label": "ref_images.ref_image_1",
+     "name": "ref_images.ref_image_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 12
+    },
+    {
+     "label": "ref_images.ref_image_2",
+     "name": "ref_images.ref_image_2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 13
+    },
+    {
+     "label": "ref_images.ref_image_3",
+     "name": "ref_images.ref_image_3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "label": "ref_videos.ref_video_0",
+     "name": "ref_videos.ref_video_0",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 14
+    },
+    {
+     "label": "ref_videos.ref_video_1",
+     "name": "ref_videos.ref_video_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "label": "ref_videos.ref_video_2",
+     "name": "ref_videos.ref_video_2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "label": "ref_video_audios.ref_video_audio_0",
+     "name": "ref_video_audios.ref_video_audio_0",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": 15
+    },
+    {
+     "label": "ref_video_audios.ref_video_audio_1",
+     "name": "ref_video_audios.ref_video_audio_1",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "label": "ref_audios.ref_audio_0",
+     "name": "ref_audios.ref_audio_0",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "label": "ref_audios.ref_audio_1",
+     "name": "ref_audios.ref_audio_1",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "label": "ref_audios.ref_audio_2",
+     "name": "ref_audios.ref_audio_2",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "label": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 10
+    },
+    {
+     "label": "width",
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": 8
+    },
+    {
+     "label": "height",
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": 9
+    },
+    {
+     "label": "length",
+     "name": "length",
+     "type": "INT",
+     "widget": {
+      "name": "length"
+     },
+     "link": null
+    },
+    {
+     "label": "ref_image_size",
+     "name": "ref_image_size",
+     "type": "COMBO",
+     "widget": {
+      "name": "ref_image_size"
+     },
+     "link": null
+    },
+    {
+     "label": "ref_video_audios.ref_video_audio_2",
+     "name": "ref_video_audios.ref_video_audio_2",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "positive",
+     "name": "positive",
+     "type": "CONDITIONING",
+     "links": [
+      24
+     ]
+    },
+    {
+     "label": "LATENT",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      26
+     ]
+    }
+   ],
+   "title": "MiniMax H3 参考生视频（出条件 + 潜空间）",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {
+      "width": true,
+      "length": true,
+      "prompt": true,
+      "height": true
+     },
+     "version": "7.0.1"
+    }
+   },
+   "widgets_values": [
+    "",
+    864,
+    736,
+    107,
+    "match"
+   ],
+   "widgets_values_named": {
+    "prompt": "",
+    "width": 864,
+    "height": 736,
+    "length": 107,
+    "ref_image_size": "match"
+   }
+  },
+  {
+   "id": 18,
+   "type": "BasicScheduler",
+   "pos": [
+    1900,
+    0
+   ],
+   "size": [
+    300,
+    120
+   ],
+   "flags": {},
+   "order": 20,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 4
+    },
+    {
+     "label": "scheduler",
+     "name": "scheduler",
+     "type": "COMBO",
+     "widget": {
+      "name": "scheduler"
+     },
+     "link": null
+    },
+    {
+     "label": "steps",
+     "name": "steps",
+     "type": "INT",
+     "widget": {
+      "name": "steps"
+     },
+     "link": null
+    },
+    {
+     "label": "denoise",
+     "name": "denoise",
+     "type": "FLOAT",
+     "widget": {
+      "name": "denoise"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "SIGMAS",
+     "name": "SIGMAS",
+     "type": "SIGMAS",
+     "links": [
+      19
+     ]
+    }
+   ],
+   "title": "调度器 beta / 4 步",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    "beta",
+    4,
+    1
+   ],
+   "widgets_values_named": {
+    "scheduler": "beta",
+    "steps": 4,
+    "denoise": 1
+   }
+  },
+  {
+   "id": 19,
+   "type": "H3SigmaRefiner",
+   "pos": [
+    1900,
+    160
+   ],
+   "size": [
+    300,
+    150
+   ],
+   "flags": {},
+   "order": 22,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "sigmas",
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 19
+    },
+    {
+     "label": "extra_steps",
+     "name": "extra_steps",
+     "type": "INT",
+     "widget": {
+      "name": "extra_steps"
+     },
+     "link": null
+    },
+    {
+     "label": "start_at_sigma",
+     "name": "start_at_sigma",
+     "type": "FLOAT",
+     "widget": {
+      "name": "start_at_sigma"
+     },
+     "link": null
+    },
+    {
+     "label": "end_at_sigma",
+     "name": "end_at_sigma",
+     "type": "FLOAT",
+     "widget": {
+      "name": "end_at_sigma"
+     },
+     "link": null
+    },
+    {
+     "label": "spacing",
+     "name": "spacing",
+     "type": "COMBO",
+     "widget": {
+      "name": "spacing"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "sigmas",
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "links": [
+      20
+     ]
+    }
+   ],
+   "title": "Sigma 尾部加密（0.7 以下 +2 步）",
+   "properties": {
+    "ver": "146207295c1d2bd6b64a6552484cb6ed8be1c9ef",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {}
+    },
+    "aux_id": "yichengup/ComfyUI-YCNodes-MiniMax-H3"
+   },
+   "widgets_values": [
+    2,
+    0.7,
+    0,
+    "cosine"
+   ],
+   "widgets_values_named": {
+    "extra_steps": 2,
+    "start_at_sigma": 0.7,
+    "end_at_sigma": 0,
+    "spacing": "cosine"
+   }
+  },
+  {
+   "id": 20,
+   "type": "SplitSigmas",
+   "pos": [
+    1900,
+    350
+   ],
+   "size": [
+    300,
+    90
+   ],
+   "flags": {},
+   "order": 23,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "sigmas",
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 20
+    },
+    {
+     "label": "step",
+     "name": "step",
+     "type": "INT",
+     "widget": {
+      "name": "step"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "high_sigmas",
+     "name": "high_sigmas",
+     "type": "SIGMAS",
+     "links": [
+      21
+     ]
+    },
+    {
+     "label": "low_sigmas",
+     "name": "low_sigmas",
+     "type": "SIGMAS",
+     "links": []
+    }
+   ],
+   "title": "切分 4：全部给一采",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.33.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    4
+   ],
+   "widgets_values_named": {
+    "step": 4
+   }
+  },
+  {
+   "id": 21,
+   "type": "RandomNoise",
+   "pos": [
+    1900,
+    480
+   ],
+   "size": [
+    300,
+    90
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "noise_seed",
+     "name": "noise_seed",
+     "type": "INT",
+     "widget": {
+      "name": "noise_seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "NOISE",
+     "name": "NOISE",
+     "type": "NOISE",
+     "links": [
+      22
+     ]
+    }
+   ],
+   "title": "噪声种子",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    20261114,
+    "fixed"
+   ],
+   "widgets_values_named": {
+    "noise_seed": 20261114,
+    "control_after_generate": "fixed"
+   }
+  },
+  {
+   "id": 22,
+   "type": "KSamplerSelect",
+   "pos": [
+    1900,
+    610
+   ],
+   "size": [
+    300,
+    70
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "sampler_name",
+     "name": "sampler_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "sampler_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "SAMPLER",
+     "name": "SAMPLER",
+     "type": "SAMPLER",
+     "links": [
+      23
+     ]
+    }
+   ],
+   "title": "采样器 euler",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   },
+   "widgets_values": [
+    "euler"
+   ],
+   "widgets_values_named": {
+    "sampler_name": "euler"
+   }
+  },
+  {
+   "id": 23,
+   "type": "BasicGuider",
+   "pos": [
+    1900,
+    720
+   ],
+   "size": [
+    300,
+    60
+   ],
+   "flags": {},
+   "order": 21,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 5
+    },
+    {
+     "label": "conditioning",
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 24
+    }
+   ],
+   "outputs": [
+    {
+     "label": "GUIDER",
+     "name": "GUIDER",
+     "type": "GUIDER",
+     "links": [
+      25
+     ]
+    }
+   ],
+   "title": "引导器",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   }
+  },
+  {
+   "id": 24,
+   "type": "SamplerCustomAdvanced",
+   "pos": [
+    2260,
+    0
+   ],
+   "size": [
+    260,
+    160
+   ],
+   "flags": {},
+   "order": 24,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "noise",
+     "name": "noise",
+     "type": "NOISE",
+     "link": 22
+    },
+    {
+     "label": "guider",
+     "name": "guider",
+     "type": "GUIDER",
+     "link": 25
+    },
+    {
+     "label": "sampler",
+     "name": "sampler",
+     "type": "SAMPLER",
+     "link": 23
+    },
+    {
+     "label": "sigmas",
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 21
+    },
+    {
+     "label": "latent_image",
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 26
+    }
+   ],
+   "outputs": [
+    {
+     "label": "output",
+     "name": "output",
+     "type": "LATENT",
+     "links": []
+    },
+    {
+     "label": "denoised_output",
+     "name": "denoised_output",
+     "type": "LATENT",
+     "links": [
+      27
+     ]
+    }
+   ],
+   "title": "一采（4 步 @864×736，直出）",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   }
+  },
+  {
+   "id": 25,
+   "type": "VAEDecode",
+   "pos": [
+    2560,
+    0
+   ],
+   "size": [
+    240,
+    60
+   ],
+   "flags": {},
+   "order": 25,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "samples",
+     "name": "samples",
+     "type": "LATENT",
+     "link": 27
+    },
+    {
+     "label": "vae",
+     "name": "vae",
+     "type": "VAE",
+     "link": 28
+    }
+   ],
+   "outputs": [
+    {
+     "label": "IMAGE",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      29
+     ]
+    }
+   ],
+   "title": "视频解码",
+   "properties": {
+    "cnr_id": "comfy-core",
+    "ver": "0.30.0",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.8"
+    }
+   }
+  },
+  {
+   "id": 26,
+   "type": "VRAM_Debug",
+   "pos": [
+    2560,
+    120
+   ],
+   "size": [
+    300,
+    200
+   ],
+   "flags": {},
+   "order": 26,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "any_input",
+     "name": "any_input",
+     "shape": 7,
+     "type": "*",
+     "link": 29
+    },
+    {
+     "label": "image_pass",
+     "name": "image_pass",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "label": "model_pass",
+     "name": "model_pass",
+     "shape": 7,
+     "type": "MODEL",
+     "link": null
+    },
+    {
+     "label": "empty_cache",
+     "name": "empty_cache",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "empty_cache"
+     },
+     "link": null
+    },
+    {
+     "label": "gc_collect",
+     "name": "gc_collect",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "gc_collect"
+     },
+     "link": null
+    },
+    {
+     "label": "unload_all_models",
+     "name": "unload_all_models",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "unload_all_models"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "any_output",
+     "name": "any_output",
+     "type": "*",
+     "links": [
+      30
+     ]
+    },
+    {
+     "label": "image_pass",
+     "name": "image_pass",
+     "type": "IMAGE",
+     "links": []
+    },
+    {
+     "label": "model_pass",
+     "name": "model_pass",
+     "type": "MODEL",
+     "links": []
+    },
+    {
+     "label": "5,759,565,312   freemem_before",
+     "name": "freemem_before",
+     "type": "INT",
+     "links": []
+    },
+    {
+     "label": "49,669,234,688      freemem_after",
+     "name": "freemem_after",
+     "type": "INT",
+     "links": []
+    }
+   ],
+   "title": "显存回收 / 透传",
+   "properties": {
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "version": "7.0.1"
+    }
+   },
+   "widgets_values": [
+    true,
+    true,
+    true
+   ],
+   "widgets_values_named": {
+    "empty_cache": true,
+    "gc_collect": true,
+    "unload_all_models": true
+   }
+  },
+  {
+   "id": 27,
+   "type": "VHS_VideoCombine",
+   "pos": [
+    2560,
+    360
+   ],
+   "size": [
+    340,
+    300
+   ],
+   "flags": {},
+   "order": 27,
+   "mode": 0,
+   "inputs": [
+    {
+     "label": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 30
+    },
+    {
+     "label": "audio",
+     "name": "audio",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": 31
+    },
+    {
+     "label": "meta_batch",
+     "name": "meta_batch",
+     "shape": 7,
+     "type": "VHS_BatchManager",
+     "link": null
+    },
+    {
+     "label": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": null
+    },
+    {
+     "label": "frame_rate",
+     "name": "frame_rate",
+     "type": "FLOAT",
+     "widget": {
+      "name": "frame_rate"
+     },
+     "link": null
+    },
+    {
+     "label": "loop_count",
+     "name": "loop_count",
+     "type": "INT",
+     "widget": {
+      "name": "loop_count"
+     },
+     "link": null
+    },
+    {
+     "label": "filename_prefix",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "label": "format",
+     "name": "format",
+     "type": "COMBO",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "label": "pingpong",
+     "name": "pingpong",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "pingpong"
+     },
+     "link": null
+    },
+    {
+     "label": "save_output",
+     "name": "save_output",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "save_output"
+     },
+     "link": null
+    },
+    {
+     "label": "no_preview",
+     "name": "no_preview",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "no_preview"
+     },
+     "link": null
+    },
+    {
+     "label": "pix_fmt",
+     "name": "pix_fmt",
+     "type": [
+      "yuv420p",
+      "yuv420p10le"
+     ],
+     "widget": {
+      "name": "pix_fmt"
+     },
+     "link": null
+    },
+    {
+     "label": "crf",
+     "name": "crf",
+     "type": "INT",
+     "widget": {
+      "name": "crf"
+     },
+     "link": null
+    },
+    {
+     "label": "save_metadata",
+     "name": "save_metadata",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "save_metadata"
+     },
+     "link": null
+    },
+    {
+     "label": "trim_to_audio",
+     "name": "trim_to_audio",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "trim_to_audio"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "label": "Filenames",
+     "name": "Filenames",
+     "type": "VHS_FILENAMES",
+     "links": []
+    }
+   ],
+   "title": "输出成片（原声）",
+   "properties": {
+    "cnr_id": "comfyui-videohelpersuite",
+    "ver": "dabda5423a9df2d17940e619ba9bd6a6344453c7",
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "version": "7.0.1"
+    }
+   },
+   "widgets_values": {
+    "frame_rate": 24,
+    "loop_count": 0,
+    "filename_prefix": "norman05_onepass_3p",
+    "format": "video/h264-mp4",
+    "pix_fmt": "yuv420p",
+    "crf": 19,
+    "save_metadata": true,
+    "trim_to_audio": false,
+    "pingpong": false,
+    "save_output": true,
+    "no_preview": false
+   },
+   "color": "#d35400",
+   "bgcolor": "#5a3208"
+  },
+  {
+   "id": 28,
+   "type": "MarkdownNote",
+   "pos": [
+    2980,
+    0
+   ],
+   "size": [
+    520,
+    720
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "title": "说明",
+   "properties": {
+    "ue_properties": {
+     "widget_ue_connectable": {},
+     "input_ue_unconnectable": {},
+     "version": "7.5.2"
+    }
+   },
+   "widgets_values": [
+    "## H3 三人换人 · 两镜（三人中景 + 两人对座）· 05 机位 · 一采\n\n**红块 = 你要改的**：原片、三张人物图、提示词。**橙块 = 输出**。\n种子默认 fixed=20261114，要换一版改 build.mjs 顶部 SEED。\n\n### 链路（只有一采，无放大支路）\n1. `一采`：864×736 跑 4 步（beta + 尾部加密 2 步，切分 4 全给一采）。\n2. `VAEDecode` → `VHS_VideoCombine`：24fps mp4，**音轨用原片原声**，H3 自编声轨丢弃。\n\n### 这一段的镜头结构（不能改）\n- **0.000–1.083s**：三人同框。左边缘虚焦光头男（半头）、中左侧坐男（背对镜头）、右侧站立男（唯一大脸），站立男不说话。\n- **1.083–4.458s**：**硬切**两人对座中景，固定机位微推。\n- **3.917–4.458s**：最后 13 帧是**静帧 hold**（同一画面复制），任何动作都停住。\n\n### 参考图顺序（不能错，改一张就改一个人）\n- `Picture 1` 胡宗宪 → 第 1 镜**左边缘虚焦半头** + 第 2 镜**左中最前**（台词 \"The board is unanimous.\"）\n- `Picture 2` 吕芳 → 第 1 镜**背对镜头** + 第 2 镜**右侧近景**（全程不说话）\n- `Picture 3` 人物2 → 第 1 镜**右侧站立**（唯一大脸，不说话）\n\n### 台词（STT 实测，别改字）\n- 第 1 镜：「Please, Norman.」是**画外音**，不是画面里三个人说的，脸上不能有任何对口型的动作。\n- 第 2 镜：「The board is unanimous.」由左侧光头胡宗宪说，要嘴型跟。\n\n### 表演铁律（05 第一版踩出来的，别再放大动作）\n- 第 1 镜站立男：嘴唇**定格在微张的固定缝隙**，缝宽逐帧不变；不许一张一闭、不许抽搐颤动、不许咀嚼、不许露牙露舌（第二版就是这里还在开合）。唯一允许的动作是**一次轻点头**，点头时嘴形不变。\n- 第 1 镜画外音不锁任何人的嘴（第一版就是模型把这句安到了站立男脸上）。\n- 第 2 镜光头：只允许原片那种**几像素慢摆 + 轻微歪头**和手指小动作，**禁止复读左右摇头、节奏性点头、放大摆幅**。\n- 第 2 镜机位**完全锁死**：无手持抖动、无推镜、无缩放。\n\n### 换片时改哪里\n1. `frame_load_cap` 与 `length` 必须一致，且落在 **17k+5** 网格（56/73/90/107…）。\n2. 宽高填 **32 的倍数**，经两个 `→ INT` 节点送进模型。\n3. 该节点实测最多 9 个 `ref_images` 槽，本段只用 3 个，空槽不接就行。\n\n### 素材有效期\n图里是平台 `fileName`，**约 24 小时失效**。报「找不到图」不是接线错，重传后改 build.mjs 的 ASSETS：\n\n```bash\nnode <runninghub-cloud-yashu>/scripts/rh.mjs --upload \"<本地图>\"\n```\n\n### 验收看什么\n抽 1 / 20 / 40 / 60 / 94 / 107 六帧：① 左边缘只剩虚焦半个帽子、中左是红帽背影、右侧是金冠黑发+冰蓝袍\n② 1.083s 处真的硬切、没有叠化（H3 切点可能漂，见 pitfalls）③ 第 2 镜左边说话的是红袍胡宗宪、右边吕芳闭嘴\n④ 吕芳不戴眼镜、不留胡须；胡宗宪是黑帽+短须 ⑤ 没有现代西装、白衬衫、领带、口袋巾残留\n⑥ 最后 13 帧完全静止 ⑦ 黑边没被吃掉"
+   ]
+  }
+ ],
+ "links": [
+  [
+   1,
+   1,
+   0,
+   2,
+   0,
+   "MODEL"
+  ],
+  [
+   2,
+   2,
+   0,
+   3,
+   0,
+   "MODEL"
+  ],
+  [
+   3,
+   3,
+   0,
+   4,
+   0,
+   "MODEL"
+  ],
+  [
+   4,
+   4,
+   0,
+   18,
+   0,
+   "MODEL"
+  ],
+  [
+   5,
+   4,
+   0,
+   23,
+   0,
+   "MODEL"
+  ],
+  [
+   6,
+   13,
+   0,
+   14,
+   0,
+   "FLOAT"
+  ],
+  [
+   7,
+   15,
+   0,
+   16,
+   0,
+   "FLOAT"
+  ],
+  [
+   8,
+   14,
+   1,
+   17,
+   16,
+   "INT"
+  ],
+  [
+   9,
+   16,
+   1,
+   17,
+   17,
+   "INT"
+  ],
+  [
+   10,
+   12,
+   0,
+   17,
+   15,
+   "STRING"
+  ],
+  [
+   11,
+   9,
+   0,
+   17,
+   3,
+   "IMAGE"
+  ],
+  [
+   12,
+   10,
+   0,
+   17,
+   4,
+   "IMAGE"
+  ],
+  [
+   13,
+   11,
+   0,
+   17,
+   5,
+   "IMAGE"
+  ],
+  [
+   14,
+   8,
+   0,
+   17,
+   7,
+   "IMAGE"
+  ],
+  [
+   15,
+   8,
+   2,
+   17,
+   10,
+   "AUDIO"
+  ],
+  [
+   16,
+   5,
+   0,
+   17,
+   0,
+   "CLIP"
+  ],
+  [
+   17,
+   6,
+   0,
+   17,
+   1,
+   "VAE"
+  ],
+  [
+   18,
+   7,
+   0,
+   17,
+   2,
+   "VAE"
+  ],
+  [
+   19,
+   18,
+   0,
+   19,
+   0,
+   "SIGMAS"
+  ],
+  [
+   20,
+   19,
+   0,
+   20,
+   0,
+   "SIGMAS"
+  ],
+  [
+   21,
+   20,
+   0,
+   24,
+   3,
+   "SIGMAS"
+  ],
+  [
+   22,
+   21,
+   0,
+   24,
+   0,
+   "NOISE"
+  ],
+  [
+   23,
+   22,
+   0,
+   24,
+   2,
+   "SAMPLER"
+  ],
+  [
+   24,
+   17,
+   0,
+   23,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   25,
+   23,
+   0,
+   24,
+   1,
+   "GUIDER"
+  ],
+  [
+   26,
+   17,
+   1,
+   24,
+   4,
+   "LATENT"
+  ],
+  [
+   27,
+   24,
+   1,
+   25,
+   0,
+   "LATENT"
+  ],
+  [
+   28,
+   6,
+   0,
+   25,
+   1,
+   "VAE"
+  ],
+  [
+   29,
+   25,
+   0,
+   26,
+   0,
+   "IMAGE"
+  ],
+  [
+   30,
+   26,
+   0,
+   27,
+   0,
+   "*"
+  ],
+  [
+   31,
+   8,
+   2,
+   27,
+   1,
+   "AUDIO"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.5,
+   "offset": [
+    600,
+    500
+   ]
+  }
+ },
+ "version": 0.4
+}

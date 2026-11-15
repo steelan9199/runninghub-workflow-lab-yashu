@@ -68,6 +68,14 @@ SKILL.md 只留指针，细节全在这里；按 `class_type` 归类，同一节
   - 证据：`norman06` v1 / v2（单调睁大）眼皮零变化；v3（先垂 0.6s）实测被做成 n≈41/49/53/57/61/65/69 反复半闭，读起来是**眨眼**，且眼神向下、观感「困 / 沮丧」。
   - 追加（同日，v4）：情绪类表情不要写「先收缩再放开」——收缩段会被模型演成半闭+抖动；要写**一次单向到位（0.9s 内）再保持到静帧**，并把「抬眉 / 抬眼神 / 下颌微降 / 头微退」一起给，单靠眼皮一个通道推不动情绪。
 
+## UI 工作流手写节点（非 API 类）
+
+- **2026-11-15** 手写 UI 节点时，`inputs` 与 `widgets_values` 的顺序必须照节点**真实定义**，不能按 API 格式的字段顺序推。
+  - 症状：姿势提取工作流在平台一跑就报错，参数全串位（`resolution` 拿到了模型名 `dw-ll_ucoco_384.onnx`，`bbox_detector` 拿到了 `disable`）。
+  - 根因：UI 格式里 `widgets_values` 是**按位置**映射到前端节点的 widget 定义顺序；API 格式的 `inputs` 是字典，键顺序不可靠。DWPreprocessor 的真实顺序是 `image → detect_hand → detect_body → detect_face → resolution → bbox_detector → pose_estimator → scale_stick_for_xinsr_cn`，而 API 里回显的是 body 在前。
+  - 修法：以平台**重新序列化后**的 UI JSON 为准改顺序；自检方式 = 逐项比对两个文件的 `inputs` 名称顺序与 `widgets_values` 值串。
+  - 证据：本地 `pose_extract_skeleton.ui.json`（错序）→ 平台导出 `ForAITesting (2).json`（已跑通 `skeleton_joker02_00001_p81.mp4`，864×736 / 328 帧 / 24fps）→ 按它重建后「顺序一致: True / 值一致: True」。
+
 ## 平台接口（非节点类）
 
 - **2026-11-13** 查标题/使用量走站点公开接口，别用 OpenAPI，也别去开浏览器。

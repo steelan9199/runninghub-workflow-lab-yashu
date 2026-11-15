@@ -1,0 +1,374 @@
+{
+ "1": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "save_output": true,
+   "filename_prefix": "WanVideoWrapperV2V",
+   "images": [
+    "27",
+    0
+   ],
+   "loop_count": 0,
+   "pix_fmt": "yuv420p",
+   "save_metadata": true,
+   "crf": 19,
+   "format": "video/h264-mp4",
+   "frame_rate": 16,
+   "pingpong": false
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ },
+ "2": {
+  "class_type": "LoadWanVideoT5TextEncoder",
+  "inputs": {
+   "model_name": "umt5-xxl-enc-bf16.safetensors",
+   "precision": "bf16",
+   "load_device": "offload_device",
+   "quantization": "disabled"
+  },
+  "_meta": {
+   "title": "Load WanVideo T5 TextEncoder"
+  }
+ },
+ "3": {
+  "class_type": "WanVideoModelLoader",
+  "inputs": {
+   "attention_mode": "sageattn",
+   "compile_args": [
+    "5",
+    0
+   ],
+   "model": "VACE-Wan2.1-1.3B-Preview.safetensors",
+   "load_device": "offload_device",
+   "base_precision": "fp16",
+   "quantization": "disabled"
+  },
+  "_meta": {
+   "title": "WanVideo Model Loader"
+  }
+ },
+ "4": {
+  "class_type": "WanVideoTeaCache",
+  "inputs": {
+   "mode": "e",
+   "start_step": 1,
+   "cache_device": "offload_device",
+   "use_coefficients": "true",
+   "rel_l1_thresh": 0.25,
+   "end_step": -1
+  },
+  "_meta": {
+   "title": "WanVideo TeaCache"
+  }
+ },
+ "5": {
+  "class_type": "WanVideoTorchCompileSettings",
+  "inputs": {
+   "mode": "default",
+   "dynamo_recompile_limit": 128,
+   "fullgraph": false,
+   "dynamo_cache_size_limit": 64,
+   "compile_transformer_blocks_only": true,
+   "backend": "inductor",
+   "dynamic": false
+  },
+  "_meta": {
+   "title": "WanVideo Torch Compile Settings"
+  }
+ },
+ "6": {
+  "class_type": "WanVideoVAELoader",
+  "inputs": {
+   "model_name": "Wan2_1_VAE_bf16.safetensors",
+   "precision": "bf16"
+  },
+  "_meta": {
+   "title": "WanVideo VAE Loader"
+  }
+ },
+ "7": {
+  "class_type": "WanVideoSampler",
+  "inputs": {
+   "denoise_strength": 1,
+   "text_embeds": [
+    "10",
+    0
+   ],
+   "seed": 1057359483639288,
+   "cfg": 6.000000000000001,
+   "shift": 5.000000000000001,
+   "riflex_freq_index": 0,
+   "steps": 20,
+   "scheduler": "dpm++",
+   "batched_cfg": "",
+   "rope_function": "comfy",
+   "image_embeds": [
+    "14",
+    0
+   ],
+   "force_offload": true,
+   "model": [
+    "3",
+    0
+   ],
+   "teacache_args": [
+    "4",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "WanVideo Sampler"
+  }
+ },
+ "10": {
+  "class_type": "WanVideoTextEncode",
+  "inputs": {
+   "t5": [
+    "2",
+    0
+   ],
+   "speak_and_recognation": {
+    "__value__": [
+     false,
+     true
+    ]
+   },
+   "negative_prompt": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
+   "positive_prompt": [
+    "23",
+    0
+   ],
+   "force_offload": true
+  },
+  "_meta": {
+   "title": "WanVideo TextEncode"
+  }
+ },
+ "12": {
+  "class_type": "LayerMask: SegmentAnythingUltra V2",
+  "inputs": {
+   "detail_dilate": 6,
+   "image": [
+    "15",
+    0
+   ],
+   "detail_erode": 6,
+   "threshold": 0.3,
+   "max_megapixels": 2,
+   "sam_model": "sam_vit_h (2.56GB)",
+   "detail_method": "VITMatte",
+   "black_point": 0.15,
+   "process_detail": true,
+   "grounding_dino_model": "GroundingDINO_SwinT_OGC (694MB)",
+   "white_point": 0.99,
+   "cache_model": false,
+   "prompt": "human",
+   "device": "cuda"
+  },
+  "_meta": {
+   "title": "SegmentAnything Ultra V2"
+  }
+ },
+ "13": {
+  "class_type": "GrowMaskWithBlur",
+  "inputs": {
+   "expand": 50,
+   "decay_factor": 1,
+   "incremental_expandrate": 0,
+   "flip_input": false,
+   "lerp_alpha": 1,
+   "tapered_corners": true,
+   "blur_radius": 0,
+   "fill_holes": false,
+   "mask": [
+    "12",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "遮罩模糊生长"
+  }
+ },
+ "14": {
+  "class_type": "WanVideoVACEEncode",
+  "inputs": {
+   "input_masks": [
+    "13",
+    0
+   ],
+   "ref_images": [
+    "26",
+    0
+   ],
+   "strength": 1,
+   "width": [
+    "24",
+    1
+   ],
+   "num_frames": [
+    "15",
+    1
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "height": [
+    "24",
+    2
+   ],
+   "input_frames": [
+    "16",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "WanVideo VACE Encode"
+  }
+ },
+ "15": {
+  "class_type": "VHS_LoadVideo",
+  "inputs": {
+   "custom_height": 0,
+   "force_rate": 0,
+   "custom_width": 512,
+   "select_every_nth": 1,
+   "frame_load_cap": 33,
+   "video": "6a1b04900f989e177841163356835f6f4e036b86bffe2709d4918b8fe7562a63.mp4",
+   "skip_first_frames": 0,
+   "force_size": "Disabled"
+  },
+  "_meta": {
+   "title": "加载视频"
+  }
+ },
+ "16": {
+  "class_type": "InpaintPreprocessor",
+  "inputs": {
+   "image": [
+    "15",
+    0
+   ],
+   "black_pixel_for_xinsir_cn": false,
+   "mask": [
+    "13",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Inpaint内补预处理器"
+  }
+ },
+ "17": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "save_output": true,
+   "filename_prefix": "WanVideoWrapperV2V",
+   "images": [
+    "16",
+    0
+   ],
+   "loop_count": 0,
+   "pix_fmt": "yuv420p",
+   "save_metadata": true,
+   "crf": 19,
+   "format": "video/h264-mp4",
+   "frame_rate": 16,
+   "pingpong": false
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ },
+ "21": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "c3b3b56a11e9f0c33a1c406fda6c254f908e176dd05a079f77d6b7a8d9a4dd3b.png"
+  },
+  "_meta": {
+   "title": "加载图像"
+  }
+ },
+ "23": {
+  "class_type": "TextInput_",
+  "inputs": {
+   "speak_and_recognation": {
+    "__value__": [
+     false,
+     true
+    ]
+   },
+   "text": "视频中，一个人骑着马行走在宽阔的草原上，他有着淡紫色的长发，身着传统服饰，上身是白色上衣，下身是黑色裤子，动画造型风格让人感觉他们正在进行某种户外活动或表演"
+  },
+  "_meta": {
+   "title": "文本"
+  }
+ },
+ "24": {
+  "class_type": "ImageResizeKJ",
+  "inputs": {
+   "image": [
+    "15",
+    0
+   ],
+   "divisible_by": 2,
+   "width": 832,
+   "keep_proportion": false,
+   "upscale_method": "lanczos",
+   "crop": "center",
+   "height": 480
+  },
+  "_meta": {
+   "title": "图像缩放（KJ）"
+  }
+ },
+ "26": {
+  "class_type": "ImageResizeKJ",
+  "inputs": {
+   "width_input": [
+    "24",
+    1
+   ],
+   "height_input": [
+    "24",
+    2
+   ],
+   "image": [
+    "21",
+    0
+   ],
+   "divisible_by": 2,
+   "width": 480,
+   "keep_proportion": false,
+   "upscale_method": "lanczos",
+   "crop": "center",
+   "height": 832
+  },
+  "_meta": {
+   "title": "图像缩放（KJ）"
+  }
+ },
+ "27": {
+  "class_type": "WanVideoDecode",
+  "inputs": {
+   "tile_y": 272,
+   "tile_x": 272,
+   "tile_stride_y": 128,
+   "vae": [
+    "6",
+    0
+   ],
+   "tile_stride_x": 144,
+   "samples": [
+    "7",
+    0
+   ],
+   "enable_vae_tiling": true
+  },
+  "_meta": {
+   "title": "WanVideo Decode"
+  }
+ }
+}

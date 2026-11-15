@@ -1,0 +1,362 @@
+{
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "minimax_h3_ref2va_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "2": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "minimax_h3_turbo_4step_ckpt500.safetensors",
+   "strength_model": 1,
+   "model": [
+    "1",
+    0
+   ]
+  }
+ },
+ "3": {
+  "class_type": "PathchSageAttentionKJ",
+  "inputs": {
+   "sage_attention": "auto",
+   "allow_compile": false,
+   "model": [
+    "2",
+    0
+   ]
+  }
+ },
+ "4": {
+  "class_type": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+  "inputs": {
+   "model": [
+    "3",
+    0
+   ]
+  }
+ },
+ "5": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  }
+ },
+ "6": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  }
+ },
+ "7": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  }
+ },
+ "8": {
+  "class_type": "VHS_LoadVideo",
+  "inputs": {
+   "video": "openapi/2ca3e258cb4e796c22e447bff9fd56771507ceec1806bf718e12cdb3e92d971b.mp4",
+   "force_rate": 24,
+   "force_size": "Disabled",
+   "custom_width": 0,
+   "custom_height": 0,
+   "frame_load_cap": 73,
+   "skip_first_frames": 0,
+   "select_every_nth": 1,
+   "format": "AnimateDiff"
+  }
+ },
+ "9": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/c8a5fb11528e7afa62f0aa9538908d51c3a6263221f8f22ee1cca70a1c82e7a9.png"
+  }
+ },
+ "10": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/19bb73ad09adfd9035e0581c47ee07f594d8a7c4000f58b0f3da9cf171574aea.png"
+  }
+ },
+ "11": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/025df0d4c693b8d51f040bdda8a2f29b4684ee1c669bfe21a46d7005e3f07c0d.png"
+  }
+ },
+ "12": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/3981ed54d8ec515429cbdb995a52e75953d5453b3c6ce4b9052128988b3eb075.png"
+  }
+ },
+ "13": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/0bef7cac7e2fcbc7b33b328a7abef2ea02e47cc00b6db3aade7bc7741f18eabe.png"
+  }
+ },
+ "14": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/5bade78c180a6c7bff3e9f7293fdd9b7f29515a918bce8bca544b907673dd105.png"
+  }
+ },
+ "15": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/04eca517dcf9a3152ec1511c8ddbe3f2a43b23f6d3012803869d449c66ffe224.png"
+  }
+ },
+ "16": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/9a7f61b3ef9c2d32bbe2856c4efcd5646997be2ed20e9c7d76dbb4f43f804d73.png"
+  }
+ },
+ "17": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "openapi/14d3cead849675a7d8dd3ec3ec34e9f44593bcad8247e6efdf7f16dc1e1cb1a5.png"
+  }
+ },
+ "18": {
+  "class_type": "PrimitiveStringMultiline",
+  "inputs": {
+   "value": "subject_definitions:\n<Video 1> is the source video for the target video edit: a 3.04-second single locked-off shot of a board meeting around a long glossy black table, filmed wide from the near end on a long lens with a shallow depth of field. Behind the person standing at the head of the table is a pale grey back wall carrying the large dark word \"OSCORP\", a low sideboard holding bottles and a stack of white cups, and a row of recessed ceiling spotlights; white teacups and saucers run along the reflective tabletop. In <Video 1> every person in the room wears modern western business clothing: dark business suits, white dress shirts and neckties. One man stands facing the camera at the head of the table; three seats are occupied along the left edge of the table; four people sit along the right edge; and in the extreme foreground at the bottom centre of the frame a man sits with his back to the lens, soft and completely out of focus. The delivered frame is 864x736 and carries a thin pure-black border on all four sides; those black borders are static and stay exactly as they are.\n<Audio 1> is the synchronized audio track of <Video 1> and is reused unchanged in the target video. It carries the room tone and the continuous speech of the standing speaker and is bound to no new voice.\n<Subject 1> is the man shown in <Picture 1>: a Chinese nobleman with long black hair gathered under a small gold crown with two thin crosswise pins, a thin moustache and a small pointed goatee, a black and ochre robe covered in dense dark-gold cloud patterning, red bands running across the chest and the waist, a wide square belt of pale plaques, and a golden-ochre outer coat with wide sleeves draped over both shoulders. In <Video 1> he sits in the extreme foreground at the bottom centre of the frame with his back to the lens, out of focus; only the back of his head, his hair, the gold crown, his shoulders and the upper part of the ochre coat are inside the frame. His grey hair is replaced by the black hair and the small gold crown, and his dark suit is replaced by the golden-ochre coat. His face is never visible, his head never turns toward the lens, and he never stands up.\n<Subject 2> is the man shown in <Picture 2>: a Chinese man with long straight black hair falling down his back, a small gold crown with two thin crosswise pins, a thin moustache and a small pointed goatee, and a pale ice-blue robe with a dark blue patterned border running down the front opening and around the cuffs over a white inner collar. In <Video 1> he stands at the head of the table facing the camera, both hands opening and spreading in the air in front of his chest and then drawing back in, talking continuously.\n<Subject 3> is the man shown in <Picture 3>: a beardless older Chinese official in a red square soft cap with short hanging side flaps, its front band worked in dark blue and gold, a red robe piped in pale blue cord along every edge and covered in rounded dark-gold cloud medallions, a string of large wooden beads hanging across his chest, and a black belt set with pale jade plaques. He sits at the far end of the left row with both forearms resting on the table edge, his face turned toward the standing speaker.\n<Subject 4> is the man shown in <Picture 4>: a Chinese official with a short grey-streaked beard and moustache, a tall black hat with vertical gold stripes and two short upright side wings, a red robe with a large gold rectangular badge on the chest, gold scroll patches on both shoulders, and a belt of round gold plaques with a square jade buckle at its centre. He sits at the near end of the left row, his head cropped by the left frame edge, one hand flat on a black notebook on the table.\n<Picture 9> shows the robe itself, laid flat with no person in it: a dark red silk official robe with wide loose sleeves, a gold cloud-pattern band running around the edge of each cuff opening and up the forearms, and a square dark-green plaque with gold embroidery on the chest. It defines the fabric, the cut of the sleeve and the trim of the cuff for the seated officials.\n<Subject 5> is the seated attendee at the near-left corner of the table, who has no face in the frame and whose only visible part inside the frame is one forearm and its hand resting on the table edge at the bottom left; the forearm is clad in the same dark red silk wide sleeve as in <Picture 9>, with the gold cloud-pattern band around the cuff opening, and the wide sleeve bunches and folds on the table edge under the wrist. No suit sleeve, no shirt cuff and no pale band appears on this arm.\n<Subject 6> is the man shown in <Picture 5>: a very old Chinese official with long white hair and a long white beard, a black hat with long horizontal wings projecting far to both sides, a red robe with a large dark-green square badge embroidered in gold, and a black belt of round gold plaques. He sits at the far end of the right row, leaning forward toward the table centre with a small white teacup held near his chest.\n<Subject 7> is the man shown in <Picture 6>: a middle-aged Chinese official with short grey hair and a short grey beard, a tall black hat with vertical gold stripes and two short upright side wings, a white inner collar, a red robe with a large dark-green square badge embroidered in gold, and a black belt of round gold plaques. He sits second along the right row, upright, his face turned toward screen left.\n<Subject 8> is the man shown in <Picture 7>: a Chinese official with short dark-grey hair and a short dark-grey beard, a tall black hat with vertical gold stripes and two short upright side wings, a red robe with a large dark-green square badge embroidered in gold, and a black belt of round gold plaques. He sits third along the right row with his hands clasped on the table edge.\n<Subject 9> is the man shown in <Picture 8>: a Chinese official with a long black beard reaching down over his chest, a tall black hat with vertical gold stripes and two short upright side wings, a red robe with a large dark-green square badge embroidered in gold, and a black belt of round gold plaques with a square jade buckle at its centre. He sits at the nearest seat of the right row, against the right frame edge, leaning toward the table centre with one hand flat on a black notebook.\n\nsummary:\n[video editing + audio reuse] The target video is an edited version of <Video 1>. The nine people in the source frame are replaced one for one, in the same seats and the same order, by <Subject 1> to <Subject 9>, each completely re-dressed in the historical Chinese costume described above, so that the dark business suits, white dress shirts, neckties and short grey hair of the source disappear everywhere in the frame, including on the single forearm of <Subject 5> at the bottom left, which now wears the wide dark red silk sleeve with the gold cuff band taken from <Picture 9>, while the locked-off wide framing, the defocused foreground, the black table, the white teacups, the OSCORP wall, the empty chair at the head of the table, the black border and every head angle, gaze, blink and lip movement stay identical, and <Audio 1> is reused as the complete final audio track.\n\nretention_analysis:\n<Video 1> (framing and staging): fully_preserved - the single continuous shot, the wide view from the near end of the table, the shallow focus on the far row, the near foreground blur, the reflective black tabletop, the pale grey OSCORP wall, the sideboard with bottles, the row of ceiling spotlights, the nine seating and standing positions, the empty high-backed chair at the head of the table, the white teacups, the thin black border on all four sides, the faint handheld drift and the absence of any cut, zoom or reframing.\n<Video 1> (modern clothing): not_retained - the dark business suits, white dress shirts, neckties and short modern haircuts are completely replaced on every dressed person; not one suit lapel, shirt collar, white cuff or necktie may remain anywhere in the frame.\n<Subject 1> (extreme foreground, seen from behind): fully_preserved - the black hair, the small gold crown and the golden-ochre coat over the soft out-of-focus shoulders stay in exactly the same place; his face stays outside the shot and his head never turns.\n<Subject 2> (standing at the head of the table): fully_preserved - the long black hair, the small gold crown, the pale ice-blue robe with the dark blue patterned border, the white inner collar, and the opening and closing of both hands in front of his chest while he speaks.\n<Subject 3> (far end of the left row): fully_preserved - the red cap with side flaps, the pale-blue piped red robe with cloud medallions, the wooden beads across the chest, the jade-studded belt, and both forearms on the table edge.\n<Subject 4> (near end of the left row, cropped): fully_preserved - the short grey-streaked beard, the tall black hat with gold stripes and upright wings, the red robe with the gold badge, and the head cropped by the left frame edge with one hand on the notebook.\n<Subject 5> (near-left corner, forearm only): fully_preserved - only one forearm and one hand stay inside the frame at the bottom left, and that forearm is dressed in the dark red silk wide sleeve from <Picture 9> with its gold cloud-pattern cuff band bunched on the table edge; the dark suit sleeve and the white shirt cuff of the source are gone, and no head, shoulder or torso is invented for this person.\n<Subject 6> (far end of the right row): fully_preserved - the long white hair and beard, the black hat with long horizontal wings, the red robe with the dark-green gold-embroidered badge, and the white teacup held near the chest in a forward lean.\n<Subject 7> (second seat of the right row): fully_preserved - the short grey hair and short grey beard, the tall black hat with gold stripes and upright wings, the red robe with the dark-green gold-embroidered badge, and the upright posture with the face turned toward screen left.\n<Subject 8> (third seat of the right row): fully_preserved - the short dark-grey hair and beard, the tall black hat with gold stripes and upright wings, the red robe with the dark-green gold-embroidered badge, and the hands clasped on the table edge.\n<Subject 9> (nearest seat of the right row): fully_preserved - the long black beard reaching the chest, the tall black hat with gold stripes and upright wings, the red robe with the dark-green gold-embroidered badge, the jade-buckled belt, and the forward lean with one hand on the notebook.\n<Audio 1>: fully_copy - <Audio 1> is reused 1:1 as the target video's complete final audio track.\n\ndetailed_description:\nLive-action footage, wide static shot from the near end of a long boardroom table on a long lens, shallow depth of field with the far row sharp and the near foreground soft, soft overhead light from a row of recessed ceiling spotlights, fine film grain, a pale grey back wall carrying the large dark word \"OSCORP\", and a faint handheld drift throughout. Every person in the frame, down to the last visible forearm, wears historical Chinese costume; there is not a single business suit, dress shirt, white cuff or necktie anywhere in the room. All cloth is matte woven fabric under ordinary room light, with no glow, no neon edge and no self-illumination.\n[Shot 1] The frame holds steady. In the extreme foreground at the bottom centre <Subject 1> sits with his back to the lens, out of focus: even softened by the defocus, the small gold crown, his black hair and the golden-ochre coat spread across his shoulders are readable instead of the grey hair and dark suit of the source. He stays seated and motionless, his head never turning, for the whole shot.\nAt the head of the table <Subject 2> stands facing the camera in his pale ice-blue robe with the dark blue patterned border, his long black hair hanging down his back, the small gold crown on top of his head; he lifts both hands, opens them outward in front of his chest, draws them back in, and repeats, and his jaw and lips keep moving as he speaks, exactly in step with the voice carried in <Audio 1>. Nobody else in the room speaks.\nAlong the left edge of the table, from the head toward the lens, sit three people. <Subject 3> sits farthest along in his red cap with short side flaps and his pale-blue piped red robe, both forearms on the table edge, his face turned toward the standing speaker, blinking slowly. Nearer the lens sits <Subject 4> in his tall black hat with gold stripes and upright side wings and his red robe with the large gold badge, his head cropped by the left frame edge, one hand flat on a black notebook, his eyes moving between the speaker and the table. Nearest the lens only one forearm and one hand of <Subject 5> are inside the frame at the bottom left: the forearm is wrapped in the dark red silk wide sleeve of the official robe, its gold cloud-pattern cuff band sits at the wrist, the loose sleeve folds and bunches against the table edge, and the hand rests still on the table.\nAlong the right edge of the table, from the head toward the lens, sit four people. <Subject 6> leans forward with his long white beard falling over his chest, holding a small white teacup near his chest in both hands. <Subject 7> sits upright beside him, white inner collar showing, eyes on the speaker, blinking. <Subject 8> sits with his hands clasped on the table edge, head level. At the nearest seat against the right frame edge <Subject 9> leans in toward the table centre, his long black beard reaching his chest, one hand flat on a black notebook.\nThe nine are nine different individuals and must stay visibly distinct: <Subject 1> is the only one seen from behind and the only one out of focus; <Subject 2> is the only one standing and the only one with long hair down his back; <Subject 3> is the only beardless man and the only one in a red cap with side flaps instead of a black hat; <Subject 4> is the only one cropped by the left edge; <Subject 5> is the only one of whom nothing but one forearm is visible; <Subject 6> is the only one with long white hair and a white beard and the only one with long horizontal hat wings; <Subject 7> is the only one with a short grey beard; <Subject 8> has a short dark-grey beard; <Subject 9> is the only one with a long black beard. No two of them may share or duplicate a face, and no person may be moved to another seat or turned in a new direction.\nThe empty high-backed chair at the head of the table stays empty behind <Subject 2>. The camera never moves closer, never tilts, never pans, never cuts, and nobody stands up, walks, enters or leaves the frame. The four black border strips stay black and perfectly still in every frame.\n\noverall_soundscape:\nQuiet boardroom room tone with a faint ventilation hum and the continuous voice of the standing speaker, all carried by <Audio 1>; the sound stays unchanged from the first to the last frame.\n\nnon_diegetic_music:\nN/A"
+  }
+ },
+ "19": {
+  "class_type": "PrimitiveFloat",
+  "inputs": {
+   "value": 864
+  }
+ },
+ "20": {
+  "class_type": "ComfyMathExpression",
+  "inputs": {
+   "expression": "a",
+   "values.a": [
+    "19",
+    0
+   ]
+  }
+ },
+ "21": {
+  "class_type": "PrimitiveFloat",
+  "inputs": {
+   "value": 736
+  }
+ },
+ "22": {
+  "class_type": "ComfyMathExpression",
+  "inputs": {
+   "expression": "a",
+   "values.a": [
+    "21",
+    0
+   ]
+  }
+ },
+ "23": {
+  "class_type": "MiniMaxH3ReferenceToVideo",
+  "inputs": {
+   "prompt": [
+    "18",
+    0
+   ],
+   "width": [
+    "20",
+    1
+   ],
+   "height": [
+    "22",
+    1
+   ],
+   "length": 73,
+   "ref_image_size": "match",
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "audio_vae": [
+    "7",
+    0
+   ],
+   "ref_images.ref_image_0": [
+    "9",
+    0
+   ],
+   "ref_images.ref_image_1": [
+    "10",
+    0
+   ],
+   "ref_images.ref_image_2": [
+    "11",
+    0
+   ],
+   "ref_images.ref_image_3": [
+    "12",
+    0
+   ],
+   "ref_images.ref_image_4": [
+    "13",
+    0
+   ],
+   "ref_images.ref_image_5": [
+    "14",
+    0
+   ],
+   "ref_images.ref_image_6": [
+    "15",
+    0
+   ],
+   "ref_images.ref_image_7": [
+    "16",
+    0
+   ],
+   "ref_images.ref_image_8": [
+    "17",
+    0
+   ],
+   "ref_videos.ref_video_0": [
+    "8",
+    0
+   ],
+   "ref_video_audios.ref_video_audio_0": [
+    "8",
+    2
+   ]
+  }
+ },
+ "24": {
+  "class_type": "BasicScheduler",
+  "inputs": {
+   "scheduler": "beta",
+   "steps": 4,
+   "denoise": 1,
+   "model": [
+    "4",
+    0
+   ]
+  }
+ },
+ "25": {
+  "class_type": "H3SigmaRefiner",
+  "inputs": {
+   "extra_steps": 2,
+   "start_at_sigma": 0.7,
+   "end_at_sigma": 0,
+   "spacing": "cosine",
+   "sigmas": [
+    "24",
+    0
+   ]
+  }
+ },
+ "26": {
+  "class_type": "SplitSigmas",
+  "inputs": {
+   "step": 4,
+   "sigmas": [
+    "25",
+    0
+   ]
+  }
+ },
+ "27": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 20261114,
+   "control_after_generate": "fixed"
+  }
+ },
+ "28": {
+  "class_type": "KSamplerSelect",
+  "inputs": {
+   "sampler_name": "euler"
+  }
+ },
+ "29": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "conditioning": [
+    "23",
+    0
+   ]
+  }
+ },
+ "30": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "27",
+    0
+   ],
+   "guider": [
+    "29",
+    0
+   ],
+   "sampler": [
+    "28",
+    0
+   ],
+   "sigmas": [
+    "26",
+    0
+   ],
+   "latent_image": [
+    "23",
+    1
+   ]
+  }
+ },
+ "31": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "30",
+    1
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "33": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "frame_rate": 24,
+   "loop_count": 0,
+   "filename_prefix": "norman03_onepass_9p",
+   "format": "video/h264-mp4",
+   "pix_fmt": "yuv420p",
+   "crf": 19,
+   "save_output": true,
+   "save_metadata": true,
+   "trim_to_audio": false,
+   "images": [
+    "31",
+    0
+   ],
+   "audio": [
+    "8",
+    2
+   ]
+  }
+ }
+}

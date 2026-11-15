@@ -1,0 +1,285 @@
+{
+ "2": {
+  "class_type": "DownloadAndLoadMimicMotionModel",
+  "inputs": {
+   "precision": "fp16",
+   "model": "MimicMotionMergedUnet_1-0-fp16.safetensors"
+  },
+  "_meta": {
+   "title": "(Down)Load MimicMotionModel"
+  }
+ },
+ "3": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "3bc4a812fc39012cf92c82b294d30bcb780490ab320154be88443f16a1174059.jpeg"
+  },
+  "_meta": {
+   "title": "加载图像"
+  }
+ },
+ "5": {
+  "class_type": "VHS_LoadVideo",
+  "inputs": {
+   "custom_height": 0,
+   "force_rate": 0,
+   "custom_width": 0,
+   "select_every_nth": 2,
+   "frame_load_cap": 0,
+   "format": "AnimateDiff",
+   "video": "216582db4d3f020190c8b8d23ef97da84aabaab9090fc0574ba7b988ff09a16a.mp4",
+   "skip_first_frames": 0,
+   "force_size": "Disabled"
+  },
+  "_meta": {
+   "title": "加载视频"
+  }
+ },
+ "9": {
+  "class_type": "GetImageSizeAndCount",
+  "inputs": {
+   "image": [
+    "42",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "获取图像尺寸数量"
+  }
+ },
+ "28": {
+  "class_type": "ImageResizeKJ",
+  "inputs": {
+   "image": [
+    "3",
+    0
+   ],
+   "divisible_by": 64,
+   "width": 576,
+   "keep_proportion": true,
+   "upscale_method": "nearest-exact",
+   "crop": 0,
+   "height": 1024
+  },
+  "_meta": {
+   "title": "图像缩放（KJ）"
+  }
+ },
+ "35": {
+  "class_type": "ImageResizeKJ",
+  "inputs": {
+   "image": [
+    "5",
+    0
+   ],
+   "divisible_by": 64,
+   "width": 576,
+   "keep_proportion": false,
+   "upscale_method": "nearest-exact",
+   "crop": 0,
+   "height": 1024
+  },
+  "_meta": {
+   "title": "图像缩放（KJ）"
+  }
+ },
+ "42": {
+  "class_type": "MimicMotionGetPoses",
+  "inputs": {
+   "include_hand": true,
+   "pose_images": [
+    "35",
+    0
+   ],
+   "include_face": true,
+   "include_body": true,
+   "ref_image": [
+    "28",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "MimicMotion GetPoses aijuxi"
+  }
+ },
+ "57": {
+  "class_type": "MimicMotionSampler",
+  "inputs": {
+   "context_size": 16,
+   "pose_end_percent": 1,
+   "pose_images": [
+    "9",
+    0
+   ],
+   "seed": 42,
+   "cfg_max": 2,
+   "fps": 15,
+   "context_overlap": 6,
+   "pose_start_percent": 0,
+   "steps": 25,
+   "mimic_pipeline": [
+    "2",
+    0
+   ],
+   "ref_image": [
+    "28",
+    0
+   ],
+   "image_embed_strength": 1,
+   "keep_model_loaded": false,
+   "noise_aug_strength": 0,
+   "pose_strength": 1,
+   "cfg_min": 2
+  },
+  "_meta": {
+   "title": "MimicMotion Sampler"
+  }
+ },
+ "58": {
+  "class_type": "MimicMotionDecode",
+  "inputs": {
+   "decode_chunk_size": 4,
+   "mimic_pipeline": [
+    "2",
+    0
+   ],
+   "samples": [
+    "57",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "MimicMotion Decode aijuxi"
+  }
+ },
+ "59": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "save_output": true,
+   "filename_prefix": "MimicMotion/aijuxi",
+   "images": [
+    "63",
+    0
+   ],
+   "loop_count": 0,
+   "pix_fmt": "yuv420p",
+   "save_metadata": false,
+   "crf": 19,
+   "trim_to_audio": false,
+   "format": "video/h264-mp4",
+   "no_preview": false,
+   "frame_rate": 15,
+   "pingpong": false
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ },
+ "62": {
+  "class_type": "RIFE VFI",
+  "inputs": {
+   "fast_mode": true,
+   "frames": [
+    "58",
+    0
+   ],
+   "multiplier": 1,
+   "clear_cache_after_n_frames": 10,
+   "ensemble": true,
+   "rife_name": "rife47.pth",
+   "scale_factor": 1
+  },
+  "_meta": {
+   "title": "RIFE VFI"
+  }
+ },
+ "63": {
+  "class_type": "ImageScale",
+  "inputs": {
+   "image": [
+    "62",
+    0
+   ],
+   "width": 576,
+   "upscale_method": "nearest-exact",
+   "crop": "disabled",
+   "height": 1024
+  },
+  "_meta": {
+   "title": "图像缩放"
+  }
+ },
+ "74": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "save_output": true,
+   "filename_prefix": "MimicMotion/aijuxi",
+   "images": [
+    "42",
+    1
+   ],
+   "loop_count": 0,
+   "pix_fmt": "yuv420p",
+   "save_metadata": false,
+   "crf": 19,
+   "trim_to_audio": false,
+   "format": "video/h264-mp4",
+   "no_preview": false,
+   "frame_rate": 15,
+   "pingpong": false
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ },
+ "77": {
+  "class_type": "ImageConcatMulti",
+  "inputs": {
+   "image_4": [
+    "63",
+    0
+   ],
+   "inputcount": 4,
+   "image_1": [
+    "28",
+    0
+   ],
+   "image_3": [
+    "42",
+    1
+   ],
+   "image_2": [
+    "35",
+    0
+   ],
+   "match_image_size": false,
+   "direction": "right"
+  },
+  "_meta": {
+   "title": "图像联结（多个）"
+  }
+ },
+ "78": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "save_output": true,
+   "filename_prefix": "MimicMotion/aijuxi",
+   "images": [
+    "77",
+    0
+   ],
+   "loop_count": 0,
+   "pix_fmt": "yuv420p",
+   "save_metadata": false,
+   "crf": 19,
+   "trim_to_audio": false,
+   "format": "video/h264-mp4",
+   "no_preview": false,
+   "frame_rate": 15,
+   "pingpong": false
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ }
+}

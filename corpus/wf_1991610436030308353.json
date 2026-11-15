@@ -1,0 +1,249 @@
+{
+ "1": {
+  "class_type": "SAM3Segmentation",
+  "inputs": {
+   "max_detections": 1,
+   "image": [
+    "6",
+    0
+   ],
+   "sam3_model": [
+    "2",
+    0
+   ],
+   "text_prompt": [
+    "10",
+    0
+   ],
+   "confidence_threshold": 0.2
+  },
+  "_meta": {
+   "title": "SAM3 Segmentation"
+  }
+ },
+ "2": {
+  "class_type": "LoadSAM3Model",
+  "inputs": {
+   "use_gpu_cache": true
+  },
+  "_meta": {
+   "title": "Load SAM3 Model"
+  }
+ },
+ "3": {
+  "class_type": "VHS_LoadVideo",
+  "inputs": {
+   "custom_height": 0,
+   "force_rate": 16,
+   "custom_width": 0,
+   "select_every_nth": 1,
+   "frame_load_cap": 150,
+   "format": "AnimateDiff",
+   "video": "a7d489c057f9507361d06af5dd04809a8b8c6a03c6990072c42f7789069673f5.mp4",
+   "skip_first_frames": 150,
+   "force_size": "Disabled"
+  },
+  "_meta": {
+   "title": "加载视频"
+  }
+ },
+ "4": {
+  "class_type": "ImageResizeKJv2",
+  "inputs": {
+   "crop_position": "center",
+   "image": [
+    "3",
+    0
+   ],
+   "pad_color": "0, 0, 0",
+   "divisible_by": 2,
+   "width": [
+    "15",
+    0
+   ],
+   "keep_proportion": "crop",
+   "upscale_method": "lanczos",
+   "device": "cpu",
+   "height": [
+    "16",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Resize Image v2"
+  }
+ },
+ "6": {
+  "class_type": "easy imageBatchToImageList",
+  "inputs": {
+   "image": [
+    "4",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "图像批次到图像列表"
+  }
+ },
+ "7": {
+  "class_type": "easy imageListToImageBatch",
+  "inputs": {
+   "images": [
+    "1",
+    1
+   ]
+  },
+  "_meta": {
+   "title": "图像列表到图像批次"
+  }
+ },
+ "8": {
+  "class_type": "VHS_VideoInfo",
+  "inputs": {
+   "video_info": [
+    "3",
+    3
+   ]
+  },
+  "_meta": {
+   "title": "视频信息"
+  }
+ },
+ "9": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "images": [
+    "7",
+    0
+   ],
+   "pix_fmt": "yuv420p",
+   "format": "video/h264-mp4.json",
+   "frame_rate": [
+    "8",
+    5
+   ],
+   "pingpong": false,
+   "save_output": true,
+   "filename_prefix": "AnimateDiff",
+   "loop_count": 0,
+   "save_metadata": true,
+   "crf": 19,
+   "trim_to_audio": false,
+   "no_preview": false,
+   "audio": [
+    "3",
+    2
+   ]
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ },
+ "10": {
+  "class_type": "RH_Translator",
+  "inputs": {
+   "seed": 327,
+   "prompt": "穿着白色西装，白色裤子，戴着白色帽子正在跳舞的男人",
+   "advanced_options": "auto"
+  },
+  "_meta": {
+   "title": "Runninghub Translator"
+  }
+ },
+ "12": {
+  "class_type": "MaskToImage",
+  "inputs": {
+   "mask": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "遮罩到图像"
+  }
+ },
+ "14": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "images": [
+    "21",
+    0
+   ],
+   "pix_fmt": "yuv420p",
+   "format": "video/h264-mp4.json",
+   "frame_rate": [
+    "8",
+    5
+   ],
+   "pingpong": false,
+   "save_output": true,
+   "filename_prefix": "AnimateDiff",
+   "loop_count": 0,
+   "save_metadata": true,
+   "crf": 19,
+   "trim_to_audio": false,
+   "no_preview": false,
+   "audio": [
+    "3",
+    2
+   ]
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ },
+ "15": {
+  "class_type": "INTConstant",
+  "inputs": {
+   "value": 832
+  },
+  "_meta": {
+   "title": "整数常量"
+  }
+ },
+ "16": {
+  "class_type": "INTConstant",
+  "inputs": {
+   "value": 480
+  },
+  "_meta": {
+   "title": "整数常量"
+  }
+ },
+ "18": {
+  "class_type": "MaskPreview+",
+  "inputs": {
+   "mask": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "遮罩预览"
+  }
+ },
+ "21": {
+  "class_type": "easy imageListToImageBatch",
+  "inputs": {
+   "images": [
+    "22",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "图像列表到图像批次"
+  }
+ },
+ "22": {
+  "class_type": "Images to RGB",
+  "inputs": {
+   "images": [
+    "12",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "图像到RGB"
+  }
+ }
+}

@@ -1,0 +1,27 @@
+subject_definitions:
+<Video 1> is the source video for the target video edit: a 6.58-second office conversation built from three hard cuts of tight close-ups on two men, shot on a long lens with a mostly locked-off camera against a plain grey office wall. The delivered frame is 864x736 and carries a thin pure-black border on all four sides; those black borders are static and stay exactly as they are.
+<Subject 1> is the official shown in <Picture 1>. His whole appearance is taken from <Picture 1> and reproduced unchanged: face, hair, beard, headwear, robe and every accessory exactly as that picture shows them. He appears in [Shot 2].
+<Subject 2> is the man shown in <Picture 2>. His whole appearance is taken from <Picture 2> and reproduced unchanged: face, hair, beard, headwear, robe and every accessory exactly as that picture shows them. He appears in [Shot 1] and [Shot 3].
+<Audio 1> is the synchronized audio track of <Video 1> and is reused unchanged in the target video. It carries <Subject 1> (S1) in [Shot 2] and <Subject 2> (S2) in [Shot 3].
+
+summary:
+[video editing + audio reuse] The target video is an edited version of <Video 1>. The two men in the source are replaced person for person by <Subject 1> and <Subject 2>, with each man's face, hair, headwear and clothing taken as a whole from his reference picture, while the three-shot edit, the tight framing, the facial performance, the lip-sync, the rise out of the chair and the black border stay identical, and <Audio 1> is reused as the complete final audio track.
+
+retention_analysis:
+<Video 1> (cut, dialogue timing and performance structure): fully_preserved - the cut points at 0.00, 0.458 and 4.00 seconds, the tight close-up framing, the grey office wall, every facial action (brow raises, eye direction, blink timing, jaw and lip shapes while speaking), the body lift at the end of [Shot 3], and the black border on all four sides are reproduced.
+<Subject 1> (appears in [Shot 2]): fully_preserved - the figure in <Picture 1> is reproduced as a whole, headwear and clothing included.
+<Subject 2> (appears in [Shot 1], [Shot 3]): fully_preserved - the figure in <Picture 2> is reproduced as a whole, headwear and clothing included.
+<Audio 1>: fully_copy - <Audio 1> is reused 1:1 as the target video's complete final audio track.
+
+detailed_description:
+Live-action footage shot on a long lens in tight close-up, shallow depth of field, soft overhead office light from slightly screen left, visible skin pores and single beard strands, fine film grain, and a flat grey-green wall behind both men. Both men wear exactly what their reference pictures show, with the garments reading as ordinary matte textile under the room light. The four black border strips stay black and perfectly still in every frame.
+[Shot 1] A tight close-up frames <Subject 2> at a slight three-quarter angle, his eyes turned to screen left and away from the lens. His lips rest closed and only slightly parted, his jaw is relaxed, and he is listening rather than speaking. The top of a dark leather chair back sits behind his neck inside the frame. His head stays nearly still and only his eyes move; this shot lasts eleven frames.
+[Shot 2] At 00:00.458, the shot cuts to a tight close-up of <Subject 1> (S1), his eyes turned to screen right, and he says, <d>[English] The board expects your resignation in 30 days.</d> His mouth articulates every word: the jaw drops and rises with each syllable, his lips part and close around the consonants, his teeth show briefly, and his chin moves with the rhythm of the sentence. Around one second he brings his gaze back to screen left while the sentence continues; around three seconds he turns his eyes to screen right again. His brows lift on the stressed words.
+[Shot 3] At 00:04.000, the shot cuts back to <Subject 2> (S2), eyes wide and brows raised, and he says, <d>[English] But you can't do this to me.</d> His mouth keeps articulating continuously from the first frame to the last: the jaw drops on the open vowels, the lips round and close on the consonants, and his moustache and goatee move with his jaw. About one second in he pushes himself up out of the chair: his shoulders and head rise toward the lens and the dark chair back behind his neck slides down out of the bottom of the frame, and by the middle of the shot the chair is no longer visible behind him. He keeps rising and keeps speaking, his gaze fixed off the lens, until the final frame.
+The camera stays locked on each man's face and keeps only the slight handheld drift of <Video 1>, holding the same framing and eye level from the first frame to the last.
+
+overall_soundscape:
+Quiet office room tone with a faint ventilation hum, carried by <Audio 1> and continuing unchanged through all three shots.
+
+non_diegetic_music:
+N/A
