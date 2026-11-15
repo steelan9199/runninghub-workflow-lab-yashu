@@ -41,6 +41,8 @@
 | 14 | 2000971709572317185 | `Z-image+Controlnet视频首帧动态控制生图` | 取视频首帧骨架 → 出一张同姿态的图，用来对齐首帧 | 664 | 23 | 2026-11-15 |
 | 15 | 1996950295303360513 | `Z-image秒变MOE模型，Controlnet和lora和谐共生` | Z-image + ControlNet + 人像 LoRA，静态图出图 | 1511 | 22 | 2026-11-15 |
 | 16 | 1982334863921561601 | `夜魔佬首尾帧+中间帧` | Wan2.2 高低噪双段，首/中/尾三帧同时约束 | 591 | 18 | 2026-11-15 |
+| 17 | 1931329103214129154 | `ComfyUI Wan 2.1 VACE 多条件 - 更好的 ControlNet 控图视频生成` | VACE 双条件串联（深度 + 骨架），**跳舞转绘** | 218 | 26（API 图 30） | 2026-11-15 |
+| 18 | 1996163380232830977 | `Z-lmage-Turbo-Fun-Controlnet(支持多种条件控制)` | 四路条件开关（Canny/Depth/Pose），Z-Image 出图 | 93 | 20（API 图 26） | 2026-11-15 |
 
 标题核对结果：②③ 与我记的完全一致；① 我漏了「最强」两字，官方标题是 `Minimax H3_三采最强工作流_首尾帧`。
 
@@ -214,6 +216,25 @@
 - **`length` 必须是 4n+1**（81 = 4×20+1），Wan 系硬约束，和 H3 的 17k+5 不是一套。
 - **注意**：`ImageScaleBy(0.2)` 那三个节点只用于拼对比图（`ImageConcatMulti(58)` + `ImageConcanate(59)`），不影响出片。
 
+## 17. 1931329103214129154 · ComfyUI Wan 2.1 VACE 多条件 - 更好的 ControlNet 控图视频生成
+
+- **作者 / 热度**：大凯AI；使用 218、节点 26（API 图 30）。作者简介里明写「**跳舞转绘也 OK**」，与换人跳舞同族。
+- **核心手法：VACE 双条件串联**。两段 `WanVideoVACEEncode` 不是并联而是**串起来**：`52` 吃深度（`input_frames<-143` DepthAnythingV2，`ref_images<-29` 外观参考）→ 其输出当 `144` 的 `prev_vace_embeds` → `144` 再吃骨架（`input_frames<-145` DWPreprocessor）→ 最终 `image_embeds` 进采样器。先说「画面结构长这样」，再说「关节长这样」，模型不容易二选一。
+- **参数**：两段 `strength=0.5`、`vace_start/end_percent=0/1`。
+- **模型**：`Wan2_1-T2V-14B_fp8_e4m3fn` + `Wan2_1-VACE_module_14B_bf16` + LoRA `Wan21_CausVid_14B_T2V_lora_rank32_v2`(0.5)；`blocks_to_swap=20`、sageattn、TorchCompile。
+- **采样**：**8 步**、`flowmatch_causvid`、`shift=8`、`cfg=1`、81 帧 / 832×480 / 24fps。
+- **输入**：`LoadImage(148)` 外观参考、`LoadImage(149)` + `VHS_LoadVideo(150)` 驱动素材。
+- **对本项目的参考价值**：这是「骨架不够、还想锁住画面结构」的解法——你镜1 的构图被拉近，除了骨架，再串一路深度（或直接串原片深度）能把楼梯峡谷的结构钉住。
+- **注意**：`frame_rate` 三个 combine 分别写 24 / 25 / 25，属作者笔误，照抄时统一。
+
+## 18. 1996163380232830977 · Z-lmage-Turbo-Fun-Controlnet(支持多种条件控制)
+
+- **作者 / 热度**：玩点AI；使用 93、节点 20（API 图 26）。**作者简介里带邀请码广告**（`邀请码：58de9f1a`），按 §4.0 判据属于广告，照抄接线时不要带走。
+- **四路条件开关**（这张图唯一值得抄的点）：`CR Image Input Switch (4 way)(73)` 的 `Input=2`，可选 `50` DepthAnythingV2 / `64` CannyEdge / `65` OpenposePreprocessor，全部 `resolution=512` → 统一汇入 `QwenImageDiffsynthControlnet(49, strength=1)`。改一个数字就换控制方式，不用重接线。
+- **模型**：`z_image_turbo_bf16` + `ModelPatchLoader(Z-Image-Turbo-Fun-Controlnet-Union)` + VAE `ae`；CLIP 是 `qwen_3_4b`，但 **`type=lumina2`** —— 与第 14/15 条的 `type=qwen_image` 不一致，复制前先确认平台认哪个，别混用。
+- **采样**：`KSampler` **9 步**、`res_multistep`、`cfg=1`、`ModelSamplingAuraFlow(shift=3)`；2MP、`EmptySD3LatentImage` 出图。
+- **其余**：`ImageStitch(54)` 拼「条件图 / 成图」对比，四个 `PreviewImage` 分别看条件与结果。
+
 ---
 
 ## 备注：收藏 ID 都可 API 直取图
@@ -235,6 +256,8 @@ node scripts/rhx.mjs learn 1991610436030308353 --tag 分割
 node scripts/rhx.mjs learn 2000971709572317185 --tag zimage
 node scripts/rhx.mjs learn 1996950295303360513 --tag zimage
 node scripts/rhx.mjs learn 1982334863921561601 --tag wan
+node scripts/rhx.mjs learn 1931329103214129154 --tag vace
+node scripts/rhx.mjs learn 1996163380232830977 --tag zimage
 ```
 
 `learn` 会把 API 格式图落到 `corpus/wf_<id>.json`，可作仿写语料。要真跑（花钱/占机器）走 `run`，别在 `learn` 之后盲目直投 —— 这几张都是 48G 级机器的工作流。

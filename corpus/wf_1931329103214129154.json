@@ -1,0 +1,535 @@
+{
+ "1": {
+  "class_type": "WanVideoTorchCompileSettings",
+  "inputs": {
+   "mode": "default",
+   "dynamo_recompile_limit": 128,
+   "fullgraph": false,
+   "dynamo_cache_size_limit": 64,
+   "compile_transformer_blocks_only": true,
+   "backend": "inductor",
+   "dynamic": false
+  },
+  "_meta": {
+   "title": "WanVideo Torch Compile Settings"
+  }
+ },
+ "3": {
+  "class_type": "LoadWanVideoT5TextEncoder",
+  "inputs": {
+   "model_name": "umt5-xxl-enc-bf16.safetensors",
+   "precision": "bf16",
+   "load_device": "offload_device",
+   "quantization": "disabled"
+  },
+  "_meta": {
+   "title": "Load WanVideo T5 TextEncoder"
+  }
+ },
+ "4": {
+  "class_type": "WanVideoModelLoader",
+  "inputs": {
+   "attention_mode": "sageattn",
+   "block_swap_args": [
+    "8",
+    0
+   ],
+   "lora": [
+    "7",
+    0
+   ],
+   "vace_model": [
+    "6",
+    0
+   ],
+   "compile_args": [
+    "1",
+    0
+   ],
+   "model": "Wan2_1-T2V-14B_fp8_e4m3fn.safetensors",
+   "load_device": "offload_device",
+   "base_precision": "fp16",
+   "quantization": "fp8_e4m3fn"
+  },
+  "_meta": {
+   "title": "WanVideo Model Loader"
+  }
+ },
+ "5": {
+  "class_type": "WanVideoVAELoader",
+  "inputs": {
+   "model_name": "Wan2_1_VAE_fp32.safetensors",
+   "precision": "fp32"
+  },
+  "_meta": {
+   "title": "WanVideo VAE Loader"
+  }
+ },
+ "6": {
+  "class_type": "WanVideoVACEModelSelect",
+  "inputs": {
+   "vace_model": "Wan2_1-VACE_module_14B_bf16.safetensors"
+  },
+  "_meta": {
+   "title": "WanVideo VACE Model Select"
+  }
+ },
+ "7": {
+  "class_type": "WanVideoLoraSelect",
+  "inputs": {
+   "lora": "Wan21_CausVid_14B_T2V_lora_rank32_v2,.safetensors",
+   "strength": 0.5000000000000001,
+   "low_mem_load": false
+  },
+  "_meta": {
+   "title": "WanVideo Lora Select"
+  }
+ },
+ "8": {
+  "class_type": "WanVideoBlockSwap",
+  "inputs": {
+   "offload_img_emb": false,
+   "offload_txt_emb": false,
+   "vace_blocks_to_swap": 0,
+   "blocks_to_swap": 20,
+   "use_non_blocking": true
+  },
+  "_meta": {
+   "title": "WanVideo BlockSwap"
+  }
+ },
+ "19": {
+  "class_type": "INTConstant",
+  "inputs": {
+   "value": 81
+  },
+  "_meta": {
+   "title": "整数常量"
+  }
+ },
+ "20": {
+  "class_type": "INTConstant",
+  "inputs": {
+   "value": 832
+  },
+  "_meta": {
+   "title": "整数常量"
+  }
+ },
+ "21": {
+  "class_type": "INTConstant",
+  "inputs": {
+   "value": 480
+  },
+  "_meta": {
+   "title": "整数常量"
+  }
+ },
+ "26": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "29",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "预览图像"
+  }
+ },
+ "29": {
+  "class_type": "ImageResizeKJv2",
+  "inputs": {
+   "crop_position": "top",
+   "image": [
+    "148",
+    0
+   ],
+   "pad_color": "0, 0, 0",
+   "divisible_by": 2,
+   "width": [
+    "21",
+    0
+   ],
+   "keep_proportion": "resize",
+   "upscale_method": "nearest-exact",
+   "device": "cpu",
+   "height": [
+    "20",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Resize Image v2"
+  }
+ },
+ "31": {
+  "class_type": "StringConstantMultiline",
+  "inputs": {
+   "string": "a robotic Mecha in a futuristic science lab , camera recording the Mecha running in the hallway. The robot escape the chase from other riot robots. Red light alarm alerting in the hallway.",
+   "strip_newlines": true
+  },
+  "_meta": {
+   "title": "字符串常量(文本框)"
+  }
+ },
+ "35": {
+  "class_type": "ImageResizeKJv2",
+  "inputs": {
+   "crop_position": "center",
+   "image": [
+    "150",
+    0
+   ],
+   "pad_color": "0, 0, 0",
+   "divisible_by": 2,
+   "width": [
+    "21",
+    0
+   ],
+   "keep_proportion": "crop",
+   "upscale_method": "nearest-exact",
+   "device": "cpu",
+   "height": [
+    "20",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Resize Image v2"
+  }
+ },
+ "36": {
+  "class_type": "DWPreprocessor",
+  "inputs": {
+   "image": [
+    "35",
+    0
+   ],
+   "detect_body": "enable",
+   "detect_hand": "enable",
+   "detect_face": "enable",
+   "pose_estimator": "dw-ll_ucoco_384_bs5.torchscript.pt",
+   "scale_stick_for_xinsr_cn": "disable",
+   "bbox_detector": "yolox_l.onnx",
+   "resolution": 512
+  },
+  "_meta": {
+   "title": "DW姿态预处理器"
+  }
+ },
+ "39": {
+  "class_type": "LayerUtility: PurgeVRAM",
+  "inputs": {
+   "purge_models": true,
+   "purge_cache": true,
+   "anything": [
+    "40",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "LayerUtility: Purge VRAM"
+  }
+ },
+ "40": {
+  "class_type": "WanVideoDecode",
+  "inputs": {
+   "tile_y": 320,
+   "tile_x": 320,
+   "tile_stride_y": 128,
+   "vae": [
+    "5",
+    0
+   ],
+   "tile_stride_x": 144,
+   "samples": [
+    "54",
+    0
+   ],
+   "enable_vae_tiling": false
+  },
+  "_meta": {
+   "title": "WanVideo Decode"
+  }
+ },
+ "48": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "save_output": true,
+   "filename_prefix": "AnimateDiff",
+   "images": [
+    "40",
+    0
+   ],
+   "loop_count": 0,
+   "pix_fmt": "yuv420p",
+   "save_metadata": true,
+   "crf": 19,
+   "trim_to_audio": false,
+   "format": "video/h264-mp4",
+   "frame_rate": 24,
+   "pingpong": false
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ },
+ "50": {
+  "class_type": "VHS_VideoInfo",
+  "inputs": {
+   "video_info": [
+    "150",
+    3
+   ]
+  },
+  "_meta": {
+   "title": "视频信息"
+  }
+ },
+ "52": {
+  "class_type": "WanVideoVACEEncode",
+  "inputs": {
+   "vace_end_percent": 1,
+   "vace_start_percent": 0,
+   "ref_images": [
+    "29",
+    0
+   ],
+   "strength": 0.5000000000000001,
+   "tiled_vae": false,
+   "width": [
+    "21",
+    0
+   ],
+   "num_frames": [
+    "19",
+    0
+   ],
+   "vae": [
+    "5",
+    0
+   ],
+   "height": [
+    "20",
+    0
+   ],
+   "input_frames": [
+    "143",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "WanVideo VACE Encode"
+  }
+ },
+ "53": {
+  "class_type": "WanVideoTextEncode",
+  "inputs": {
+   "t5": [
+    "3",
+    0
+   ],
+   "negative_prompt": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
+   "positive_prompt": [
+    "31",
+    0
+   ],
+   "force_offload": true
+  },
+  "_meta": {
+   "title": "WanVideo TextEncode"
+  }
+ },
+ "54": {
+  "class_type": "WanVideoSampler",
+  "inputs": {
+   "denoise_strength": 1,
+   "text_embeds": [
+    "53",
+    0
+   ],
+   "seed": 1013166398531279,
+   "cfg": 1.0000000000000002,
+   "shift": 8.000000000000002,
+   "riflex_freq_index": 0,
+   "steps": 8,
+   "scheduler": "flowmatch_causvid",
+   "batched_cfg": false,
+   "rope_function": "comfy",
+   "image_embeds": [
+    "144",
+    0
+   ],
+   "force_offload": true,
+   "model": [
+    "4",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "WanVideo Sampler"
+  }
+ },
+ "142": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "save_output": false,
+   "filename_prefix": "AnimateDiff",
+   "images": [
+    "143",
+    0
+   ],
+   "loop_count": 0,
+   "pix_fmt": "yuv420p",
+   "save_metadata": true,
+   "crf": 19,
+   "trim_to_audio": false,
+   "format": "video/h264-mp4",
+   "frame_rate": 25,
+   "pingpong": false
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ },
+ "143": {
+  "class_type": "AIO_Preprocessor",
+  "inputs": {
+   "image": [
+    "35",
+    0
+   ],
+   "preprocessor": "DepthAnythingV2Preprocessor",
+   "resolution": 512
+  },
+  "_meta": {
+   "title": "Aux集成预处理器"
+  }
+ },
+ "144": {
+  "class_type": "WanVideoVACEEncode",
+  "inputs": {
+   "vace_end_percent": 1,
+   "vace_start_percent": 0,
+   "ref_images": [
+    "29",
+    0
+   ],
+   "strength": 0.5000000000000001,
+   "tiled_vae": false,
+   "width": [
+    "21",
+    0
+   ],
+   "num_frames": [
+    "19",
+    0
+   ],
+   "vae": [
+    "5",
+    0
+   ],
+   "prev_vace_embeds": [
+    "52",
+    0
+   ],
+   "height": [
+    "20",
+    0
+   ],
+   "input_frames": [
+    "145",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "WanVideo VACE Encode"
+  }
+ },
+ "145": {
+  "class_type": "DWPreprocessor",
+  "inputs": {
+   "image": [
+    "35",
+    0
+   ],
+   "detect_body": "enable",
+   "detect_hand": "enable",
+   "detect_face": "enable",
+   "pose_estimator": "dw-ll_ucoco_384_bs5.torchscript.pt",
+   "scale_stick_for_xinsr_cn": "disable",
+   "bbox_detector": "yolox_l.onnx",
+   "resolution": 512
+  },
+  "_meta": {
+   "title": "DW姿态预处理器"
+  }
+ },
+ "146": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "save_output": false,
+   "filename_prefix": "AnimateDiff",
+   "images": [
+    "145",
+    0
+   ],
+   "loop_count": 0,
+   "pix_fmt": "yuv420p",
+   "save_metadata": true,
+   "crf": 19,
+   "trim_to_audio": false,
+   "format": "video/h264-mp4",
+   "frame_rate": 25,
+   "pingpong": false
+  },
+  "_meta": {
+   "title": "合并为视频"
+  }
+ },
+ "148": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "e6c84c14a9db0fe2b759b88509d97e7a733a636ff6b204ddf5d7382235156448.png"
+  },
+  "_meta": {
+   "title": "加载图像"
+  }
+ },
+ "149": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "3eb178058f6e05d59ee56a053421eebed7c9ce27353e4cb4d1c578a315e5d5b6.png"
+  },
+  "_meta": {
+   "title": "加载图像"
+  }
+ },
+ "150": {
+  "class_type": "VHS_LoadVideo",
+  "inputs": {
+   "custom_height": [
+    "20",
+    0
+   ],
+   "force_rate": 0,
+   "custom_width": [
+    "21",
+    0
+   ],
+   "select_every_nth": 1,
+   "frame_load_cap": [
+    "19",
+    0
+   ],
+   "format": "AnimateDiff",
+   "video": "8ddcee4899351a815ceb8dc8dafe1ba319511920bfcaaad52a5c0ca24732cf26.mp4",
+   "skip_first_frames": 0,
+   "force_size": "Disabled"
+  },
+  "_meta": {
+   "title": "加载视频"
+  }
+ }
+}

@@ -114,6 +114,19 @@ SKILL.md 只留指针，细节全在这里；按 `class_type` 归类，同一节
   - 修法：常数别写死在表达式里 —— 前面挂 `PrimitiveFloat`（值＝目标数）接到 `values.a`，expression 写 `"a"`，取第 2 个输出槽（INT）。`PrimitiveInt` 在本机图里没出现过，别赌它已装。
   - 证据：失败 taskId=2121261448310247425 → 通过 taskId=2121261669257793538。
 
+## 遮罩 / 潜空间（SetLatentNoiseMask · LTXVConcatAVLatent · VAEEncodeAudio）
+
+- **2026-11-15** H3 的 `LATENT` 输出是 **AV 合成潜空间**，`SetLatentNoiseMask` 不能直接盖；要自建：`VAEEncode(源片帧)` → `SetLatentNoiseMask` → `LTXVConcatAVLatent(video_latent, audio_latent)` → 采样器 `latent_image`。
+  - 症状：把这套当「可选优化」会一直以为 H3 只能吃自己的潜空间；实际 `corpus/wf_2090037412381683713.json` 就是自建 AV 潜空间的写法，H3 节点的潜空间那一槽根本没接。
+  - 根因：AV 潜空间是视频/音频两段沿通道拼接，`SetLatentNoiseMask` 只认单段视频潜空间；音频段要用 32×32 全 0 `SolidMask` 冻结（`VAEEncodeAudio` → `SetLatentNoiseMask`）。
+  - 修法：视频段 mask = 目标区域（864×736 整幅），音频段 mask = `SolidMask(value=0, 32, 32)`；`SamplerCustomAdvanced` 与 `KSampler` 都能吃带 `noise_mask` 的 AV 潜空间，不必降级成 `KSampler`。
+
+- **2026-11-15** `SetLatentNoiseMask` 的**单帧 mask 会广播到全部帧**，且 mask 经过 `LTXVConcatAVLatent` **不会丢**。
+  - 验证：39 帧 @864×736，矩形遮罩（240×196）+ `denoise 1`，遮罩外区域与源片 PSNR **32.9 dB**（只剩 VAE 往返损耗），矩形内 16.2 dB；同图去掉遮罩只换潜空间起点跑 `denoise 0.6`，遮罩外只有 20.9 dB。→ 前者整片被保护，后者整片被重绘。
+  - 用法：`denoise 1` 时遮罩内是**从噪声重画**（动作无结构，靠提示词）；`denoise 0.6` 时遮罩内保留源片结构（动作、人物大小跟着原片走）。要「构图锁死 + 动作保真」用「遮罩 + 0.6」。
+  - 已知副作用：静态矩形给多大，模型就把人画多大（框 240×196 时，源片 5% 的小人会被画成 12%）。人物尺寸不受 `denoise` 控制，只受遮罩轮廓控制 —— 要精确控尺寸必须逐帧剪影。
+  - 证据：taskId=2121936755493130242（遮罩 + dn1）／2121937005268127746（无遮罩 + dn0.6）／2121937754895114241（遮罩 + dn0.6）。
+
 ## 命名对照（遇到新节点先查这里，再决定要不要试）
 
 | 节点 | 输入字段 | 备注 |

@@ -2,7 +2,7 @@
 name: runninghub-workflow-lab-yashu
 description: RunningHub 工作流的「学习—仿写—实测—交付」闭环工具。当用户要 AI 自己写/搭/改 RunningHub 工作流（ComfyUI UI 格式 .json）、想把站上现成工作流交给 AI 学习并复用接线、想用本地 JSON 直接提交测试而不用在网页新建保存、或工作流跑失败要查节点缺失/参数类型/没有输出节点时使用。核心契约（已实测）：POST /task/openapi/create 的 workflowId 必填（缺则 code 301 must not be null），但同时传 workflow=完整 API 格式 JSON 时会覆盖站内那张图，因此可固定用空壳 ID 2120926368186851330 当通道；本技能一律 nodeInfoList=[]，参数直接写进图。交付规范（§4）：可改参数标红 #c0392b/#5b1f1f、输出节点标橙 #d35400/#5a3208、LoadImage 的素材先经 RH 上传换 fileName 再回填。含零成本 smoke 自检、按 ID dump 语料库、失败节点回显与视觉验收判据。不替代 runninghub-cloud-yashu 的成品出图通道。只做工作流的学/写/测/交付：用站上成品模型或现成 AI 应用直接出图出片走 runninghub，生产 alias 与正式出图流水线走 runninghub-cloud-yashu。
 agent_created: true
-version: 0.2.5
+version: 0.2.6
 ---
 
 # RunningHub 工作流实验室
@@ -131,6 +131,21 @@ node scripts/rhx.mjs index --grep SaveVideo           # 按类名筛
 
 **适用面**：本技能交付给老板在 RunningHub 网页导入运行的 **UI 格式** `.json`。API 格式的测试图不套用本节。
 
+### 4.0 反广告硬规则（2026-11-15 老板定）
+
+**我写 / 改 / 交付的每一份工作流，里面不许出现任何作者标识。** `corpus/` 里别人的图只能当接线参考，落进自己的图时必须清干净。历史文件不管，从这条规则起生效。
+
+判定为广告的四处，逐处必查：
+
+1. **节点 `title` 尾部** —— `ManualSigmas aijuxi`、`RTX Video Frame Generation aijuxi`、`Math Expression aijuxi`。作者名 / 频道名 / 工作室名贴在类型名后面，一律删掉；保留功能性中文名（`图片1`、`提示词`、`分辨率`）和纯类型名。
+2. **`filename_prefix`** —— `r-pika-i2v-aijuxi` 这种带作者名、个人缩写、频道名的，改成中性名（`h3_i2v`、`joker02_shot1`）。
+3. **`extra` 元数据** —— `cos_url` / `fullpath` / `objectKey` / `workflow` png 名里常残留作者个人目录 hash 和旧文件名。**这层最容易漏**，导出前整块清空；不然「存成 png 再拖回平台」时痕迹又回来了。
+4. **工作流标题** —— 顶部名称里不许出现 `B站XXX`、`抖音XXX`、`小红书XXX`、`公众号XXX`、邀请码、QQ / 微信、`rh-xxxx`。
+
+**一句话判据：凡是能让人顺藤摸到原作者的信息，一律删。**
+
+反面样本（只作参考，不入库）：`Pika版 MinimaxH3 图生视频！1080P+高帧率+15秒=约10分钟！B站艾橘溪！261112` —— 标题带频道 + 作者名，里面三处 `title` 尾巴、两处 `filename_prefix`、整片 `extra` 产物地址全是 `aijuxi`。
+
 ### 4.1 上色：三种状态一眼可辨
 
 | 类别 | 判定 | color / bgcolor | 标题 |
@@ -193,9 +208,10 @@ node <runninghub-cloud-yashu>/scripts/rh.mjs --upload "<本地图>"   # 拿回�
 2. 红节点 ≥ 1、橙节点 ≥ 1，且没有节点同时是两种色；
 3. `links` 双向自洽：每个 input 的 link 能在 `links` 里找到，且回指同一对 slot；
 4. 文件名用 ASCII，避免网页导入时中文名出问题；
-5. 版面能读：按信号流从左到右，模型加载在左上，输出在最右。
+5. 版面能读：按信号流从左到右，模型加载在左上，输出在最右；
+6. 反广告（§4.0）：`title` 与 `filename_prefix` 里没有作者名 / 频道名 / 邀请码，`extra` 里没有 `cos_url` / `fullpath` / `objectKey` 等运行记录。
 
-前三条脚本可判，后两条自己看图。
+前五条脚本可判，后两条自己看图 / 搜全文。
 
 ## 5. 测：`run` 与验收
 

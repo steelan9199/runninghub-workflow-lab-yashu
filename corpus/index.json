@@ -369,7 +369,7 @@
    "file": "corpus/wf_2100426040500899841.json"
   },
   "2036452966554673154": {
-   "savedAt": "2026-11-15T10:27:46.964Z",
+   "savedAt": "2026-11-15T12:16:37.052Z",
    "nodes": 9,
    "classes": {
     "VHS_LoadVideo": 1,
@@ -385,7 +385,7 @@
     "8:VHS_VideoCombine",
     "13:VHS_VideoCombine"
    ],
-   "tag": "抠像",
+   "tag": "遮罩换人",
    "file": "corpus/wf_2036452966554673154.json"
   },
   "2072999797982011392": {
@@ -703,6 +703,101 @@
    ],
    "tag": "wan",
    "file": "corpus/wf_1982334863921561601.json"
+  },
+  "1931329103214129154": {
+   "savedAt": "2026-11-15T11:19:36.052Z",
+   "nodes": 30,
+   "classes": {
+    "WanVideoTorchCompileSettings": 1,
+    "LoadWanVideoT5TextEncoder": 1,
+    "WanVideoModelLoader": 1,
+    "WanVideoVAELoader": 1,
+    "WanVideoVACEModelSelect": 1,
+    "WanVideoLoraSelect": 1,
+    "WanVideoBlockSwap": 1,
+    "INTConstant": 3,
+    "PreviewImage": 1,
+    "ImageResizeKJv2": 2,
+    "StringConstantMultiline": 1,
+    "DWPreprocessor": 2,
+    "LayerUtility: PurgeVRAM": 1,
+    "WanVideoDecode": 1,
+    "VHS_VideoCombine": 3,
+    "VHS_VideoInfo": 1,
+    "WanVideoVACEEncode": 2,
+    "WanVideoTextEncode": 1,
+    "WanVideoSampler": 1,
+    "AIO_Preprocessor": 1,
+    "LoadImage": 2,
+    "VHS_LoadVideo": 1
+   },
+   "outputs": [
+    "26:PreviewImage",
+    "48:VHS_VideoCombine",
+    "142:VHS_VideoCombine",
+    "146:VHS_VideoCombine"
+   ],
+   "tag": "vace",
+   "file": "corpus/wf_1931329103214129154.json"
+  },
+  "1996163380232830977": {
+   "savedAt": "2026-11-15T11:19:37.107Z",
+   "nodes": 26,
+   "classes": {
+    "SaveImage": 1,
+    "CLIPLoader": 1,
+    "VAELoader": 1,
+    "EmptySD3LatentImage": 1,
+    "ConditioningZeroOut": 1,
+    "VAEDecode": 1,
+    "KSampler": 1,
+    "CLIPTextEncode": 1,
+    "UNETLoader": 1,
+    "ModelSamplingAuraFlow": 1,
+    "ModelPatchLoader": 1,
+    "QwenImageDiffsynthControlnet": 1,
+    "AIO_Preprocessor": 3,
+    "LoadImage": 2,
+    "ImageScaleToTotalPixels": 1,
+    "ImageStitch": 1,
+    "PreviewImage": 4,
+    "GetImageSize": 1,
+    "JWInteger": 1,
+    "CR Image Input Switch (4 way)": 1
+   },
+   "outputs": [
+    "9:SaveImage",
+    "55:PreviewImage",
+    "57:PreviewImage",
+    "70:PreviewImage",
+    "71:PreviewImage"
+   ],
+   "tag": "zimage",
+   "file": "corpus/wf_1996163380232830977.json"
+  },
+  "2081996629795758081": {
+   "savedAt": "2026-11-15T12:15:33.257Z",
+   "nodes": 13,
+   "classes": {
+    "LayerMask: LoadSegmentAnythingModels": 1,
+    "RH_Translator": 1,
+    "VHS_LoadVideo": 1,
+    "ImageResizeKJv2": 1,
+    "ImageFromBatch+": 1,
+    "LayerMask: SegmentAnythingUltra V3": 1,
+    "PrimitiveInt": 1,
+    "MatAnyone2": 1,
+    "MaskToImage": 1,
+    "InvertMask": 1,
+    "ImageAndMaskPreview": 1,
+    "VHS_VideoCombine": 2
+   },
+   "outputs": [
+    "38:VHS_VideoCombine",
+    "39:VHS_VideoCombine"
+   ],
+   "tag": "遮罩换人",
+   "file": "corpus/wf_2081996629795758081.json"
   }
  }
 }

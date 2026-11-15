@@ -1,0 +1,23 @@
+subject_definitions:
+<Video 1> is the source video for the target edit: a 4.5-second, 24 fps clip from Joker (2019) with a single continuous extreme wide low-angle shot, in which Arthur Fleck, in full clown costume — long wavy green hair, white face paint, blue diamond eye make-up, red nose and a painted upturned red grin, red suit over an orange-yellow waistcoat and a dark green shirt — dances down a narrow stone stairway toward the camera: hopping down the steps, swinging both arms out wide, kicking one leg forward, rolling his shoulders and tilting his head back, and only at the very end does he stop and raise a cigarette to his lips.
+<Subject 1> is the clown in <Video 1>, whose stair dance, camera work and rhythm are reused.
+<Subject 2> is the man in <Picture 1>: a middle-aged Chinese man with a tall ornate gold crown pierced by a long crosswise gold pin, a black topknot, long black hair, thick level black brows, a thin black moustache, a long pointed black goatee and bare unpainted skin, wearing a pale ice-blue wide-sleeved robe over a white inner collar, white trousers and black cloth shoes.
+
+summary:
+[video editing] Replace the person in <Video 1> with <Subject 2>. Keep the dance moves, camera work and rhythm of the original video, and only replace the person with the new character in the photo: he dances the whole way down the steps exactly as the clown does — hopping down two steps at a time, swinging his arms out wide, kicking one leg forward, rolling his shoulders, tilting his head back — and he is dancing, not standing, for the first three seconds; he stands still only in the last second, when he plants both feet and raises his right hand to his lips. The target video carries no audio track.
+
+retention_analysis:
+<Video 1> (structure): fully_preserved - one continuous static extreme wide low-angle shot with no cut, the camera tilted up between the two brick buildings, the figure stays small in the frame at the same scale and position as in the source.
+<Video 1> (clown appearance): not_retained - the white face paint, the painted red grin, the blue eye paint, the green hair, the red suit, the orange-yellow waistcoat and the dark green shirt do not appear anywhere.
+<Subject 1> (stair dance): fully_preserved - every hop, wide arm swing, forward leg kick, shoulder roll and head tilt of the dance keeps its original speed, count and order.
+<Subject 2>: fully_preserved - crown, crosswise pin, topknot, hair, brows, moustache, goatee, unpainted skin, robe, trousers and shoes stay identical, with natural body proportions.
+<Video 1> (final pose): fully_preserved - in the last frame he has stopped dancing: both feet planted on the steps, right hand up at the mouth, right elbow lifted to shoulder height, head lowered slightly, left arm hanging relaxed at his side.
+
+detailed_description:
+Realistic live-action street footage, cool overcast daylight, fine film grain. Extreme wide low-angle from the bottom of a canyon of two brick tenements with iron fire escapes on both sides, blue lamp posts, pale bright sky and a soft orange lens flare low in the frame. The clown comes down the stairway dancing, and the dance is the action of the whole clip. He starts small near the top of the steps and works his way down toward the camera: hopping down two steps at a time, throwing both arms out to the sides, kicking one leg forward on the beat, rolling his shoulders and tipping his head back, the loose theatrical strut of the Joker stair dance, his body swaying from side to side as he descends and grows larger in the frame. He is replaced by <Subject 2> at exactly the same scale, position and timing, so the man in the pale ice-blue robe and the tall gold crown performs the same dance move for move, the wide sleeves and the long black hair swinging with every arm throw, the robe opening as he kicks. Only in the last second does he stop dancing: he plants both feet, raises his right hand - a thin lit cigarette pinched between the index and middle finger - up to his lips with the right elbow lifted out, lowers his head a little and holds that pose until the last frame. The building walls, fire escapes, lamp posts and sky stay exactly as in <Video 1>. No second person, animal or object enters the frame.
+
+overall_soundscape:
+Wind moving between the buildings, distant city traffic, shoes on stone treads, cloth rustling with the dance.
+
+non_diegetic_music:
+N/A
