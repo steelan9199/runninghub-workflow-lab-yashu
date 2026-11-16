@@ -1,0 +1,25 @@
+subject_definitions:
+<Subject 1> is the middle-aged Ming-dynasty official on the left side of <Video 1>, standing slightly behind his companion: a lean man with a narrow thin moustache and a short pointed black beard, deep-set dark eyes, a black gauze official hat with gold cloud-shaped ornaments and two upright wing flaps, and a dark crimson brocade robe carrying a round embroidered rank badge with a golden dragon on the chest. His hands are clasped in front of his waist.
+<Subject 2> is the older Ming-dynasty official in the foreground on the right side of <Video 1>: a broad-faced man with a grey-streaked beard, a tall red ceremonial hat decorated with black and gold cloud patterns, and a bright red brocade robe edged with blue piping and a jade-inlaid belt, seated with both hands resting at his lap.
+<Audio 1> is a recorded Mandarin male voice with a low, steady, formal delivery; it is the complete final dialogue track performed by <Subject 1> (S1).
+
+summary:
+[video editing + reference generation] The target video is an edited version of <Video 1>. It is one locked two-shot inside a dim imperial cabinet room, where <Subject 1> on the left speaks a single short Mandarin sentence while <Subject 2> beside him stays seated and silent. <Audio 1> replaces the original soundtrack and is performed by <Subject 1> alone.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): partially_preserved - his identity, thin moustache and pointed beard, black gauze hat, dark crimson brocade robe and dragon rank badge are retained, while his lips and jaw now move with the Mandarin line carried by <Audio 1>.
+<Subject 2> (appears in [Shot 1]): fully_preserved - his face, grey-streaked beard, tall red hat, blue-piped red robe, jade belt and seated posture remain exactly as they are in <Video 1>.
+<Video 1> (framing, camera and background structure): partially_preserved - the locked camera, the two-shot composition, both men's positions in frame, the dim room, the dark wooden desk and chair, and the light direction are all retained.
+<Audio 1>: fully_copy - <Audio 1> is reused 1:1 as the target video's complete final audio track.
+
+detailed_description:
+The target video is a realistic historical drama scene with dim, warm interior light and a slightly desaturated palette, lasting 3.75 seconds.
+[Shot 1] The take holds a locked medium two-shot inside a shadowed cabinet room. <Subject 1> stands on the left, slightly behind the seated man, his torso turned a little toward the lens, both hands clasped at his waist, his black gauze hat, dark crimson brocade robe and golden dragon rank badge catching a narrow band of light from the left. <Subject 2> sits in the right foreground, much closer to the lens, his tall red patterned hat and blue-piped red robe filling the right half of the frame, both hands resting at his lap. The background is a dark plaster wall with soft shadow falloff, a black chair back behind <Subject 1>, and the edge of a dark wooden desk at the bottom of the frame.
+<Subject 1> (S1) speaks in the low, steady Mandarin voice taken from <Audio 1>, his jaw opening and his lips parting and closing on every syllable, his moustache and pointed beard moving with the words as he says, <d>[Chinese] 皇上，内阁已经一致通过了。</d> His head stays almost still: only a small dip of the chin and a slight lift of the brow accompany the line, and his clasped hands remain at his waist. When the line ends his lips settle back into a relaxed closed shape.
+<Subject 2> keeps his lips, jaw and chin completely still in every frame, his mouth resting in the same slightly parted shape it holds in <Video 1>, as if that face were a painted detail of a still picture; he is a listener in this shot, his gaze level and aimed slightly past the lens, with one slow breath lifting his shoulders. The camera does not move at all: no push, no pan, no zoom, no rack focus. The shot runs from 00:00.000 to 00:03.750 without a cut, and the final frame holds the same two-shot composition as the first.
+
+overall_soundscape:
+The only speech in the room is <Subject 1>'s line from <Audio 1>. Behind it, quiet stone-walled room tone with a faint natural echo, the small rustle of heavy brocade, and a soft breath from <Subject 2> continue throughout; no other voices, footsteps or doors are heard.
+
+non_diegetic_music:
+N/A

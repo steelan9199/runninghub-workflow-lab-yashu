@@ -1,0 +1,151 @@
+{
+  "nodes": [
+    {
+      "id": 172,
+      "type": "VRGDG_MiniMaxH3AudioDrive",
+      "pos": [
+        949.3033447265625,
+        515.7373046875
+      ],
+      "size": [
+        366.1109313964844,
+        101.57310485839844
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "av_latent",
+          "name": "av_latent",
+          "type": "LATENT",
+          "link": 467
+        },
+        {
+          "label": "source_audio",
+          "name": "source_audio",
+          "type": "AUDIO",
+          "link": 493
+        },
+        {
+          "label": "audio_vae",
+          "name": "audio_vae",
+          "type": "VAE",
+          "link": 337
+        }
+      ],
+      "outputs": [
+        {
+          "label": "audio_driven_av_latent",
+          "name": "audio_driven_av_latent",
+          "type": "LATENT",
+          "links": [
+            338
+          ]
+        },
+        {
+          "label": "original_audio",
+          "name": "original_audio",
+          "type": "AUDIO",
+          "links": [
+            411
+          ]
+        }
+      ],
+      "title": "LOCK SOURCE AUDIO / GENERATE VIDEO ONLY",
+      "properties": {
+        "Node name for S&R": "VRGDG_MiniMaxH3AudioDrive",
+        "cnr_id": "comfyui-vrgamedevgirl",
+        "ver": "local",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        },
+        "widget_ue_connectable": {},
+        "aux_id": "vrgamegirl19/comfyui-vrgamedevgirl"
+      }
+    },
+    {
+      "id": 215,
+      "type": "LoadAudio",
+      "pos": [
+        917.3298950195312,
+        1284.7960205078125
+      ],
+      "size": [
+        414.7990417480469,
+        151.0640411376953
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "audio",
+          "name": "audio",
+          "type": "COMBO",
+          "widget": {
+            "name": "audio"
+          },
+          "link": null
+        },
+        {
+          "label": "audioUI",
+          "name": "audioUI",
+          "type": "AUDIO_UI",
+          "widget": {
+            "name": "audioUI"
+          },
+          "link": null
+        },
+        {
+          "label": "upload",
+          "name": "upload",
+          "type": "AUDIOUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "AUDIO",
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            413,
+            490
+          ]
+        }
+      ],
+      "title": "上传音频（语音或歌曲）",
+      "properties": {
+        "Node name for S&R": "LoadAudio",
+        "cnr_id": "comfy-core",
+        "ver": "0.7.0",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        },
+        "widget_ue_connectable": {
+          "upload": true,
+          "audio": true,
+          "audioUI": true
+        }
+      },
+      "widgets_values": [
+        "afbf649fe724f109d6befea689541e1f63a778705af02941d5652c52dfa1c74a.mp3",
+        null
+      ],
+      "widgets_values_named": {
+        "audio": "afbf649fe724f109d6befea689541e1f63a778705af02941d5652c52dfa1c74a.mp3",
+        "upload": null
+      },
+      "color": "#232",
+      "bgcolor": "#353"
+    }
+  ]
+}

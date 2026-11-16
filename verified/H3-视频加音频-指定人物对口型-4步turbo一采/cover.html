@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face{
+    font-family:'LXGW WenKai GB';
+    src:url('file:///C:/Users/Administrator/AppData/Local/Microsoft/Windows/Fonts/LXGWWenKaiGB-Medium.ttf') format('truetype');
+    font-weight:500;font-style:normal;
+  }
+  @font-face{
+    font-family:'LXGW WenKai GB';
+    src:url('file:///C:/Users/Administrator/AppData/Local/Microsoft/Windows/Fonts/LXGWWenKaiGB-Regular.ttf') format('truetype');
+    font-weight:400;font-style:normal;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:#0f0d0c;}
+  #cover{
+    width:840px;height:1120px;position:relative;overflow:hidden;
+    font-family:'LXGW WenKai GB';font-weight:400;color:#efe7dd;
+    background:
+      radial-gradient(120% 80% at 18% 0%, #2b1d17 0%, #17110f 46%, #0c0a09 100%);
+  }
+  .grain{
+    position:absolute;inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.020) 0 1px, transparent 1px 3px),
+      radial-gradient(60% 40% at 80% 90%, rgba(190,58,38,.10), transparent 70%);
+    mix-blend-mode:screen;
+  }
+  .frame{position:absolute;inset:44px;border:1px solid rgba(239,231,221,.14);}
+  .frame::before,.frame::after{
+    content:'';position:absolute;width:70px;height:70px;
+    border:2px solid #b23a28;
+  }
+  .frame::before{left:-1px;top:-1px;border-right:0;border-bottom:0;}
+  .frame::after{right:-1px;bottom:-1px;border-left:0;border-top:0;}
+  .top{
+    position:absolute;left:96px;top:120px;
+    font-size:22px;letter-spacing:.32em;color:#c9a68a;font-weight:400;
+  }
+  .bar{position:absolute;left:96px;top:170px;width:88px;height:3px;background:#b23a28;}
+  .title{
+    position:absolute;left:92px;top:232px;
+    font-size:132px;line-height:1.06;font-weight:500;letter-spacing:.04em;
+    text-shadow:0 2px 24px rgba(0,0,0,.55);
+  }
+  .title .accent{color:#d8523c;}
+  .sub{
+    position:absolute;left:96px;top:560px;width:600px;
+    font-size:34px;line-height:1.72;color:#d9cdbf;letter-spacing:.10em;
+  }
+  .sub b{font-weight:500;color:#f2e9de;}
+  .rule{position:absolute;left:96px;top:760px;width:648px;height:1px;background:linear-gradient(90deg,rgba(178,58,40,.85),rgba(239,231,221,.10));}
+  .meta{
+    position:absolute;left:96px;top:800px;
+    font-size:25px;line-height:2.05;color:#9f938a;letter-spacing:.06em;
+  }
+  .meta span{color:#cbb9a6;}
+  .badge{
+    position:absolute;right:96px;bottom:120px;
+    width:150px;height:150px;border:2px solid rgba(178,58,40,.85);
+    display:flex;align-items:center;justify-content:center;
+    font-size:34px;font-weight:500;color:#d8523c;letter-spacing:.18em;
+    writing-mode:vertical-rl;text-orientation:upright;padding:10px;
+  }
+</style>
+</head>
+<body>
+  <div id="cover">
+    <div class="grain"></div>
+    <div class="frame"></div>
+    <div class="top">RUNNINGHUB · MINIMAX H3</div>
+    <div class="bar"></div>
+    <div class="title">视频<span class="accent">对口型</span></div>
+    <div class="sub">原片只改嘴，<b>指定谁说这句话</b><br>音轨直接成品，不用另配</div>
+    <div class="rule"></div>
+    <div class="meta">
+      864×736　·　24fps　·　90 帧 / 3.750s<br>
+      4 步 turbo 一采　·　<span>28 节点 / 31 连线</span>
+    </div>
+    <div class="badge">换口型</div>
+  </div>
+</body>
+</html>
+
