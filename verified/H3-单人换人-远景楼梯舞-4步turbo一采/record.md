@@ -111,3 +111,5 @@ API 图直投（不经网页导入）：
 node <skills>/runninghub-workflow-lab-yashu/scripts/rhx.mjs run \
   --workflow "<本目录>/workflow.api.json" --out "<产物目录>" --name v1 --timeout 900
 ```
+
+> 封面（2026-11-17 统一重做）：系列 01/05，主标「换人只用 / 4 步」，副标「H3 单人换人 · 远景全身 · 124 帧」，底部标 MiniMax H3 · Ref2VA。
