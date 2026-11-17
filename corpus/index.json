@@ -798,6 +798,41 @@
    ],
    "tag": "遮罩换人",
    "file": "corpus/wf_2081996629795758081.json"
+  },
+  "2118402573337186305": {
+   "savedAt": "2026-11-16T21:20:31.917Z",
+   "nodes": 26,
+   "classes": {
+    "LoadAudio": 1,
+    "AudioCrop": 1,
+    "AudioSeparation": 1,
+    "WanVideoVAELoader": 1,
+    "LoadWanVideoT5TextEncoder": 1,
+    "WanVideoBlockSwap": 1,
+    "CLIPVisionLoader": 1,
+    "WanVideoClipVisionEncode": 1,
+    "WanVideoSampler": 1,
+    "MathExpression|pysssss": 2,
+    "WanVideoTextEncode": 1,
+    "Audio Duration (mtb)": 1,
+    "MultiTalkWav2VecEmbeds": 1,
+    "MultiTalkModelLoader": 1,
+    "WanVideoDecode": 1,
+    "VHS_VideoCombine": 1,
+    "WanVideoImageToVideoMultiTalk": 1,
+    "WanVideoModelLoader": 1,
+    "LoadImage": 1,
+    "LayerUtility: ImageScaleByAspectRatio V2": 1,
+    "PlaySound|pysssss": 1,
+    "GetImageRangeFromBatch": 1,
+    "WanVideoLoraSelect": 2,
+    "DownloadAndLoadWav2VecModel": 1
+   },
+   "outputs": [
+    "151:VHS_VideoCombine"
+   ],
+   "tag": "数字人",
+   "file": "corpus/wf_2118402573337186305.json"
   }
  }
 }

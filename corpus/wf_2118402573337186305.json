@@ -1,0 +1,471 @@
+{
+ "6": {
+  "class_type": "LoadAudio",
+  "inputs": {
+   "audio": "2b95737f1cda24db48d512775026263a611dd179540ad1649929bbc068064cc2.mp3"
+  },
+  "_meta": {
+   "title": "加载音频"
+  }
+ },
+ "7": {
+  "class_type": "AudioCrop",
+  "inputs": {
+   "start_time": "0:00",
+   "end_time": "5:00",
+   "audio": [
+    "6",
+    0
+   ]
+  },
+  "_meta": {
+   "cnr_id": "audio-separation-nodes-comfyui",
+   "ver": "31a4567726e035097cc2d1f767767908a6fda2ea",
+   "title": "AudioCrop"
+  }
+ },
+ "9": {
+  "class_type": "AudioSeparation",
+  "inputs": {
+   "chunk_fade_shape": "linear",
+   "chunk_length": 10,
+   "audio": [
+    "7",
+    0
+   ],
+   "chunk_overlap": 0.1
+  },
+  "_meta": {
+   "cnr_id": "audio-separation-nodes-comfyui",
+   "ver": "31a4567726e035097cc2d1f767767908a6fda2ea",
+   "title": "AudioSeparation"
+  }
+ },
+ "12": {
+  "class_type": "WanVideoVAELoader",
+  "inputs": {
+   "model_name": "Wan2_1_VAE_bf16.safetensors",
+   "precision": "bf16",
+   "use_cpu_cache": false,
+   "verbose": false
+  },
+  "_meta": {
+   "title": "WanVideo VAE Loader"
+  }
+ },
+ "13": {
+  "class_type": "LoadWanVideoT5TextEncoder",
+  "inputs": {
+   "model_name": "umt5-xxl-enc-fp8_e4m3fn.safetensors",
+   "precision": "bf16",
+   "load_device": "offload_device",
+   "quantization": "disabled"
+  },
+  "_meta": {
+   "title": "WanVideo T5 Text Encoder Loader"
+  }
+ },
+ "14": {
+  "class_type": "WanVideoBlockSwap",
+  "inputs": {
+   "prefetch_blocks": 1,
+   "offload_img_emb": false,
+   "offload_txt_emb": false,
+   "block_swap_debug": false,
+   "vace_blocks_to_swap": 0,
+   "blocks_to_swap": 0,
+   "use_non_blocking": true
+  },
+  "_meta": {
+   "title": "WanVideo Block Swap"
+  }
+ },
+ "17": {
+  "class_type": "CLIPVisionLoader",
+  "inputs": {
+   "clip_name": "clip_vision_h.safetensors"
+  },
+  "_meta": {
+   "cnr_id": "comfy-core",
+   "ver": "0.3.26",
+   "title": "CLIP视觉加载器"
+  }
+ },
+ "25": {
+  "class_type": "WanVideoClipVisionEncode",
+  "inputs": {
+   "strength_1": 1,
+   "tiles": 0,
+   "combine_embeds": "average",
+   "strength_2": 1,
+   "image_1": [
+    "255",
+    0
+   ],
+   "force_offload": true,
+   "clip_vision": [
+    "17",
+    0
+   ],
+   "crop": "center",
+   "ratio": 0.5
+  },
+  "_meta": {
+   "cnr_id": "ComfyUI-WanVideoWrapper",
+   "ver": "58104b620f6b52de2fc516ade9f31383b0e7eca9",
+   "title": "WanVideo ClipVision Encode"
+  }
+ },
+ "27": {
+  "class_type": "WanVideoSampler",
+  "inputs": {
+   "add_noise_to_samples": true,
+   "denoise_strength": 1,
+   "text_embeds": [
+    "114",
+    0
+   ],
+   "seed": 9668,
+   "cfg": 1.0000000000000002,
+   "shift": 11.000000000000002,
+   "end_step": -1,
+   "riflex_freq_index": 0,
+   "multitalk_embeds": [
+    "131",
+    0
+   ],
+   "steps": 4,
+   "scheduler": "dpm++_sde",
+   "start_step": 0,
+   "batched_cfg": false,
+   "rope_function": "comfy",
+   "image_embeds": [
+    "166",
+    0
+   ],
+   "force_offload": true,
+   "model": [
+    "176",
+    0
+   ]
+  },
+  "_meta": {
+   "cnr_id": "ComfyUI-WanVideoWrapper",
+   "ver": "c3ee35f3ece76e38099dc516182d69b406e16772",
+   "title": "WanVideo Sampler"
+  }
+ },
+ "50": {
+  "class_type": "MathExpression|pysssss",
+  "inputs": {
+   "a": [
+    "130",
+    1
+   ],
+   "expression": "a*25+1"
+  },
+  "_meta": {
+   "title": "数学表达式"
+  }
+ },
+ "114": {
+  "class_type": "WanVideoTextEncode",
+  "inputs": {
+   "t5": [
+    "13",
+    0
+   ],
+   "negative_prompt": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
+   "use_disk_cache": false,
+   "positive_prompt": "女子对着镜头说话",
+   "force_offload": true,
+   "device": "gpu"
+  },
+  "_meta": {
+   "cnr_id": "ComfyUI-WanVideoWrapper",
+   "ver": "058286fc0f3b0651a2f6b68309df3f06e8332cc0",
+   "title": "WanVideo TextEncode"
+  }
+ },
+ "129": {
+  "class_type": "Audio Duration (mtb)",
+  "inputs": {
+   "audio": [
+    "7",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Audio Duration (mtb)"
+  }
+ },
+ "130": {
+  "class_type": "MathExpression|pysssss",
+  "inputs": {
+   "a": [
+    "129",
+    0
+   ],
+   "expression": "a/1000"
+  },
+  "_meta": {
+   "title": "数学表达式"
+  }
+ },
+ "131": {
+  "class_type": "MultiTalkWav2VecEmbeds",
+  "inputs": {
+   "audio_cfg_scale": 1.0000000000000002,
+   "add_noise_floor": false,
+   "audio_scale": 1.0000000000000002,
+   "normalize_loudness": false,
+   "num_frames": [
+    "50",
+    0
+   ],
+   "fps": 25,
+   "wav2vec_model": [
+    "275",
+    0
+   ],
+   "multi_audio_type": "para",
+   "smooth_transients": false,
+   "audio_1": [
+    "9",
+    3
+   ]
+  },
+  "_meta": {
+   "cnr_id": "ComfyUI-WanVideoWrapper",
+   "ver": "3d7801cee4c8e3106078dd9b9f146caee95069ba",
+   "title": "Multi/InfiniteTalk Wav2vec2 Embeds"
+  }
+ },
+ "137": {
+  "class_type": "MultiTalkModelLoader",
+  "inputs": {
+   "model": "InfiniteTalk/Wan2_1-InfiniteTalk-Single_fp8_e4m3fn_scaled_KJ.safetensors"
+  },
+  "_meta": {
+   "cnr_id": "ComfyUI-WanVideoWrapper",
+   "ver": "058286fc0f3b0651a2f6b68309df3f06e8332cc0",
+   "title": "Multi/InfiniteTalk Model Loader"
+  }
+ },
+ "150": {
+  "class_type": "WanVideoDecode",
+  "inputs": {
+   "tile_y": 272,
+   "normalization": "default",
+   "tile_x": 272,
+   "tile_stride_y": 128,
+   "vae": [
+    "12",
+    0
+   ],
+   "tile_stride_x": 144,
+   "samples": [
+    "27",
+    0
+   ],
+   "enable_vae_tiling": false
+  },
+  "_meta": {
+   "title": "WanVideo Decode"
+  }
+ },
+ "151": {
+  "class_type": "VHS_VideoCombine",
+  "inputs": {
+   "images": [
+    "150",
+    0
+   ],
+   "pix_fmt": "yuv420p",
+   "format": "video/h264-mp4",
+   "frame_rate": 25,
+   "pingpong": false,
+   "save_output": true,
+   "filename_prefix": "pl-WanVideo2_1_multitalk",
+   "loop_count": 0,
+   "save_metadata": false,
+   "crf": 19,
+   "trim_to_audio": false,
+   "no_preview": false,
+   "audio": [
+    "7",
+    0
+   ]
+  },
+  "_meta": {
+   "cnr_id": "comfyui-videohelpersuite",
+   "ver": "0a75c7958fe320efcb052f1d9f8451fd20c730a8",
+   "title": "合并为视频"
+  }
+ },
+ "166": {
+  "class_type": "WanVideoImageToVideoMultiTalk",
+  "inputs": {
+   "motion_frame": 9,
+   "mode": "infinitetalk",
+   "clip_embeds": [
+    "25",
+    0
+   ],
+   "tiled_vae": false,
+   "width": [
+    "185",
+    3
+   ],
+   "colormatch": "disabled",
+   "output_path": "",
+   "force_offload": false,
+   "vae": [
+    "12",
+    0
+   ],
+   "frame_window_size": 61,
+   "height": [
+    "185",
+    4
+   ],
+   "start_image": [
+    "255",
+    0
+   ]
+  },
+  "_meta": {
+   "cnr_id": "ComfyUI-WanVideoWrapper",
+   "ver": "49430f900bf812a1e281560bafafd04c43dfdf13",
+   "title": "WanVideo Long I2V Multi/InfiniteTalk"
+  }
+ },
+ "176": {
+  "class_type": "WanVideoModelLoader",
+  "inputs": {
+   "attention_mode": "sageattn",
+   "block_swap_args": [
+    "14",
+    0
+   ],
+   "lora": [
+    "269",
+    0
+   ],
+   "multitalk_model": [
+    "137",
+    0
+   ],
+   "rms_norm_function": "default",
+   "model": "Wan2_1-I2V-14B-480p_fp8_e4m3fn_scaled_KJ.safetensors",
+   "load_device": "offload_device",
+   "base_precision": "fp16",
+   "quantization": "disabled"
+  },
+  "_meta": {
+   "cnr_id": "ComfyUI-WanVideoWrapper",
+   "ver": "058286fc0f3b0651a2f6b68309df3f06e8332cc0",
+   "title": "WanVideo Model Loader"
+  }
+ },
+ "180": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "51934b34cc0ce2f78282cbc2ce2d7c9b99ea023eeb7d2c2b9b472cfd4e564197.png"
+  },
+  "_meta": {
+   "title": "加载图像"
+  }
+ },
+ "185": {
+  "class_type": "LayerUtility: ImageScaleByAspectRatio V2",
+  "inputs": {
+   "fit": "crop",
+   "aspect_ratio": "original",
+   "image": [
+    "180",
+    0
+   ],
+   "method": "lanczos",
+   "background_color": "#000000",
+   "round_to_multiple": "16",
+   "scale_to_side": "longest",
+   "proportional_height": 1,
+   "proportional_width": 1,
+   "scale_to_length": 1024
+  },
+  "_meta": {
+   "title": "按宽高比缩放_V2"
+  }
+ },
+ "209": {
+  "class_type": "PlaySound|pysssss",
+  "inputs": {
+   "mode": "always",
+   "volume": 0.4,
+   "file": "notify.mp3",
+   "any": [
+    "150",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "播放声音"
+  }
+ },
+ "255": {
+  "class_type": "GetImageRangeFromBatch",
+  "inputs": {
+   "images": [
+    "185",
+    0
+   ],
+   "start_index": 0,
+   "num_frames": 1
+  },
+  "_meta": {
+   "cnr_id": "comfyui-kjnodes",
+   "ver": "e435e999e4b1a828a6b5f6d8f037e66f4a798324",
+   "title": "获取图像范围"
+  }
+ },
+ "268": {
+  "class_type": "WanVideoLoraSelect",
+  "inputs": {
+   "lora": "lightx2v_T2V_14B_cfg_step_distill_v2_lora_rank128_bf16.safetensors",
+   "strength": 1.0000000000000002,
+   "low_mem_load": false,
+   "merge_loras": false
+  },
+  "_meta": {
+   "title": "WanVideo Lora Select"
+  }
+ },
+ "269": {
+  "class_type": "WanVideoLoraSelect",
+  "inputs": {
+   "lora": "Wan2.1-Fun-14B-InP-HPS2.1_reward_lora_comfy.safetensors",
+   "strength": 0.5000000000000001,
+   "prev_lora": [
+    "268",
+    0
+   ],
+   "low_mem_load": false,
+   "merge_loras": false
+  },
+  "_meta": {
+   "title": "WanVideo Lora Select"
+  }
+ },
+ "275": {
+  "class_type": "DownloadAndLoadWav2VecModel",
+  "inputs": {
+   "model": "TencentGameMate/chinese-wav2vec2-base",
+   "load_device": "main_device",
+   "base_precision": "fp16"
+  },
+  "_meta": {
+   "title": "(Down)load Wav2Vec Model"
+  }
+ }
+}
