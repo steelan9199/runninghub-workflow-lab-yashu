@@ -43,6 +43,7 @@
 | 16 | 1982334863921561601 | `夜魔佬首尾帧+中间帧` | Wan2.2 高低噪双段，首/中/尾三帧同时约束 | 591 | 18 | 2026-11-15 |
 | 17 | 1931329103214129154 | `ComfyUI Wan 2.1 VACE 多条件 - 更好的 ControlNet 控图视频生成` | VACE 双条件串联（深度 + 骨架），**跳舞转绘** | 218 | 26（API 图 30） | 2026-11-15 |
 | 18 | 1996163380232830977 | `Z-lmage-Turbo-Fun-Controlnet(支持多种条件控制)` | 四路条件开关（Canny/Depth/Pose），Z-Image 出图 | 93 | 20（API 图 26） | 2026-11-15 |
+| 19 | 2086995655117070338 | `MinimaxH3音频驱动+语音克隆` | 参考音频克隆音色念文本 → 补静音 → H3 口型；静音补边 / 时长凑 17k+5 的样板 | 26 | 30（UI 图 31） | 2026-11-18 |
 
 标题核对结果：②③ 与我记的完全一致；① 我漏了「最强」两字，官方标题是 `Minimax H3_三采最强工作流_首尾帧`。
 
@@ -234,6 +235,19 @@
 - **模型**：`z_image_turbo_bf16` + `ModelPatchLoader(Z-Image-Turbo-Fun-Controlnet-Union)` + VAE `ae`；CLIP 是 `qwen_3_4b`，但 **`type=lumina2`** —— 与第 14/15 条的 `type=qwen_image` 不一致，复制前先确认平台认哪个，别混用。
 - **采样**：`KSampler` **9 步**、`res_multistep`、`cfg=1`、`ModelSamplingAuraFlow(shift=3)`；2MP、`EmptySD3LatentImage` 出图。
 - **其余**：`ImageStitch(54)` 拼「条件图 / 成图」对比，四个 `PreviewImage` 分别看条件与结果。
+
+---
+
+## 19. 2086995655117070338 · MinimaxH3音频驱动+语音克隆
+
+- **作者 / 热度**：`user_phlc4wkm`；使用 26、赞 0、收藏 0；标签「数字人」；站内 30 节点，本地 UI 图 31 节点 / 38 连线。
+- **定位**：不是「图 + 音频 → 口型」，而是**先用 Qwen3-TTS 克隆参考音频的音色把文本念出来，再拿这份配音去驱动 H3**。参考音频同时承担两件事：当克隆样本、被自动转写当参考文本。
+- **完整链路**：`LoadAudio(197)` → `AudioCrop(198, 0:00–0:20)` → `HeartMuLa_Transcribe(196)` → `easy showAnything(200)` 当 `Qwen3TTSVoiceClone.参考文本`；`Qwen3TTSModelLoader(199, Qwen3-TTS-12Hz-1.7B-Base)` + 参考音频 + `CR Text(195)` → `Qwen3TTSVoiceClone(201)` → `AudioBeforeAfterSilence(202, before 0.4s / after 0)` → 同时喂 `VRGDG_MiniMaxH3AudioDrive.source_audio` 与 `SoundFlow_GetLength(179)` → `ComfyMathExpression(131)` 算 `17k+5` → `MiniMaxH3ReferenceToVideo.length`。
+- **模型**：UNET `minimax_h3_ref2va_int8_convrot`；CLIP `qwen3vl_32b_minimax_h3_int8_convrot`；视频 VAE fp16 / 音频 VAE fp32；`PathchSageAttentionKJ(auto)` + `MiniMaxH3MemoryEfficientSageAttentionPatch` 省显存。
+- **默认参数**：9:16 / 0.5MP / 32 对齐；`BasicScheduler` simple **20 步**、denoise 1、`res_multistep`、无 LoRA 无二采；TTS 语速 1、高级采样关闭；输出 `VHS_VideoCombine` 24fps / crf 19 / 音轨来自 AudioDrive。
+- **两个占位值别当真**：`Ref2VA` 的 1344×768 和 124 帧、`PrimitiveFloat(132)` 的 8 秒，运行时都被连线覆盖；改参数要改 `ResolutionSelector` 和音频本身。
+- **可复用片段**：`AudioBeforeAfterSilence` + `SoundFlow_GetLength` + `ComfyMathExpression` 的「补静音 → 量长度 → 凑 17k+5」，已单独写成 [`references/音频补静音与时长凑帧.md`](音频补静音与时长凑帧.md)。
+- **入库情况**：`verified/H3-音频驱动数字人-语音克隆-TTS补静音`（2026-11-18 入库，**未实测、无封面**，老板要求等真要用时再跑）。
 
 ---
 
