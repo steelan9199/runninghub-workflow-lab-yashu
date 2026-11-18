@@ -833,6 +833,31 @@
    ],
    "tag": "数字人",
    "file": "corpus/wf_2118402573337186305.json"
+  },
+  "2112845992205840385": {
+   "savedAt": "2026-11-18T16:01:34.688Z",
+   "nodes": 18,
+   "classes": {
+    "VAEDecode": 1,
+    "KSampler": 1,
+    "PreviewAny": 1,
+    "QwenImage21Cache": 1,
+    "UNETLoader": 1,
+    "CLIPLoader": 1,
+    "VAELoader": 1,
+    "EmptyLatentImage": 1,
+    "TextEncodeQwenImage21": 1,
+    "CR Prompt Text": 1,
+    "PrimitiveInt": 1,
+    "String": 3,
+    "StringToInt": 3,
+    "SaveImage": 1
+   },
+   "outputs": [
+    "563:SaveImage"
+   ],
+   "tag": "文生图",
+   "file": "corpus/wf_2112845992205840385.json"
   }
  }
 }

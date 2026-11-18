@@ -1,0 +1,240 @@
+{
+ "488": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "vae": [
+    "500",
+    0
+   ],
+   "samples": [
+    "489",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "VAE Decode"
+  }
+ },
+ "489": {
+  "class_type": "KSampler",
+  "inputs": {
+   "scheduler": "simple",
+   "negative": [
+    "504",
+    1
+   ],
+   "denoise": 1,
+   "latent_image": [
+    "502",
+    0
+   ],
+   "seed": [
+    "512",
+    0
+   ],
+   "cfg": 1,
+   "sampler_name": "euler",
+   "model": [
+    "495",
+    0
+   ],
+   "positive": [
+    "504",
+    0
+   ],
+   "steps": 25
+  },
+  "_meta": {
+   "title": "KSampler"
+  }
+ },
+ "491": {
+  "class_type": "PreviewAny",
+  "inputs": {
+   "preview": "一个火柴人，站在一团火上面，火柴人是愤怒的表情，日本动漫风格",
+   "source": [
+    "505",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Preview as Text"
+  }
+ },
+ "495": {
+  "class_type": "QwenImage21Cache",
+  "inputs": {
+   "dtype": "default",
+   "model": [
+    "498",
+    0
+   ],
+   "device": "auto"
+  },
+  "_meta": {
+   "title": "Qwen Image 2.1 Cache"
+  }
+ },
+ "498": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "weight_dtype": "default",
+   "unet_name": "qwen_image_2.1_int8_convrot.safetensors"
+  },
+  "_meta": {
+   "title": "Load Diffusion Model"
+  }
+ },
+ "499": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+   "type": "qwen_image",
+   "device": "default"
+  },
+  "_meta": {
+   "title": "Load CLIP"
+  }
+ },
+ "500": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+  },
+  "_meta": {
+   "title": "Load VAE"
+  }
+ },
+ "502": {
+  "class_type": "EmptyLatentImage",
+  "inputs": {
+   "batch_size": [
+    "561",
+    0
+   ],
+   "width": [
+    "558",
+    0
+   ],
+   "height": [
+    "560",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Empty Latent Image"
+  }
+ },
+ "504": {
+  "class_type": "TextEncodeQwenImage21",
+  "inputs": {
+   "negative_prompt": "",
+   "prompt": [
+    "491",
+    0
+   ],
+   "resolution": 1024,
+   "clip": [
+    "499",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Text Encode Qwen Image 2.1"
+  }
+ },
+ "505": {
+  "class_type": "CR Prompt Text",
+  "inputs": {
+   "prompt": "一个火柴人，站在一团火上面，火柴人是愤怒的表情，日本动漫风格"
+  },
+  "_meta": {
+   "title": "提示词"
+  }
+ },
+ "512": {
+  "class_type": "PrimitiveInt",
+  "inputs": {
+   "value": 189385980659997
+  },
+  "_meta": {
+   "title": "seed"
+  }
+ },
+ "557": {
+  "class_type": "String",
+  "inputs": {
+   "inStr": "600"
+  },
+  "_meta": {
+   "title": "宽度"
+  }
+ },
+ "558": {
+  "class_type": "StringToInt",
+  "inputs": {
+   "string": [
+    "557",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "String to Int"
+  }
+ },
+ "559": {
+  "class_type": "String",
+  "inputs": {
+   "inStr": "800"
+  },
+  "_meta": {
+   "title": "高度"
+  }
+ },
+ "560": {
+  "class_type": "StringToInt",
+  "inputs": {
+   "string": [
+    "559",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "String to Int"
+  }
+ },
+ "561": {
+  "class_type": "StringToInt",
+  "inputs": {
+   "string": [
+    "562",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "String to Int"
+  }
+ },
+ "562": {
+  "class_type": "String",
+  "inputs": {
+   "inStr": "1"
+  },
+  "_meta": {
+   "title": "batch_size"
+  }
+ },
+ "563": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "ComfyUI",
+   "images": [
+    "488",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "Save Image"
+  }
+ }
+}
