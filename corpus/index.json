@@ -858,6 +858,88 @@
    ],
    "tag": "文生图",
    "file": "corpus/wf_2112845992205840385.json"
+  },
+  "2121130556594417666": {
+   "savedAt": "2026-11-18T20:04:59.052Z",
+   "nodes": 15,
+   "classes": {
+    "CLIPLoader": 1,
+    "VAELoader": 1,
+    "CLIPTextEncode": 2,
+    "EmptyLatentImage": 1,
+    "UNETLoader": 1,
+    "SkipLayerGuidanceDiTSimple": 1,
+    "KSampler": 1,
+    "VAEDecode": 1,
+    "SaveImage": 1,
+    "LoraLoaderModelOnly": 1,
+    "PrimitiveStringMultiline": 2,
+    "TextGenerate": 1,
+    "PreviewImage": 1
+   },
+   "outputs": [
+    "23:SaveImage",
+    "73:PreviewImage"
+   ],
+   "tag": "moss三视图",
+   "file": "corpus/wf_2121130556594417666.json"
+  },
+  "2112398936735576066": {
+   "savedAt": "2026-11-18T20:05:05.401Z",
+   "nodes": 25,
+   "classes": {
+    "LoadImage": 1,
+    "PrimitiveStringMultiline": 2,
+    "TextGenerate": 1,
+    "ComfySwitchNode": 1,
+    "EmptyFlux2LatentImage": 1,
+    "SkipLayerGuidanceDiTSimple": 1,
+    "ResolutionSelector": 1,
+    "UNETLoader": 1,
+    "PreviewAny": 1,
+    "LoraLoaderModelOnly": 1,
+    "CLIPTextEncode": 2,
+    "KSampler": 1,
+    "VAEDecode": 1,
+    "SaveImage": 1,
+    "MOSSImageLayoutPrompt": 1,
+    "CLIPLoader": 1,
+    "CreateBoundingBoxes": 1,
+    "easy showAnything": 2,
+    "ModelAttentionBackend": 1,
+    "VAELoader": 1,
+    "Image Comparer (rgthree)": 1,
+    "ImageCompare": 1
+   },
+   "outputs": [
+    "147:SaveImage"
+   ],
+   "tag": "moss布局文生图",
+   "file": "corpus/wf_2112398936735576066.json"
+  },
+  "2119655744810344450": {
+   "savedAt": "2026-11-18T20:10:36.663Z",
+   "nodes": 13,
+   "classes": {
+    "CLIPTextEncode": 2,
+    "EmptyFlux2LatentImage": 1,
+    "KSampler": 1,
+    "VAEDecode": 1,
+    "SaveImage": 1,
+    "VAELoader": 1,
+    "ResolutionSelector": 1,
+    "UNETLoader": 1,
+    "CLIPLoader": 1,
+    "LoraLoaderModelOnly": 1,
+    "PreviewImage": 1,
+    "CR Text": 1
+   },
+   "outputs": [
+    "18:SaveImage",
+    "78:PreviewImage"
+   ],
+   "tag": "moss文生图用户版",
+   "file": "corpus/wf_2119655744810344450.json"
   }
  }
 }

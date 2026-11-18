@@ -1,0 +1,205 @@
+{
+ "4": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": [
+    "79",
+    0
+   ],
+   "clip": [
+    "48",
+    0
+   ]
+  },
+  "_meta": {
+   "cnr_id": "comfy-core",
+   "ver": "0.41.2",
+   "title": "CLIP文本编码器"
+  }
+ },
+ "5": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "blurry, deformed hands, extra fingers, fused limbs, watermark, garbled text",
+   "clip": [
+    "48",
+    0
+   ]
+  },
+  "_meta": {
+   "cnr_id": "comfy-core",
+   "ver": "0.41.2",
+   "title": "CLIP文本编码器"
+  }
+ },
+ "6": {
+  "class_type": "EmptyFlux2LatentImage",
+  "inputs": {
+   "batch_size": 1,
+   "width": [
+    "23",
+    0
+   ],
+   "height": [
+    "23",
+    1
+   ]
+  },
+  "_meta": {
+   "cnr_id": "comfy-core",
+   "ver": "0.41.2",
+   "title": "空Latent图像（Flux2）"
+  }
+ },
+ "16": {
+  "class_type": "KSampler",
+  "inputs": {
+   "scheduler": "simple",
+   "negative": [
+    "5",
+    0
+   ],
+   "denoise": 1,
+   "latent_image": [
+    "6",
+    0
+   ],
+   "seed": 708498597926819,
+   "cfg": 1.1,
+   "sampler_name": "euler",
+   "model": [
+    "55",
+    0
+   ],
+   "positive": [
+    "4",
+    0
+   ],
+   "steps": 8
+  },
+  "_meta": {
+   "cnr_id": "comfy-core",
+   "ver": "0.41.2",
+   "title": "K采样器"
+  }
+ },
+ "17": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "vae": [
+    "22",
+    0
+   ],
+   "samples": [
+    "16",
+    0
+   ]
+  },
+  "_meta": {
+   "cnr_id": "comfy-core",
+   "ver": "0.41.2",
+   "title": "VAE解码"
+  }
+ },
+ "18": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "r-moss-t2i-aijuxi",
+   "images": [
+    "17",
+    0
+   ]
+  },
+  "_meta": {
+   "cnr_id": "comfy-core",
+   "ver": "0.41.2",
+   "title": "保存图像"
+  }
+ },
+ "22": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "flux2-vae.safetensors"
+  },
+  "_meta": {
+   "cnr_id": "comfy-core",
+   "ver": "0.41.2",
+   "title": "VAE加载器"
+  }
+ },
+ "23": {
+  "class_type": "ResolutionSelector",
+  "inputs": {
+   "aspect_ratio": "9:16 (Portrait Widescreen)",
+   "megapixels": 2,
+   "multiple": 8
+  },
+  "_meta": {
+   "cnr_id": "comfy-core",
+   "ver": "0.41.2",
+   "title": "分辨率选择器"
+  }
+ },
+ "46": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "weight_dtype": "default",
+   "unet_name": "moss_image_sft_int8_convrot.safetensors"
+  },
+  "_meta": {
+   "cnr_id": "comfy-core",
+   "ver": "0.41.0",
+   "title": "UNET加载器"
+  }
+ },
+ "48": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "qwen3.5_9b_w4a8_gptq.safetensors",
+   "type": "moss_image",
+   "device": "default"
+  },
+  "_meta": {
+   "cnr_id": "comfy-core",
+   "ver": "0.41.0",
+   "title": "CLIP加载器"
+  }
+ },
+ "55": {
+  "class_type": "LoraLoaderModelOnly",
+  "inputs": {
+   "lora_name": "MOSS-Image-Base-8-steps-dmd.safetensors",
+   "strength_model": 1.0000000000000002,
+   "model": [
+    "46",
+    0
+   ]
+  },
+  "_meta": {
+   "cnr_id": "comfy-core",
+   "ver": "0.42.0",
+   "title": "LoRA加载器(仅模型)"
+  }
+ },
+ "78": {
+  "class_type": "PreviewImage",
+  "inputs": {
+   "images": [
+    "17",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "预览图像"
+  }
+ },
+ "79": {
+  "class_type": "CR Text",
+  "inputs": {
+   "text": "少女正在洗衣服。场景:凌乱但干净的千禧年小县城阳台，慵懒居家感。"
+  },
+  "_meta": {
+   "title": "文本"
+  }
+ }
+}
