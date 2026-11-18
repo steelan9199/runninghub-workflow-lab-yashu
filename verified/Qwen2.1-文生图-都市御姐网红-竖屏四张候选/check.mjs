@@ -80,7 +80,7 @@ for (const n of oranges) {
 const enc = ui.nodes.find((n) => n.type === 'TextEncodeQwenImage21');
 const prompt = enc?.widgets_values?.[0] || '';
 if (prompt.length < 120) errs.push(`提示词只有 ${prompt.length} 字，像是占位没预填`);
-for (const kw of ['挺立', '吊带', '深圳', '御姐']) {
+for (const kw of ['挺立', '罗纹针织', '街角', '霓虹']) {
   if (!prompt.includes(kw)) errs.push(`提示词缺关键词「${kw}」`);
 }
 if (/example\.png|在这里写/.test(JSON.stringify(ui))) errs.push('图里还有占位内容');
