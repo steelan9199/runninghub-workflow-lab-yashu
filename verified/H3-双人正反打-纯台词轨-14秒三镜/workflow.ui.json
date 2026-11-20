@@ -1,0 +1,1188 @@
+{
+  "last_node_id": 23,
+  "last_link_id": 27,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        315,
+        106
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1,
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+        "default"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "CLIPLoader",
+      "pos": [
+        0,
+        170
+      ],
+      "size": [
+        315,
+        82
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "minimax",
+        "default"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "VAELoader",
+      "pos": [
+        0,
+        320
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            12,
+            23
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "minimax_h3_video_vae_int8_convrot.safetensors"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "VAELoader",
+      "title": "音频 VAE",
+      "pos": [
+        0,
+        450
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            24
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "minimax_h3_audio_vae_fp32.safetensors"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "MiniMaxH3ImageToVideo",
+      "title": "★ 改这里 · 提示词 / 宽高",
+      "pos": [
+        400,
+        0
+      ],
+      "size": [
+        440,
+        440
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "color": "#c0392b",
+      "bgcolor": "#5b1f1f",
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 11
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 12
+        },
+        {
+          "name": "first_frame",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "last_frame",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": null
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": null
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "widget": {
+            "name": "length"
+          },
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            15
+          ]
+        },
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            16
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3ImageToVideo"
+      },
+      "widgets_values": [
+        "1990s Hong Kong arthouse film, 35mm film grain, shallow depth of field, soft halation around highlights, slight handheld camera drift. A narrow late-night cha chaan teng booth: green ceramic tile walls, red plastic booth seats, a scratched white formica table, a wall clock reading 2:40. Warm tungsten light falls from a single overhead shade, while red and green neon from the street outside spills through rain-streaked window glass, rimming both women in cold color. Rain runs down the glass for the whole shot. A radio behind the counter plays a faint, muffled Cantonese ballad.\n\n[Shot 1] A medium two-shot across the table. Two East Asian women in their late twenties sit facing each other. On the left, Lin: glossy dark-red lipstick, voluminous side-parted black waves, pearl drop earrings, a dark green silk qipao with a high collar. On the right, Su: no makeup, damp shoulder-length black hair tucked behind one ear, a loose white cotton shirt, a thin silver chain. Lin stirs a cup of coffee without looking up; Su watches the rain on the glass, then turns her eyes back to Lin. The camera pushes in with small amplitude at slow speed. Neither speaks. Steam rises from the cup and drifts across the frame.\n\n[Shot 2] At 00:04.000, the camera cuts to an over-the-shoulder shot from behind Lin's left shoulder: her dark green silk shoulder is soft and out of focus in the left foreground, occupying about a quarter of the frame, and Su's face is in sharp focus across the table. Su (S1), a late-twenties East Asian woman with a bare face and damp black hair, holds Lin's gaze and says in a low, level voice: <d>[Chinese] 雨停之前，你会说真话吗？</d> Her fingertips stop on the rim of her glass. Lin does not speak; her lips stay still. The camera holds a static shot.\n\n[Shot 3] At 00:09.000, the shot cuts to the reverse over-the-shoulder from behind Su's right shoulder: her white cotton collar and damp hair fill the near-right foreground, soft and out of focus, and Lin's face is in sharp focus across the table. Lin (S2), the woman with dark-red lipstick and pearl earrings, lowers her eyes to the coffee cup first, then lifts them to Su and says in a quiet, unhurried voice: <d>[Chinese] 真话我早说了——是你没在听。</d> Su does not speak; her lips stay still. The camera pushes in with small amplitude at slow speed and comes to rest on Lin's eyes, holding until the 14.4-second mark.\n\nEach line is spoken exactly once. Both women keep the same hairstyle, clothing, makeup and jewelry in every shot. Same room, same table, same lighting throughout. No on-screen text, no subtitles, no watermark.",
+        1344,
+        768,
+        345
+      ]
+    },
+    {
+      "id": 6,
+      "type": "BasicScheduler",
+      "pos": [
+        400,
+        500
+      ],
+      "size": [
+        315,
+        106
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 4
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            20
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BasicScheduler"
+      },
+      "widgets_values": [
+        "simple",
+        20,
+        1
+      ]
+    },
+    {
+      "id": 7,
+      "type": "KSamplerSelect",
+      "pos": [
+        400,
+        660
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            19
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerSelect"
+      },
+      "widgets_values": [
+        "res_multistep"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "RandomNoise",
+      "title": "★ 改这里 · 种子",
+      "pos": [
+        400,
+        770
+      ],
+      "size": [
+        315,
+        82
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "color": "#c0392b",
+      "bgcolor": "#5b1f1f",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "NOISE",
+          "type": "NOISE",
+          "links": [
+            17
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RandomNoise"
+      },
+      "widgets_values": [
+        20261120,
+        "fixed"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "BasicGuider",
+      "pos": [
+        900,
+        60
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 5
+        },
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            18
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BasicGuider"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 10,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        900,
+        180
+      ],
+      "size": [
+        300,
+        130
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise",
+          "type": "NOISE",
+          "link": 17
+        },
+        {
+          "name": "guider",
+          "type": "GUIDER",
+          "link": 18
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 19
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 20
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 16
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            21,
+            22
+          ]
+        },
+        {
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 11,
+      "type": "VAEDecode",
+      "pos": [
+        1300,
+        120
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 21
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 23
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            25
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 12,
+      "type": "VAEDecodeAudio",
+      "pos": [
+        1300,
+        220
+      ],
+      "size": [
+        240,
+        46
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 22
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 24
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            26
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecodeAudio"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 13,
+      "type": "CreateVideo",
+      "pos": [
+        1300,
+        320
+      ],
+      "size": [
+        300,
+        200
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 25
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 26
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            27
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CreateVideo"
+      },
+      "widgets_values": [
+        24,
+        8
+      ]
+    },
+    {
+      "id": 14,
+      "type": "SaveVideo",
+      "title": "输出视频",
+      "pos": [
+        1700,
+        200
+      ],
+      "size": [
+        420,
+        460
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "color": "#d35400",
+      "bgcolor": "#5a3208",
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 27
+        }
+      ],
+      "outputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveVideo"
+      },
+      "widgets_values": [
+        "video/h3_shot_reverse_shot",
+        "auto",
+        "auto"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "PrimitiveFloat",
+      "title": "★ 改这里 · 时长（秒）",
+      "pos": [
+        100,
+        950
+      ],
+      "size": [
+        240,
+        58
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "color": "#c0392b",
+      "bgcolor": "#5b1f1f",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveFloat"
+      },
+      "widgets_values": [
+        14
+      ]
+    },
+    {
+      "id": 16,
+      "type": "ComfyMathExpression",
+      "title": "秒数 → 17k+5 帧",
+      "pos": [
+        400,
+        930
+      ],
+      "size": [
+        380,
+        82
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "values.a",
+          "type": "FLOAT",
+          "link": 14
+        },
+        {
+          "name": "values.b",
+          "type": "INT,BOOLEAN,FLOAT",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            13
+          ]
+        },
+        {
+          "name": "BOOL",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfyMathExpression"
+      },
+      "widgets_values": [
+        "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "LoraLoaderModelOnly",
+      "title": "Turbo LoRA（默认旁路）",
+      "pos": [
+        100,
+        1080
+      ],
+      "size": [
+        315,
+        130
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        },
+        {
+          "name": "lora_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "lora_name"
+          },
+          "link": null
+        },
+        {
+          "name": "strength_model",
+          "type": "FLOAT",
+          "widget": {
+            "name": "strength_model"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+        1
+      ]
+    },
+    {
+      "id": 18,
+      "type": "ComfySwitchNode",
+      "title": "开关 · 模型",
+      "pos": [
+        900,
+        560
+      ],
+      "size": [
+        300,
+        80
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_false",
+          "type": "MODEL",
+          "link": 2
+        },
+        {
+          "name": "on_true",
+          "type": "MODEL",
+          "link": 3
+        },
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "MODEL",
+          "links": [
+            4,
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 19,
+      "type": "ComfySwitchNode",
+      "title": "开关 · 步数",
+      "pos": [
+        900,
+        700
+      ],
+      "size": [
+        300,
+        80
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_false",
+          "type": "INT",
+          "link": 7
+        },
+        {
+          "name": "on_true",
+          "type": "INT",
+          "link": 8
+        },
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "INT",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 20,
+      "type": "PrimitiveInt",
+      "title": "20 步",
+      "pos": [
+        480,
+        1090
+      ],
+      "size": [
+        240,
+        58
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveInt"
+      },
+      "widgets_values": [
+        20,
+        "fixed"
+      ]
+    },
+    {
+      "id": 21,
+      "type": "PrimitiveInt",
+      "title": "8 步（turbo）",
+      "pos": [
+        480,
+        1200
+      ],
+      "size": [
+        240,
+        58
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveInt"
+      },
+      "widgets_values": [
+        8,
+        "fixed"
+      ]
+    },
+    {
+      "id": 22,
+      "type": "PrimitiveBoolean",
+      "title": "Turbo 开关（false = 20 步原模型）",
+      "pos": [
+        100,
+        1260
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": [
+            9,
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveBoolean"
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 23,
+      "type": "MarkdownNote",
+      "title": "使用说明",
+      "pos": [
+        -520,
+        0
+      ],
+      "size": [
+        480,
+        520
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "# MiniMax H3 · 正反打 · 文生视频\n\n**红块 = 你要改的**\n- 提示词 / 宽高（1344×768）\n- 时长（秒）：14 → 345 帧 ≈ 14.375s\n- 种子\n\n**橙块 = 输出**\n\n**时长换算（17k+5 网格）**\n- 8 秒 → 192 帧\n- 10 秒 → 243 帧\n- 12 秒 → 294 帧\n- 14 秒 → 345 帧 ≈ 14.375s\n- 15 秒以上不保证，训练范围约 124–362 帧\n\n**多镜头切点**\n提示词里写 `At 00:04.000, the camera cuts to...`；H3 实际切点可能漂 1–2 帧，属正常。\n\n**想快 4–5 倍**\n把 Turbo 开关改成 true（需平台已装 turbo LoRA，8 步）。\n\n**注意**\n本图无声源以外的素材，纯文生视频；中文台词由 H3 原生音频生成，逐字准确度中等。"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      17,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      1,
+      0,
+      18,
+      0,
+      "MODEL"
+    ],
+    [
+      3,
+      17,
+      0,
+      18,
+      1,
+      "MODEL"
+    ],
+    [
+      4,
+      18,
+      0,
+      6,
+      0,
+      "MODEL"
+    ],
+    [
+      5,
+      18,
+      0,
+      9,
+      0,
+      "MODEL"
+    ],
+    [
+      6,
+      19,
+      0,
+      6,
+      1,
+      "INT"
+    ],
+    [
+      7,
+      20,
+      0,
+      19,
+      0,
+      "INT"
+    ],
+    [
+      8,
+      21,
+      0,
+      19,
+      1,
+      "INT"
+    ],
+    [
+      9,
+      22,
+      0,
+      18,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      10,
+      22,
+      0,
+      19,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      11,
+      2,
+      0,
+      5,
+      0,
+      "CLIP"
+    ],
+    [
+      12,
+      3,
+      0,
+      5,
+      1,
+      "VAE"
+    ],
+    [
+      13,
+      16,
+      1,
+      5,
+      7,
+      "INT"
+    ],
+    [
+      14,
+      15,
+      0,
+      16,
+      0,
+      "FLOAT"
+    ],
+    [
+      15,
+      5,
+      0,
+      9,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      16,
+      5,
+      1,
+      10,
+      4,
+      "LATENT"
+    ],
+    [
+      17,
+      8,
+      0,
+      10,
+      0,
+      "NOISE"
+    ],
+    [
+      18,
+      9,
+      0,
+      10,
+      1,
+      "GUIDER"
+    ],
+    [
+      19,
+      7,
+      0,
+      10,
+      2,
+      "SAMPLER"
+    ],
+    [
+      20,
+      6,
+      0,
+      10,
+      3,
+      "SIGMAS"
+    ],
+    [
+      21,
+      10,
+      0,
+      11,
+      0,
+      "LATENT"
+    ],
+    [
+      22,
+      10,
+      0,
+      12,
+      0,
+      "LATENT"
+    ],
+    [
+      23,
+      3,
+      0,
+      11,
+      1,
+      "VAE"
+    ],
+    [
+      24,
+      4,
+      0,
+      12,
+      1,
+      "VAE"
+    ],
+    [
+      25,
+      11,
+      0,
+      13,
+      0,
+      "IMAGE"
+    ],
+    [
+      26,
+      12,
+      0,
+      13,
+      1,
+      "AUDIO"
+    ],
+    [
+      27,
+      13,
+      0,
+      14,
+      0,
+      "VIDEO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
