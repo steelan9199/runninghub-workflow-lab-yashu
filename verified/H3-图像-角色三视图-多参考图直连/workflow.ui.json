@@ -1,0 +1,1111 @@
+{
+  "id": "7fb1b9f3-bb42-4cb2-8068-e0c50e220ef8",
+  "revision": 0,
+  "last_node_id": 614,
+  "last_link_id": 192,
+  "nodes": [
+    {
+      "id": 248,
+      "type": "SaveImage",
+      "pos": [
+        1400,
+        660
+      ],
+      "size": [
+        480,
+        600
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "images",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 174
+        },
+        {
+          "label": "filename_prefix",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "image_urls",
+          "name": "image_urls",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "label": "images",
+          "name": "images",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.45.0",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "h3_threeview"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "h3_threeview"
+      },
+      "color": "#d35400",
+      "bgcolor": "#5a3208"
+    },
+    {
+      "id": 562,
+      "type": "UNETLoader",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        309.23202367716897,
+        82
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "unet_name",
+          "name": "unet_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "unet_name"
+          },
+          "link": null
+        },
+        {
+          "label": "weight_dtype",
+          "name": "weight_dtype",
+          "type": "COMBO",
+          "widget": {
+            "name": "weight_dtype"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "MODEL",
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            181
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader",
+        "cnr_id": "comfy-core",
+        "models": [
+          {
+            "name": "minimax_h3_image_pruned_int8_convrot.safetensors",
+            "directory": "diffusion_models",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3-Image/resolve/main/diffusion_models/minimax_h3_image_pruned_int8_convrot.safetensors"
+          }
+        ],
+        "ver": "0.45.0",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "minimax_h3_image_pruned_bf16.safetensors",
+        "default"
+      ],
+      "widgets_values_named": {
+        "unet_name": "minimax_h3_image_pruned_bf16.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    {
+      "id": 607,
+      "type": "CLIPLoader",
+      "pos": [
+        0,
+        182
+      ],
+      "size": [
+        312.0585402130372,
+        106
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "clip_name",
+          "name": "clip_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "clip_name"
+          },
+          "link": null
+        },
+        {
+          "label": "type",
+          "name": "type",
+          "type": "COMBO",
+          "widget": {
+            "name": "type"
+          },
+          "link": null
+        },
+        {
+          "label": "device",
+          "name": "device",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "device"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "CLIP",
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            175
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader",
+        "cnr_id": "comfy-core",
+        "models": [
+          {
+            "name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+            "directory": "text_encoders",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_int8_convrot.safetensors"
+          }
+        ],
+        "ver": "0.45.0",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+        "minimax",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+        "type": "minimax",
+        "device": "default"
+      }
+    },
+    {
+      "id": 612,
+      "type": "VAELoader",
+      "pos": [
+        0,
+        388
+      ],
+      "size": [
+        210,
+        58
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "vae_name",
+          "name": "vae_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "vae_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "VAE",
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            176,
+            189
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader",
+        "cnr_id": "comfy-core",
+        "models": [
+          {
+            "name": "minimax_h3_image_vae_fp16.safetensors",
+            "directory": "vae",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3-Image/resolve/main/vae/minimax_h3_image_vae_fp16.safetensors"
+          }
+        ],
+        "ver": "0.45.0",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "minimax_h3_image_vae_fp16.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "minimax_h3_image_vae_fp16.safetensors"
+      }
+    },
+    {
+      "id": 164,
+      "type": "MiniMaxH3ImageConditioning",
+      "pos": [
+        500,
+        660
+      ],
+      "size": [
+        261.20628105110825,
+        296
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "clip",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 175
+        },
+        {
+          "label": "vae",
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": 176
+        },
+        {
+          "label": "参考图 1 (Image-1)",
+          "name": "images.image_0",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 190
+        },
+        {
+          "label": "参考图 2 (Image-2)",
+          "name": "images.image_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 191
+        },
+        {
+          "label": "参考图 3 (Image-3)",
+          "name": "images.image_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 192
+        },
+        {
+          "label": "参考图 4 (Image-4)",
+          "name": "images.image_3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "参考图 5 (Image-5)",
+          "name": "images.image_4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "参考图 6 (Image-6)",
+          "name": "images.image_5",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "prompt",
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": null
+        },
+        {
+          "label": "width",
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": null
+        },
+        {
+          "label": "height",
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "positive",
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            182
+          ]
+        },
+        {
+          "label": "LATENT",
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            187
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3ImageConditioning",
+        "cnr_id": "comfy-core",
+        "ver": "0.45.0",
+        "widget_ue_connectable": {
+          "width": true,
+          "prompt": true,
+          "height": true
+        }
+      },
+      "widgets_values": [
+        "Create one horizontal character reference sheet on a pure white seamless background, divided into three equal vertical panels separated by clean white gaps. All three panels show the exact same character and the exact same outfit as the reference pictures.\n\nLeft panel: a close-up portrait of the character's face and shoulders, front view, the whole head fully visible with all hairstyle elements, exact facial features, calm neutral expression, looking straight at the viewer.\n\nMiddle panel: a full-body front view of the same character standing upright, arms relaxed slightly away from the body. The body is headless: everything above the robe collar is pure white, with no head and no hair. Show the complete layered outfit, sleeves, and the full-length lower garment down to the feet.\n\nRight panel: a full-body back view of the same character standing upright, the head and hair seen from behind, showing the back of the outfit and any hair ornaments hanging down.\n\nKeep the same identity, proportions and outfit across all three panels. High-quality 3D Chinese animation CG style, consistent with the references. Pure white background, soft even studio lighting, balanced symmetrical composition, full figures not cropped, no text, no subtitles, no watermark, no other people, no scenery.",
+        3168,
+        1280
+      ],
+      "widgets_values_named": {
+        "prompt": "Create one horizontal character reference sheet on a pure white seamless background, divided into three equal vertical panels separated by clean white gaps. All three panels show the exact same character and the exact same outfit as the reference pictures.\n\nLeft panel: a close-up portrait of the character's face and shoulders, front view, the whole head fully visible with all hairstyle elements, exact facial features, calm neutral expression, looking straight at the viewer.\n\nMiddle panel: a full-body front view of the same character standing upright, arms relaxed slightly away from the body. The body is headless: everything above the robe collar is pure white, with no head and no hair. Show the complete layered outfit, sleeves, and the full-length lower garment down to the feet.\n\nRight panel: a full-body back view of the same character standing upright, the head and hair seen from behind, showing the back of the outfit and any hair ornaments hanging down.\n\nKeep the same identity, proportions and outfit across all three panels. High-quality 3D Chinese animation CG style, consistent with the references. Pure white background, soft even studio lighting, balanced symmetrical composition, full figures not cropped, no text, no subtitles, no watermark, no other people, no scenery.",
+        "width": 3168,
+        "height": 1280
+      },
+      "title": "★ 改这里 · 提示词 / 宽高",
+      "color": "#c0392b",
+      "bgcolor": "#5b1f1f"
+    },
+    {
+      "id": 569,
+      "type": "BasicGuider",
+      "pos": [
+        850,
+        660
+      ],
+      "size": [
+        159.568359375,
+        46
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 181
+        },
+        {
+          "label": "conditioning",
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 182
+        }
+      ],
+      "outputs": [
+        {
+          "label": "GUIDER",
+          "name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            184
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BasicGuider",
+        "cnr_id": "comfy-core",
+        "ver": "0.45.0",
+        "widget_ue_connectable": {}
+      }
+    },
+    {
+      "id": 176,
+      "type": "KSamplerSelect",
+      "pos": [
+        500,
+        1020
+      ],
+      "size": [
+        210,
+        58
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "sampler_name",
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampler_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "SAMPLER",
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            185
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerSelect",
+        "cnr_id": "comfy-core",
+        "ver": "0.45.0",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "euler"
+      ],
+      "widgets_values_named": {
+        "sampler_name": "euler"
+      }
+    },
+    {
+      "id": 584,
+      "type": "ManualSigmas",
+      "pos": [
+        800,
+        1020
+      ],
+      "size": [
+        240.288671875,
+        58
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "sigmas",
+          "name": "sigmas",
+          "type": "STRING",
+          "widget": {
+            "name": "sigmas"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "SIGMAS",
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            186
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ManualSigmas",
+        "cnr_id": "comfy-core",
+        "ver": "0.45.0",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "1.0, 0.9675236940383911, 0.8875485062599182, 0.75, 0.5327739119529724, 0.23200887441635132, 0.0"
+      ],
+      "widgets_values_named": {
+        "sigmas": "1.0, 0.9675236940383911, 0.8875485062599182, 0.75, 0.5327739119529724, 0.23200887441635132, 0.0"
+      }
+    },
+    {
+      "id": 114,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        850,
+        800
+      ],
+      "size": [
+        212.3638671875,
+        106
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "noise",
+          "name": "noise",
+          "type": "NOISE",
+          "link": 183
+        },
+        {
+          "label": "guider",
+          "name": "guider",
+          "type": "GUIDER",
+          "link": 184
+        },
+        {
+          "label": "sampler",
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 185
+        },
+        {
+          "label": "sigmas",
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 186
+        },
+        {
+          "label": "latent_image",
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 187
+        }
+      ],
+      "outputs": [
+        {
+          "label": "output",
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            188
+          ]
+        },
+        {
+          "label": "denoised_output",
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced",
+        "cnr_id": "comfy-core",
+        "ver": "0.45.0",
+        "widget_ue_connectable": {}
+      }
+    },
+    {
+      "id": 470,
+      "type": "VAEDecode",
+      "pos": [
+        1150,
+        800
+      ],
+      "size": [
+        140,
+        46
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "samples",
+          "name": "samples",
+          "type": "LATENT",
+          "link": 188
+        },
+        {
+          "label": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 189
+        }
+      ],
+      "outputs": [
+        {
+          "label": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            174
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode",
+        "cnr_id": "comfy-core",
+        "ver": "0.45.0",
+        "widget_ue_connectable": {}
+      }
+    },
+    {
+      "id": 221,
+      "type": "RandomNoise",
+      "pos": [
+        500,
+        1140
+      ],
+      "size": [
+        210,
+        82
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "noise_seed",
+          "name": "noise_seed",
+          "type": "INT",
+          "widget": {
+            "name": "noise_seed"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "NOISE",
+          "name": "NOISE",
+          "type": "NOISE",
+          "links": [
+            183
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RandomNoise",
+        "cnr_id": "comfy-core",
+        "ver": "0.45.0",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        42,
+        "fixed"
+      ],
+      "widgets_values_named": {
+        "noise_seed": 42,
+        "control_after_generate": "fixed"
+      },
+      "color": "#c0392b",
+      "bgcolor": "#5b1f1f"
+    },
+    {
+      "id": 504,
+      "type": "LoadImage",
+      "pos": [
+        0,
+        660
+      ],
+      "size": [
+        300,
+        330
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "label": "upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            190
+          ]
+        },
+        {
+          "label": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.45.0",
+        "widget_ue_connectable": {},
+        "guhaiImageValue": "openapi/268bd92361b0902858ee80b97797e2ff478dac054b2d8909766c37391bb6f4d9.png"
+      },
+      "widgets_values": [
+        "openapi/268bd92361b0902858ee80b97797e2ff478dac054b2d8909766c37391bb6f4d9.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "openapi/268bd92361b0902858ee80b97797e2ff478dac054b2d8909766c37391bb6f4d9.png",
+        "upload": "image"
+      },
+      "color": "#c0392b",
+      "bgcolor": "#5b1f1f",
+      "title": "★ 改这里 · 参考图1 正面全身"
+    },
+    {
+      "id": 550,
+      "type": "LoadImage",
+      "pos": [
+        0,
+        1050
+      ],
+      "size": [
+        300,
+        330
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "label": "upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            191
+          ]
+        },
+        {
+          "label": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.45.0",
+        "widget_ue_connectable": {},
+        "guhaiImageValue": "openapi/b55c4e4188a1f9cbad7b82afa8f5d38466dd6e1cd4eb02a9d2d5952adb6f65a8.png"
+      },
+      "widgets_values": [
+        "openapi/b55c4e4188a1f9cbad7b82afa8f5d38466dd6e1cd4eb02a9d2d5952adb6f65a8.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "openapi/b55c4e4188a1f9cbad7b82afa8f5d38466dd6e1cd4eb02a9d2d5952adb6f65a8.png",
+        "upload": "image"
+      },
+      "color": "#c0392b",
+      "bgcolor": "#5b1f1f",
+      "title": "★ 改这里 · 参考图2 脸部特写"
+    },
+    {
+      "id": 195,
+      "type": "LoadImage",
+      "pos": [
+        0,
+        1440
+      ],
+      "size": [
+        300,
+        330
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "label": "upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            192
+          ]
+        },
+        {
+          "label": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.45.0",
+        "widget_ue_connectable": {},
+        "guhaiImageValue": "openapi/57e8e83a09f2da1946311985c7ac34d56166305f70c8df2baa3c9fca52b87a93.png"
+      },
+      "widgets_values": [
+        "openapi/57e8e83a09f2da1946311985c7ac34d56166305f70c8df2baa3c9fca52b87a93.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "openapi/57e8e83a09f2da1946311985c7ac34d56166305f70c8df2baa3c9fca52b87a93.png",
+        "upload": "image"
+      },
+      "color": "#c0392b",
+      "bgcolor": "#5b1f1f",
+      "title": "★ 改这里 · 参考图3 背面全身"
+    },
+    {
+      "id": 483,
+      "type": "MarkdownNote",
+      "pos": [
+        500,
+        1320
+      ],
+      "size": [
+        580,
+        760
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "## H3-Image 角色三视图 · 多参考图直连\n\n**用途**：从一段视频里截到某个角色的多角度图（至少：脸特写 + 正面全身 + 背面全身），用这几张图直出「左＝脸部特写 / 中＝无头正面全身 / 右＝背面全身」的白底三视图。\n\n**这版怎么接**：参考图 → `MiniMaxH3ImageConditioning` 的 `image_0..image_2`，排版全靠条件节点的 prompt。\n\n### 红色（★ 改这里）\n- **3 个 LoadImage**：换成你的图，顺序必须是\n  1. 正面全身（主图 / Picture 1，模型以它为编辑底图）\n  2. 脸部特写\n  3. 背面全身\n- **条件节点 prompt**：三栏排版描述，已写成通用版；换角色不用改，换画风/构图改这里。\n- **width / height**：默认 3168×1280（必须 32 的倍数，面积别超 ~6MP）。\n\n### 橙色（输出）\n- **SaveImage**：一次出一张。\n\n### 加更多参考图\n复制一个 LoadImage，接到条件节点后面的空槽（`参考图 4/5/6`），建议补「正面半身（看清服装细节）」「背面发髻/飘带」；最多 16 张，主图仍是 image_0。\n\n### 注意\n- 参考图 fileName **1 天过期**；过期后用 `node build.mjs --front <正面全身> --face <脸特写> --back <背面全身>` 重新上传并生成。\n- 采样是官方定死的 `euler` + 6 档 sigmas，CFG=1，**别改步数**（蒸馏模型）。\n- 中栏无头靠正向描述压：`everything above the robe collar is pure white, no head and no hair`；写「不要头」会反噬。\n- 想要二次元：把 prompt 里 `3D Chinese animation CG style` 换成 `anime, cel shading, flat colors`。"
+      ],
+      "widgets_values_named": {
+        "text": "## H3-Image 角色三视图 · 多参考图直连\n\n**用途**：从一段视频里截到某个角色的多角度图（至少：脸特写 + 正面全身 + 背面全身），用这几张图直出「左＝脸部特写 / 中＝无头正面全身 / 右＝背面全身」的白底三视图。\n\n**这版怎么接**：参考图 → `MiniMaxH3ImageConditioning` 的 `image_0..image_2`，排版全靠条件节点的 prompt。\n\n### 红色（★ 改这里）\n- **3 个 LoadImage**：换成你的图，顺序必须是\n  1. 正面全身（主图 / Picture 1，模型以它为编辑底图）\n  2. 脸部特写\n  3. 背面全身\n- **条件节点 prompt**：三栏排版描述，已写成通用版；换角色不用改，换画风/构图改这里。\n- **width / height**：默认 3168×1280（必须 32 的倍数，面积别超 ~6MP）。\n\n### 橙色（输出）\n- **SaveImage**：一次出一张。\n\n### 加更多参考图\n复制一个 LoadImage，接到条件节点后面的空槽（`参考图 4/5/6`），建议补「正面半身（看清服装细节）」「背面发髻/飘带」；最多 16 张，主图仍是 image_0。\n\n### 注意\n- 参考图 fileName **1 天过期**；过期后用 `node build.mjs --front <正面全身> --face <脸特写> --back <背面全身>` 重新上传并生成。\n- 采样是官方定死的 `euler` + 6 档 sigmas，CFG=1，**别改步数**（蒸馏模型）。\n- 中栏无头靠正向描述压：`everything above the robe collar is pure white, no head and no hair`；写「不要头」会反噬。\n- 想要二次元：把 prompt 里 `3D Chinese animation CG style` 换成 `anime, cel shading, flat colors`。"
+      },
+      "title": "说明 · 怎么用"
+    }
+  ],
+  "links": [
+    [
+      174,
+      470,
+      0,
+      248,
+      0,
+      "IMAGE"
+    ],
+    [
+      181,
+      562,
+      0,
+      569,
+      0,
+      "MODEL"
+    ],
+    [
+      182,
+      164,
+      0,
+      569,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      183,
+      221,
+      0,
+      114,
+      0,
+      "NOISE"
+    ],
+    [
+      184,
+      569,
+      0,
+      114,
+      1,
+      "GUIDER"
+    ],
+    [
+      185,
+      176,
+      0,
+      114,
+      2,
+      "SAMPLER"
+    ],
+    [
+      186,
+      584,
+      0,
+      114,
+      3,
+      "SIGMAS"
+    ],
+    [
+      187,
+      164,
+      1,
+      114,
+      4,
+      "LATENT"
+    ],
+    [
+      188,
+      114,
+      0,
+      470,
+      0,
+      "LATENT"
+    ],
+    [
+      189,
+      612,
+      0,
+      470,
+      1,
+      "VAE"
+    ],
+    [
+      175,
+      607,
+      0,
+      164,
+      0,
+      "CLIP"
+    ],
+    [
+      176,
+      612,
+      0,
+      164,
+      1,
+      "VAE"
+    ],
+    [
+      190,
+      504,
+      0,
+      164,
+      2,
+      "IMAGE"
+    ],
+    [
+      191,
+      550,
+      0,
+      164,
+      3,
+      "IMAGE"
+    ],
+    [
+      192,
+      195,
+      0,
+      164,
+      4,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "模型加载 / Model Loaders",
+      "bounding": [
+        -30,
+        -60,
+        372.06,
+        566
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "links_added_by_ue": [],
+    "ue_links": [],
+    "pixaromaGroups": [],
+    "0246.VERSION": [
+      0,
+      0,
+      4
+    ],
+    "ds": {
+      "scale": 1.7088742511245885,
+      "offset": [
+        -1110.910325468095,
+        -857.4580923846856
+      ]
+    },
+    "frontendVersion": "1.59.4",
+    "KKvideo_latentpreview": false,
+    "KKvideo_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true,
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0
+  },
+  "version": 0.4
+}
