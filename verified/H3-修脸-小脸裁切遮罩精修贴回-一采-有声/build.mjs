@@ -13,8 +13,9 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 /* ---------------- 四个常量：换片子只改这里 ---------------- */
 const VIDEO_FILE = '4a757e9b4b30be2744124e542e8b9733250d7b1325fd107514b067c99a146426.mp4'; // 节点 9，平台 fileName
 const FACE_REF_FILE = 'openapi/acb32efc61d32b05d06eada8a76dda5e5ba00776fb72b755314ea2c38bfacbc3.png'; // 节点 257
-const DENOISE = 0.25;   // 节点 175：1 = 全重绘（换脸彻底、表情丢）；0.25 = 保原片表情与几何
+const DENOISE = 0.35;   // 节点 175：1 = 全重绘（换脸彻底、表情丢）；0.25 = 保表情；0.35 = 本片验收档
 const CANVAS = 512;     // 节点 163：裁脸画布
+const CROP_FACTOR = 2.0; // 节点 163：脸占画布 1/2（2.5 时只有 40%）
 
 /* 平台/作者痕迹：整块清掉（SKILL.md §4.0） */
 const EXTRA_DROP = [
@@ -62,6 +63,7 @@ setWidget(byId.get(257), 'image', FACE_REF_FILE);
 setWidget(byId.get(175), 'denoise', DENOISE);
 setWidget(byId.get(163), 'canvas_width', CANVAS);
 setWidget(byId.get(163), 'canvas_height', CANVAS);
+setWidget(byId.get(163), 'crop_factor', CROP_FACTOR);
 
 const out = join(HERE, 'workflow.ui.json');
 writeFileSync(out, JSON.stringify(j, null, 2));
@@ -70,4 +72,4 @@ console.log(`✓ workflow.ui.json  节点 ${j.nodes.length} / 连线 ${j.links.l
 console.log(`  9  视频   ${VIDEO_FILE}`);
 console.log(`  257 参考图 ${FACE_REF_FILE}`);
 console.log(`  175 denoise ${DENOISE}`);
-console.log(`  163 canvas  ${CANVAS}×${CANVAS}`);
+console.log(`  163 canvas  ${CANVAS}×${CANVAS} / crop_factor ${CROP_FACTOR}`);

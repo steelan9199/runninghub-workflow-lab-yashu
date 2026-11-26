@@ -49,7 +49,7 @@ const NEED = {
   164: 'MiniMaxH3ReferenceToVideo', 175: 'BasicScheduler', 191: 'H3FaceStitch',
   192: 'VHS_VideoCombine', 241: 'MVEx_MaskToLatentSpace', 242: 'SetLatentNoiseMask',
   251: 'SolidMask', 252: 'SetLatentNoiseMask', 257: 'LoadImage', 261: 'TrimAudioDuration',
-  263: 'PrimitiveFloat', 264: 'SAMLoader', 265: 'H3FaceMaskSAM',
+  263: 'PrimitiveFloat', 264: 'SAMLoader', 265: 'H3FaceMaskSAM', 269: 'MVEx_MaskCleanup',
   267: 'VHS_VideoCombine', 268: 'VHS_VideoCombine',
 };
 for (const [id, type] of Object.entries(NEED)) {
@@ -71,14 +71,19 @@ const canvas = byId.get(163)?.widgets_values_named || {};
 if (canvas.canvas_width !== 512 || canvas.canvas_height !== 512) {
   errs.push(`#163 画布不是 512×512：${canvas.canvas_width}×${canvas.canvas_height}`);
 }
-if (Number(canvas.crop_factor) < 2) warns.push(`#163 crop_factor=${canvas.crop_factor}，小于 2 会把脸裁掉`);
+if (Number(canvas.crop_factor) !== 2) warns.push(`#163 crop_factor=${canvas.crop_factor}（本包定档 2.0）`);
 
-/* 5. 遮罩链：265 → 241（潜空间）/ 191（贴回）/ 266（验证） */
+/* 5. 遮罩链：265 → 269 收紧 → 241（潜空间）/ 191（贴回）/ 266（验证） */
 const m265 = byId.get(265);
 const mLinks = m265?.outputs?.[0]?.links || [];
-const targets = mLinks.map((id) => linkMap.get(id)).filter(Boolean).map((l) => l[3]);
+if (mLinks.length !== 1) errs.push(`#265 遮罩应只接 269，实际 ${mLinks.length} 条`);
+const toCleanup = linkMap.get(mLinks[0]);
+if (!toCleanup || toCleanup[3] !== 269) errs.push('#265 遮罩没有接到 #269');
+const m269 = byId.get(269);
+const cleanLinks = m269?.outputs?.[0]?.links || [];
+const targets = cleanLinks.map((id) => linkMap.get(id)).filter(Boolean).map((l) => l[3]);
 for (const t of [241, 191, 266]) {
-  if (!targets.includes(t)) errs.push(`#265 遮罩没有接到 #${t}`);
+  if (!targets.includes(t)) errs.push(`#269 遮罩没有接到 #${t}`);
 }
 const stitchMasks = (byId.get(191)?.inputs || []).find((i) => i.name === 'masks');
 if (stitchMasks?.link == null) errs.push('#191 masks 未接');

@@ -1,8 +1,8 @@
 {
   "id": "212f8ce4-5f3e-4cc0-bd80-fe625d3e9e5d",
   "revision": 0,
-  "last_node_id": 268,
-  "last_link_id": 65,
+  "last_node_id": 269,
+  "last_link_id": 77,
   "nodes": [
     {
       "id": 27,
@@ -414,15 +414,15 @@
       "id": 165,
       "type": "RandomNoise",
       "pos": [
-        1964.7250366210938,
-        1404
+        1970,
+        1444
       ],
       "size": [
         270,
         82
       ],
       "flags": {
-        "collapsed": true
+        "collapsed": false
       },
       "order": 3,
       "mode": 0,
@@ -454,11 +454,11 @@
       },
       "widgets_values": [
         956488465313250,
-        "randomize"
+        "fixed"
       ],
       "widgets_values_named": {
         "noise_seed": 956488465313250,
-        "control_after_generate": "randomize"
+        "control_after_generate": "fixed"
       },
       "color": "#c0392b",
       "bgcolor": "#5b1f1f"
@@ -467,8 +467,8 @@
       "id": 166,
       "type": "SetNode",
       "pos": [
-        1964.7250366210938,
-        1566
+        1970,
+        1600
       ],
       "size": [
         210,
@@ -518,7 +518,7 @@
       "type": "GetNode",
       "pos": [
         1964.7250366210938,
-        2879.906837463379
+        2909.906837463379
       ],
       "size": [
         210,
@@ -560,7 +560,7 @@
       "type": "KSamplerSelect",
       "pos": [
         1964.7250366210938,
-        1680
+        1710
       ],
       "size": [
         308.3164367675781,
@@ -613,7 +613,7 @@
       "type": "GetNode",
       "pos": [
         1964.7250366210938,
-        1818
+        1848
       ],
       "size": [
         210,
@@ -655,14 +655,14 @@
       "type": "BasicGuider",
       "pos": [
         1964.7250366210938,
-        2401.226737976074
+        2431.226737976074
       ],
       "size": [
         308.3164367675781,
         60
       ],
       "flags": {},
-      "order": 54,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
@@ -705,14 +705,14 @@
       "type": "SamplerCustomAdvanced",
       "pos": [
         1964.7250366210938,
-        2541.226737976074
+        2571.226737976074
       ],
       "size": [
         212.3638671875,
         132.6800994873047
       ],
       "flags": {},
-      "order": 59,
+      "order": 60,
       "mode": 0,
       "inputs": [
         {
@@ -828,7 +828,7 @@
         270
       ],
       "flags": {},
-      "order": 52,
+      "order": 54,
       "mode": 0,
       "inputs": [
         {
@@ -938,8 +938,8 @@
       },
       "widgets_values": [
         "face_only",
-        24,
-        24,
+        16,
+        12,
         1,
         1,
         "composite_anyway",
@@ -947,8 +947,8 @@
       ],
       "widgets_values_named": {
         "paste_region": "face_only",
-        "mask_dilation": 24,
-        "feather": 24,
+        "mask_dilation": 16,
+        "feather": 12,
         "colour_match": 1,
         "blend": 1,
         "undetected_frames": "composite_anyway",
@@ -1283,7 +1283,7 @@
       "widgets_values": [
         "face_yolov8n.pt",
         0.35,
-        2.5,
+        2,
         512,
         512,
         "manual",
@@ -1308,7 +1308,7 @@
       "widgets_values_named": {
         "detector": "face_yolov8n.pt",
         "confidence": 0.35,
-        "crop_factor": 2.5,
+        "crop_factor": 2,
         "canvas_width": 512,
         "canvas_height": 512,
         "canvas_mode": "manual",
@@ -1969,7 +1969,7 @@
       ],
       "size": [
         375.96978759765625,
-        364
+        384
       ],
       "flags": {},
       "order": 49,
@@ -2147,7 +2147,7 @@
       "type": "VAEDecode",
       "pos": [
         1964.7250366210938,
-        2753.906837463379
+        2783.906837463379
       ],
       "size": [
         199.85952758789062,
@@ -2156,7 +2156,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 60,
+      "order": 61,
       "mode": 0,
       "inputs": [
         {
@@ -2192,14 +2192,14 @@
       "type": "SetNode",
       "pos": [
         1964.7250366210938,
-        3009.906837463379
+        3039.906837463379
       ],
       "size": [
         210,
         60
       ],
       "flags": {},
-      "order": 61,
+      "order": 62,
       "mode": 0,
       "inputs": [
         {
@@ -2238,7 +2238,7 @@
       "type": "GetNode",
       "pos": [
         1964.7250366210938,
-        3149.906837463379
+        3179.906837463379
       ],
       "size": [
         210,
@@ -2286,7 +2286,7 @@
         2611.5157834426627
       ],
       "flags": {},
-      "order": 56,
+      "order": 57,
       "mode": 0,
       "inputs": [
         {
@@ -2438,7 +2438,7 @@
       "type": "BasicScheduler",
       "pos": [
         1964.7250366210938,
-        1932
+        1962
       ],
       "size": [
         308.3164367675781,
@@ -2506,12 +2506,12 @@
       "widgets_values": [
         "beta",
         8,
-        0.25
+        0.35
       ],
       "widgets_values_named": {
         "scheduler": "beta",
         "steps": 8,
-        "denoise": 0.25
+        "denoise": 0.35
       }
     },
     {
@@ -2873,7 +2873,7 @@
         198
       ],
       "flags": {},
-      "order": 51,
+      "order": 53,
       "mode": 0,
       "inputs": [
         {
@@ -2993,7 +2993,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 55,
+      "order": 56,
       "mode": 0,
       "inputs": [
         {
@@ -3166,7 +3166,7 @@
         60
       ],
       "flags": {},
-      "order": 58,
+      "order": 59,
       "mode": 0,
       "inputs": [
         {
@@ -3408,7 +3408,7 @@
       "type": "GetNode",
       "pos": [
         1964.7250366210938,
-        2123.226737976074
+        2153.226737976074
       ],
       "size": [
         210,
@@ -3450,7 +3450,7 @@
       "type": "DifferentialDiffusion",
       "pos": [
         1964.7250366210938,
-        2263.226737976074
+        2293.226737976074
       ],
       "size": [
         270,
@@ -4123,9 +4123,7 @@
           "name": "masks",
           "type": "MASK",
           "links": [
-            69,
-            70,
-            71
+            77
           ]
         },
         {
@@ -4163,7 +4161,7 @@
         60
       ],
       "flags": {},
-      "order": 53,
+      "order": 55,
       "mode": 0,
       "inputs": [
         {
@@ -4201,7 +4199,7 @@
         712
       ],
       "flags": {},
-      "order": 57,
+      "order": 58,
       "mode": 0,
       "inputs": [
         {
@@ -4518,6 +4516,109 @@
           "params": {}
         }
       }
+    },
+    {
+      "id": 269,
+      "type": "MVEx_MaskCleanup",
+      "pos": [
+        7060,
+        2600
+      ],
+      "size": [
+        210,
+        154
+      ],
+      "flags": {},
+      "order": 51,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "masks",
+          "name": "masks",
+          "type": "MASK",
+          "link": 77
+        },
+        {
+          "label": "threshold",
+          "name": "threshold",
+          "type": "FLOAT",
+          "widget": {
+            "name": "threshold"
+          },
+          "link": null
+        },
+        {
+          "label": "method",
+          "name": "method",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "method"
+          },
+          "link": null
+        },
+        {
+          "label": "method.shrink",
+          "name": "method.shrink",
+          "type": "INT",
+          "widget": {
+            "name": "method.shrink"
+          },
+          "link": null
+        },
+        {
+          "label": "method.min_frames",
+          "name": "method.min_frames",
+          "type": "INT",
+          "widget": {
+            "name": "method.min_frames"
+          },
+          "link": null
+        },
+        {
+          "label": "edge_grow",
+          "name": "edge_grow",
+          "type": "INT",
+          "widget": {
+            "name": "edge_grow"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "masks",
+          "name": "masks",
+          "type": "MASK",
+          "links": [
+            69,
+            70,
+            71
+          ]
+        }
+      ],
+      "title": "遮罩收紧（去头发/背景）",
+      "properties": {
+        "Node name for S&R": "MVEx_MaskCleanup",
+        "cnr_id": "maskvidexperiments",
+        "ver": "d98cc899c1fac718acf81cde1735bf57281097cf",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        0.3,
+        "shrink_grow",
+        12,
+        4,
+        16
+      ],
+      "widgets_values_named": {
+        "threshold": 0.3,
+        "method": "shrink_grow",
+        "method.shrink": 12,
+        "method.min_frames": 4,
+        "edge_grow": 16
+      },
+      "color": "#332922",
+      "bgcolor": "#593930"
     }
   ],
   "links": [
@@ -4859,7 +4960,7 @@
     ],
     [
       70,
-      265,
+      269,
       0,
       191,
       3,
@@ -4867,7 +4968,7 @@
     ],
     [
       71,
-      265,
+      269,
       0,
       266,
       0,
@@ -4904,6 +5005,14 @@
       121,
       0,
       "MODEL"
+    ],
+    [
+      10,
+      19,
+      1,
+      260,
+      2,
+      "INT"
     ],
     [
       7,
@@ -4963,7 +5072,7 @@
     ],
     [
       69,
-      265,
+      269,
       0,
       241,
       0,
@@ -5002,6 +5111,14 @@
       "FLOAT"
     ],
     [
+      77,
+      265,
+      0,
+      269,
+      0,
+      "MASK"
+    ],
+    [
       40,
       2,
       0,
@@ -5031,14 +5148,6 @@
       6,
       164,
       13,
-      "INT"
-    ],
-    [
-      10,
-      19,
-      1,
-      260,
-      2,
       "INT"
     ]
   ],
@@ -5098,7 +5207,7 @@
         1934.7250366210938,
         0,
         540,
-        3299.906837463379
+        3340
       ],
       "color": "#3f789e",
       "flags": {}
@@ -5131,10 +5240,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.11849906443773789,
+      "scale": 0.25401326852420236,
       "offset": [
-        7393.056696938341,
-        2771.2421943506706
+        -92.86920691510035,
+        -198.1275646409877
       ]
     },
     "frontendVersion": "1.59.4",

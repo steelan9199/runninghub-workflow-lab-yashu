@@ -2,7 +2,8 @@
 
 **一句话用途**：一条救不回重拍的成片，人物脸只有 150–180 px、糊成一团——把脸逐帧裁到 512 画布，用 H3 Ref2VA 按参考图重画，再羽化贴回原片；**脸以外的像素、构图、动作和原声轨都不动**。
 
-> 实测状态：**平台跑通**（2026-11-27 老板逐帧验收）。输入 544×960 / 209 帧 / 8.708s / 24fps；`check_mask` 每一帧都认到脸；`check_refined` 脸已换成参考图人物；成片无方块、无灰块、无跳变。
+> 实测状态：**平台跑通两次**（2026-11-27）。输入 544×960 / 209 帧 / 8.708s / 24fps；`check_mask` 每一帧都认到脸；`check_refined` 脸已换成参考图人物；成片无方块、无灰块、无跳变。
+> 第二版加了 `MVEx_MaskCleanup(269)` 并收紧裁切与羽化（crop 2.0 / feather 12 / dilation 16），老板验收「视频修脸正常」。
 
 ## 为什么不在整帧上重绘
 
@@ -10,10 +11,10 @@ H3 的 img2img 在整帧尺度上是 denoise 1 级别的重生成：动作、口
 
 真正的坑不在结构，在遮罩：早期版本用 `SAM3_VideoTrack` 按文本 `"face"` 跟踪移动裁剪片，**中途丢目标** → 遮罩后段为空 → `SetLatentNoiseMask` 没有可重绘区域 → 精修输出 ≈ 输入（表现为「换脸没效果」）。本包改用检测框驱动的 `H3FaceMaskSAM`，遮罩逐帧由 163 的人脸框生成，不依赖文本提示。
 
-## 拓扑（62 节点 / 65 连线，红 5 橙 1，7 组）
+## 拓扑（63 节点 / 66 连线，红 5 橙 1，7 组）
 
 ```
-VHS_LoadVideo(9) ──┬─→ H3FaceTrackCrop(163, 512 画布 / crop 2.5 / largest_face)
+VHS_LoadVideo(9) ──┬─→ H3FaceTrackCrop(163, 512 画布 / crop 2.0 / largest_face)
                    │        ├─ crops ──→ H3FaceMaskSAM(265, 检测框 + SAM)
                    │        ├─ transform ──→ 265 / 191
                    │        └─ frame_count ──→ ComfyMathExpression(19/260/262) ──→ 164.length
@@ -21,9 +22,9 @@ VHS_LoadVideo(9) ──┬─→ H3FaceTrackCrop(163, 512 画布 / crop 2.5 / la
                    │     仅取 positive 条件；LATENT 输出不接
                    └─ audio ──→ TrimAudioDuration(261) ──→ 192.audio
 
-265.masks ──┬─→ MVEx_MaskToLatentSpace(241) ──→ SetLatentNoiseMask(242, 视频段)
-            ├─→ H3FaceStitch(191).masks（羽化贴回）
-            └─→ MaskToImage(266) ──→ VHS_VideoCombine(267, check_mask)
+265.masks ──→ MVEx_MaskCleanup(269, 收紧去头发/背景) ──┬─→ MVEx_MaskToLatentSpace(241) ──→ SetLatentNoiseMask(242, 视频段)
+                                                       ├─→ H3FaceStitch(191).masks（羽化贴回）
+                                                       └─→ MaskToImage(266) ──→ VHS_VideoCombine(267, check_mask)
 
 SolidMask(251, 0 / 32×32) ──→ SetLatentNoiseMask(252, 音频段冻结)
 242 + 252 ──→ LTXVConcatAVLatent(247) ──→ SamplerCustomAdvanced(174) ──→ VAEDecode(183)
@@ -40,12 +41,12 @@ VAEDecode ──→ 191.refined_crops ──→ 192（画面）+ 261（原声）
 |---|---|
 | 输入视频（9） | 544×960 / 209 帧 / 8.708s / 24fps，`4a757e9b…mp4` |
 | 人脸参考图（257） | `face_ref_front_1024.png`（三视图裁出的正脸），平台 fileName `openapi/acb32ef…png` |
-| 跟踪裁剪（163） | `face_yolov8n.pt`，confidence 0.35，`crop_factor 2.5`，canvas **512×512**，`canvas_mode manual`，smooth 21 / 51 gaussian，`per_frame`，identity_track on / 0.28，`largest_face` |
+| 跟踪裁剪（163） | `face_yolov8n.pt`，confidence 0.35，**`crop_factor 2.0`**（脸占画布 1/2），canvas **512×512**，`canvas_mode manual`，smooth 21 / 51 gaussian，`per_frame`，identity_track on / 0.28，`largest_face` |
 | 裁切时长（263） | 单次最长 **15 s**（512²×15s×8 步 ≈ 31 MP·秒，仍在 7.5 MP·秒安全线换算内） |
 | 精修（164） | 8 步 `pika_h3_flex_turbo_8step_hd_ref2va` + `beta` 调度；提示词走节点 2（六段式，英文） |
-| 采样（175 / 254） | `beta` / 8 步 / **denoise 0.25**；`DifferentialDiffusion(strength=1)` |
-| 遮罩（265 / 241） | `H3FaceMaskSAM` 0.93 / 0 / 5；`MVEx_MaskToLatentSpace` auto/max/max/36/1/both |
-| 贴回（191） | `face_only`，mask_dilation 24，feather 24，colour_match 1，blend 1，`composite_anyway` |
+| 采样（175 / 254） | `beta` / 8 步 / **denoise 0.35**（本片验收档，见下节）；`DifferentialDiffusion(strength=1)` |
+| 遮罩（265 → 269 → 241） | `H3FaceMaskSAM` 0.93 / 0 / 5 → **`MVEx_MaskCleanup` 0.3 / shrink_grow / 12 / 4 / 16**（收紧去头发、按 4 帧窗口稳定边缘）→ `MVEx_MaskToLatentSpace` auto/max/max/36/1/both |
+| 贴回（191） | `face_only`，**mask_dilation 16，feather 12**，colour_match 1，blend 1，`composite_anyway` |
 | 输出（192） | 24fps / `video/h264-mp4` / `yuv420p` / crf 19 / 带原声 |
 
 ## denoise 是唯一要调的钮
@@ -53,10 +54,10 @@ VAEDecode ──→ 191.refined_crops ──→ 192（画面）+ 261（原声）
 | denoise | 结果 | 结论 |
 |---|---|---|
 | 1.0 | 遮罩区整块重画：脸彻底换成参考图，**原片表情（微笑/口型）被一起擦掉** | 换人最狠，只适合表情不重要的镜头 |
-| 0.35 | **已经保不住原人物表情**（老板 2026-11-27 实测） | 表情优先的片子不要越过 0.25 |
-| **0.25（本包默认）** | **原人物表情保持住**，参考图负责把脸画清楚、画成那个人；老板验收「效果不错」 | 本类镜头的定档 |
+| **0.35（本包默认）** | 收紧遮罩后本条片验收「修脸正常」；但老板在另一条片上报过 **0.35 保不住原人物表情** | 身份优先档；换镜头先看表情是否还跟原片 |
+| 0.25 | **原人物表情保持住**，参考图负责把脸画清楚；老板验收「效果不错」 | 表情优先档，稳妥起点 |
 
-原则：**表情是这条链路的第一约束**。表情要跟原片走，就钉死 0.25——0.35 就已经丢表情，往上加只会更差。
+原则：**先看表情再定档**。表情要紧（微笑、口型、情绪）→ 从 0.25 起；**能接受表情被重画**或这条镜头本来就没表情 → 0.35 换更强的身份。不要一次跨两档。
 
 ## 实测数据
 
@@ -67,11 +68,12 @@ VAEDecode ──→ 191.refined_crops ──→ 192（画面）+ 261（原声）
 | `check_refined`（268） | 512×512 / 209 帧；脸已换成参考图人物 |
 | 成片（192） | 无方块、无灰块、无跳变；音轨保留 |
 | 帧间差 / 音频电平 | 未采样（本包只做画面验收，未跑逐帧 diff） |
-| 结构自检 | 62 节点 / 65 连线 / 红 5 橙 1；`check.mjs` 通过；`layout-check` 0 错误 0 警告 |
+| 结构自检 | 63 节点 / 66 连线 / 红 5 橙 1；`check.mjs` 通过；`layout-check` 0 错误 0 警告 |
 
 ## 已知限制
 
-1. **denoise 0.25 是表情的红线**：0.35 就已经保不住原人物表情（老板实测），要表情就钉在 0.25，不要往上试；代价是身份相似度上限比高 denoise 低。
+1. **denoise 与表情是跷跷板**：0.25 保表情、0.35 身份更强但可能丢表情（老板在不同片上两种结论都出现过）。**换一条片先按 0.25 试，表情确认没了再加到 0.35**，别反过来。
+2. **269 的遮罩参数会直接改脸型**：`shrink` 太大切下颌、`edge_grow` 太小边缘闪。症状对照——切下巴 → `edge_grow` 16→20/24；带头发背景 → `shrink` 12→16/20 或 `threshold` 0.3→0.4；逐帧闪 → `min_frames` 4→6。
 2. **SAM 模型名绑平台**：`264 SAMLoader` 用的是 `sam_vit_h_4b8939.pth`（本片实测平台可加载）。平台下拉里没有该值时，改选任一 `sam_vit_*`，其余不动。
 3. **单次最长 15 s**（节点 263）。更长的片子按 15 s 分段跑，段与段之间用成片续接，不要直接改大。
 4. **脸太小（<100 px）时收益递减**：裁到 512 也只是放大糊脸，H3 拿不到可重建的细节。
