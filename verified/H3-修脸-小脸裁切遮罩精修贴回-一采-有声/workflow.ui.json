@@ -1,8 +1,8 @@
 {
   "id": "212f8ce4-5f3e-4cc0-bd80-fe625d3e9e5d",
   "revision": 0,
-  "last_node_id": 269,
-  "last_link_id": 77,
+  "last_node_id": 271,
+  "last_link_id": 79,
   "nodes": [
     {
       "id": 27,
@@ -2254,8 +2254,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            65,
-            73
+            79
           ]
         }
       ],
@@ -4619,6 +4618,192 @@
       },
       "color": "#332922",
       "bgcolor": "#593930"
+    },
+    {
+      "id": 270,
+      "type": "VOSR2ModelLoader",
+      "pos": [
+        2560,
+        3800
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 63,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "COMBO",
+          "widget": {
+            "name": "model"
+          },
+          "link": null
+        },
+        {
+          "label": "dtype",
+          "name": "dtype",
+          "type": "COMBO",
+          "widget": {
+            "name": "dtype"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "VOSR2_MODEL",
+          "links": [
+            78
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VOSR2ModelLoader",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "VOSR2",
+        "default"
+      ],
+      "widgets_values_named": {
+        "model": "VOSR2",
+        "dtype": "default"
+      },
+      "title": "VOSR2 模型加载（首次约 7 GB）"
+    },
+    {
+      "id": 271,
+      "type": "VOSR2Upscale",
+      "pos": [
+        2920,
+        3800
+      ],
+      "size": [
+        270,
+        246
+      ],
+      "flags": {},
+      "order": 65,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "VOSR2_MODEL",
+          "link": 78
+        },
+        {
+          "label": "image",
+          "name": "image",
+          "type": "IMAGE",
+          "link": 79
+        },
+        {
+          "label": "upscale",
+          "name": "upscale",
+          "type": "INT",
+          "widget": {
+            "name": "upscale"
+          },
+          "link": null
+        },
+        {
+          "label": "seed",
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "label": "color_alignment",
+          "name": "color_alignment",
+          "type": "COMBO",
+          "widget": {
+            "name": "color_alignment"
+          },
+          "link": null
+        },
+        {
+          "label": "tile_size",
+          "name": "tile_size",
+          "type": "INT",
+          "widget": {
+            "name": "tile_size"
+          },
+          "link": null
+        },
+        {
+          "label": "tile_overlap",
+          "name": "tile_overlap",
+          "type": "INT",
+          "widget": {
+            "name": "tile_overlap"
+          },
+          "link": null
+        },
+        {
+          "label": "vae_tile_size",
+          "name": "vae_tile_size",
+          "type": "INT",
+          "widget": {
+            "name": "vae_tile_size"
+          },
+          "link": null
+        },
+        {
+          "label": "vae_tile_overlap",
+          "name": "vae_tile_overlap",
+          "type": "INT",
+          "widget": {
+            "name": "vae_tile_overlap"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            65,
+            73
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VOSR2Upscale",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        1,
+        661045209674376,
+        "randomize",
+        "wavelet",
+        512,
+        32,
+        1024,
+        32
+      ],
+      "widgets_values_named": {
+        "upscale": 1,
+        "seed": 661045209674376,
+        "control_after_generate": "randomize",
+        "color_alignment": "wavelet",
+        "tile_size": 512,
+        "tile_overlap": 32,
+        "vae_tile_size": 1024,
+        "vae_tile_overlap": 32
+      },
+      "title": "VOSR2 终修（1× 不改尺寸）"
     }
   ],
   "links": [
@@ -4928,7 +5113,7 @@
     ],
     [
       65,
-      207,
+      271,
       0,
       191,
       1,
@@ -4984,7 +5169,7 @@
     ],
     [
       73,
-      207,
+      271,
       0,
       268,
       0,
@@ -5149,6 +5334,22 @@
       164,
       13,
       "INT"
+    ],
+    [
+      79,
+      207,
+      0,
+      271,
+      1,
+      "IMAGE"
+    ],
+    [
+      78,
+      270,
+      0,
+      271,
+      0,
+      "VOSR2_MODEL"
     ]
   ],
   "groups": [

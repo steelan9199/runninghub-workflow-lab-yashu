@@ -16,6 +16,8 @@ const FACE_REF_FILE = 'openapi/acb32efc61d32b05d06eada8a76dda5e5ba00776fb72b7553
 const DENOISE = 0.35;   // 节点 175：1 = 全重绘（换脸彻底、表情丢）；0.25 = 保表情；0.35 = 本片验收档
 const CANVAS = 512;     // 节点 163：裁脸画布
 const CROP_FACTOR = 2.0; // 节点 163：脸占画布 1/2（2.5 时只有 40%）
+const VOSR2_UPSCALE = 1; // 节点 271：1 = 原尺寸复原（不改尺寸，贴回比例不会错）；2 = 只看细节用
+const VOSR2_MODEL = 'VOSR2'; // 节点 270
 
 /* 平台/作者痕迹：整块清掉（SKILL.md §4.0） */
 const EXTRA_DROP = [
@@ -64,6 +66,8 @@ setWidget(byId.get(175), 'denoise', DENOISE);
 setWidget(byId.get(163), 'canvas_width', CANVAS);
 setWidget(byId.get(163), 'canvas_height', CANVAS);
 setWidget(byId.get(163), 'crop_factor', CROP_FACTOR);
+setWidget(byId.get(271), 'upscale', VOSR2_UPSCALE);
+setWidget(byId.get(270), 'model', VOSR2_MODEL);
 
 const out = join(HERE, 'workflow.ui.json');
 writeFileSync(out, JSON.stringify(j, null, 2));
@@ -73,3 +77,4 @@ console.log(`  9  视频   ${VIDEO_FILE}`);
 console.log(`  257 参考图 ${FACE_REF_FILE}`);
 console.log(`  175 denoise ${DENOISE}`);
 console.log(`  163 canvas  ${CANVAS}×${CANVAS} / crop_factor ${CROP_FACTOR}`);
+console.log(`  270/271 VOSR2 ${VOSR2_MODEL} · upscale ${VOSR2_UPSCALE}×`);

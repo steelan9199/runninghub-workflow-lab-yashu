@@ -50,6 +50,7 @@ const NEED = {
   192: 'VHS_VideoCombine', 241: 'MVEx_MaskToLatentSpace', 242: 'SetLatentNoiseMask',
   251: 'SolidMask', 252: 'SetLatentNoiseMask', 257: 'LoadImage', 261: 'TrimAudioDuration',
   263: 'PrimitiveFloat', 264: 'SAMLoader', 265: 'H3FaceMaskSAM', 269: 'MVEx_MaskCleanup',
+  270: 'VOSR2ModelLoader', 271: 'VOSR2Upscale',
   267: 'VHS_VideoCombine', 268: 'VHS_VideoCombine',
 };
 for (const [id, type] of Object.entries(NEED)) {
@@ -87,6 +88,22 @@ for (const t of [241, 191, 266]) {
 }
 const stitchMasks = (byId.get(191)?.inputs || []).find((i) => i.name === 'masks');
 if (stitchMasks?.link == null) errs.push('#191 masks 未接');
+
+/* 5b. 终修链：207 → 271 VOSR2 → 191.refined_crops / 268.images */
+const originOf = (nodeId, inputName) => {
+  const i = (byId.get(nodeId)?.inputs || []).find((x) => x.name === inputName);
+  if (!i || i.link == null) return null;
+  const l = linkMap.get(i.link);
+  return l ? l[1] : null;
+};
+for (const [nid, inp] of [[191, 'refined_crops'], [268, 'images']]) {
+  const o = originOf(nid, inp);
+  if (o !== 271) errs.push(`#${nid}.${inp} 应来自 #271（VOSR2 终修），实际 #${o}`);
+}
+if (originOf(271, 'image') !== 207) errs.push('#271.image 应来自 #207');
+if (originOf(271, 'model') !== 270) errs.push('#271.model 应来自 #270');
+const up = (byId.get(271)?.widgets_values_named || {}).upscale;
+if (!(up >= 1)) errs.push(`#271 upscale 非法：${up}`);
 
 /* 6. 成片输出：画面 + 音轨都要接 */
 const out192 = byId.get(192);
